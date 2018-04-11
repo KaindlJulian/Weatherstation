@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
 import { connect } from 'react-redux';
 import { push } from "react-router-redux"
+import TopNavbar from './topNavbar.jsx'
+import{Button} from 'mdbreact'
 
 class mainPage extends Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class mainPage extends Component {
   
   
   componentWillMount() {
-    var test = this.props.initData();
+      this.props.initData();
   }
   nextPath(path) {
     this.props.history.push(path);
@@ -23,10 +25,12 @@ class mainPage extends Component {
   render() {
     return (
       <div>
-        <h1>Hello World</h1>
-        <button onClick={() => this.nextPath('/Second') }>
-        change path 
-      </button>
+        <TopNavbar color={{transparent : 'indigo'}}/>
+        <div style={{paddingTop: '20vh'}}>
+        <Button color="primary" onClick={() => this.nextPath('/Second') }> change path </Button>
+        </div>
+        
+       
       </div>
     );
   }

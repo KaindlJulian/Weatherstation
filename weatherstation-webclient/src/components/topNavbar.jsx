@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavLink, NavbarNav, Container} from 'mdbreact';
-import { Link } from 'react-router-dom';
+import {Button, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
+import { Link, NavLink } from 'react-router-dom';
 
 export default class topNavbar extends Component {
   constructor(props) {
@@ -33,30 +33,21 @@ export default class topNavbar extends Component {
           <NavbarBrand href="/">
       
             <h2 className="text-center font-bold mt-0 pt-0 mb-0 white-text">
-              <em></em>
+              <em>IoT WeatherStation Client</em>
             </h2>
           </NavbarBrand>
           { !this.state.isWideEnough && <NavbarToggler onClick = {this.onClick} />}
           <Collapse isOpen = {this.state.collapse} navbar>
             <NavbarNav className="ml-auto">
-              <NavItem active="true">
+              <NavItem>
+              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
               </NavItem>
               <NavItem>
-                <Dropdown isOpen = {this.state.dropdownOpen} toggle = {this.toggle}>
-                  <DropdownToggle caret color="primary">
-            Gallery
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem href="#">Something else here</DropdownItem>
-                    <DropdownItem href="#">Something else here</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
               </NavItem>
               <NavItem>
-                <Button color="primary">Rating</Button>
+              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
               </NavItem>
-
-
             </NavbarNav>
           </Collapse>
         </Container>
