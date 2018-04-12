@@ -8,7 +8,8 @@ export function loadInitialData(client){
 		console.log(client)
         client.on('message',(topic, message) => {
 			console.log(message.toString())
-			dispatch(initialItems(message.toString()))
+			var obj = JSON.parse(message.toString())
+			dispatch(initialItems(obj))
 		})
 		
 	}	
