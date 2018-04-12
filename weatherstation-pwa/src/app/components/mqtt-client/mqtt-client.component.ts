@@ -4,7 +4,7 @@ import { MyMqttService } from '../../_services/my-mqtt.service';
 @Component({
   selector: 'app-mqtt-client',
   templateUrl: './mqtt-client.component.html',
-  styleUrls: ['./mqtt-client.component.css']
+  styleUrls: ['./mqtt-client.component.scss']
 })
 export class MqttClientComponent implements OnInit {
 

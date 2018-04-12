@@ -31,7 +31,7 @@ export class MyMqttService {
     this.client.subscribe(topic);
     return new Observable<any> (observer => {
       this.client.on('message', (t, payload) => {
-        observer.next(JSON.parse(payload.toString()));
+        observer.next(payload.toString());
         console.log(payload.toString());
       });
     });
