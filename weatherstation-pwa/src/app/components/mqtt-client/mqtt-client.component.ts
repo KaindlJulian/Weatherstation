@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MyMqttService } from './_services/my-mqtt.service';
-import { Temperature } from './_models/temperature';
+import { MyMqttService } from '../../_services/my-mqtt.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-mqtt-client',
+  templateUrl: './mqtt-client.component.html',
+  styleUrls: ['./mqtt-client.component.css']
 })
-export class AppComponent implements OnInit {
+export class MqttClientComponent implements OnInit {
 
   constructor (private mqtt: MyMqttService) { }
 

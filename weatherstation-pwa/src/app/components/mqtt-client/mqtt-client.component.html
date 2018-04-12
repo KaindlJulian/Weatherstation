@@ -1,0 +1,12 @@
+
+<h1>Publish</h1>
+topic: <input name="topic" [(ngModel)]="topic" type="text" placeholder="topic">
+<br><br>
+message: <input name="message" [(ngModel)]="message" type="text" placeholder="message">
+<br><br>
+<button (click)="publish()">publish</button>
+
+<h1>Subscribe</h1>
+payload: {{data}}
+<br><br>
+<button (click)="subscribe()">subscribe</button>
