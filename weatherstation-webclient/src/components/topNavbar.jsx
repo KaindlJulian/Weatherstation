@@ -40,14 +40,25 @@ export default class topNavbar extends Component {
           <Collapse isOpen = {this.state.collapse} navbar>
             <NavbarNav className="ml-auto">
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
+              <NavLink to='/' className="nav-link waves-light border rounded border-white">Daily Weather</NavLink>
+              </NavItem>
+              <NavItem>
+              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Monthly Report</NavLink>
               </NavItem>
               <NavItem>
               <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
-              </NavItem>
+                              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                              <DropdownToggle nav caret>Dropdown</DropdownToggle>
+                              <DropdownMenu>
+                                  <DropdownItem href="#">Action</DropdownItem>
+                                  <DropdownItem href="#">Another Action</DropdownItem>
+                                  <DropdownItem href="#">Something else here</DropdownItem>
+                                  <DropdownItem href="#">Something else here</DropdownItem>
+                              </DropdownMenu>
+                              </Dropdown>
+                          </NavItem>
             </NavbarNav>
           </Collapse>
         </Container>

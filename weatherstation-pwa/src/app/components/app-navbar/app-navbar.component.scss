@@ -1,0 +1,14 @@
+.nav-item {
+    min-width: 60px;
+    text-align: center;
+}
+
+.dropdown-item {
+    text-align: left;
+    font-size: 10px;
+}
+
+li.dropdown:last-child .dropdown-menu {
+    right: 0;
+    left: auto;
+}
