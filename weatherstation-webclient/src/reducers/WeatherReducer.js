@@ -29,7 +29,14 @@ export default function reducer(state={
 }, action){
     switch (action.type) {
         case 'INITIAL_ITEMS':
-        temp.datasets[0].data.push(action.payload.temperature)
+        console.log(action.payload);
+        var counter = 0
+        for(var obj of action.payload.temperature){
+          temp.datasets[0].data.push(obj);
+          temp.labels.push(counter + ':00');
+          counter++;
+        }
+        
         return {
             ...state,
             temperature: action.payload,

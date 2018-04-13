@@ -9,6 +9,9 @@ import TopNavbar from './topNavbar.jsx'
 import {Button} from 'mdbreact'
 import mqtt from 'mqtt'
 import {Bar, Line} from 'react-chartjs-2';
+import Cloudy from '../assets/animated/cloudy-day-1.svg'
+import Sunny from '../assets/static/weather_sunset.svg';
+import Impressum from './Impressum.jsx'
 var client;
 
 class mainPage extends Component {
@@ -62,59 +65,49 @@ class mainPage extends Component {
       <div>
         <TopNavbar color={{
           transparent: 'indigo'
-        }} style={{
-          marginBottom: '20vh'
-        }}/ >
-        <div className="d- flex justify-content-center">
-          <div style = {{width:'100%', margin:0}} className="row">
-
-            <div className="col-md-12 mb-3">
-
-              <h2>This is a test</h2>
-            </div>
-          </div>
+        }} / >
+        <div style={{
+          marginTop: '10vh'
+        }} className="d- flex justify-content-center">
           <div style = {{width:'100%', margin:0}} className="row">
 
             <div
-              className="col-lg-4 col-md-12 mb-3">
+              className="col-lg-6 col-md-6 mb-2">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+              <h2 className="d-flex justify-content-center">Testing</h2>
               </div>
               
 
             </div>
-            <div className="col-lg-4 col-md-6 mb-3">
+            <div className="col-lg-6 col-md-6 mb-2">
             <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
-                <h2>This is a test</h2>
+                <h1 className="d-flex justify-content-center">This is a test</h1>
+                <h2><img src={require('../assets/animated/day.svg')} width={'125vh'} height={'125vw'} alt=""/>
+                SUNNY</h2>
+                <h2>Location: <b>LINZ</b></h2>
+                <h2>asdlkjflasdf</h2>
               </div>
 
             </div>
 
-            <div
-              className="col-lg-4 col-md-6 mb-3">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
-                  <Line width={'100%'} height={'100%'} data={this.props.data} options={this.state.options}></Line>
-              </div>
-              
-
-            </div>
+            
           </div>
 
-          <div style = {{width:'100%', margin:0}} className="row">
+          <div style = {{width:'100%', height:'60vh', margin:0}} className="row">
 
-            <div className="col-md-6 mb-3">
-
-              <h2>This is a test</h2>
-
-            </div>
-            <div className="col-md-6 mb-3">
-
-              <h2>This is a test</h2>
+            <div
+              className="col-lg-12 col-sm-12 col-md-12">
+              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+                  <Line height={75} data={this.props.data} options={this.state.options}></Line>
+              </div>
+              
 
             </div>
             
           </div>
 
         </div>
+        <Impressum/>
       </div>
     );
   }
