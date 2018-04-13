@@ -5,31 +5,63 @@
  */
 package weatherstation.simulator;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+import org.json.JSONObject;
+
 /**
  *
  * @author chris
  */
 public class Sensor {
-    String [] windDirections = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
-    String lastTemperature         = "15";
-    String lastAirPressure         = "1000";
+    String [] windDirections       = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+    int lastTemperature            = 6;
+    int lastAirPressure            = 1000;
     String lastAirPurity           = "";
     String lastAirToxicity         = "";
-    String lastAirHumidity         = "40";
-    String lastWindDirection       = "SO";
-    String lastWindStrength        = "10";
+    int lastAirHumidity            = 40;
+    int lastWindDirection          = 0;
+    int lastWindStrength           = 10;
     String lastPrecipitationType   = "rain";
-    String lastPrecipitationAmount = "0.6";
+    double lastPrecipitationAmount = 0.6;
+    Random random = new Random();
     
-    public String getTemperature(){
-        String temperature = "";
+    public String getTemperature(Calendar actDateTime){
+        int temperature;
+        boolean raiseTemp = false;
+        boolean lowTemp = false;
+            
+        if(actDateTime.get(Calendar.HOUR_OF_DAY) >= 6 && actDateTime.get(Calendar.HOUR_OF_DAY) <= 15){
+            raiseTemp = random.nextBoolean();
+        }
+        else if (actDateTime.get(Calendar.HOUR_OF_DAY) >= 17 && actDateTime.get(Calendar.HOUR_OF_DAY) <= 23){
+            lowTemp = random.nextBoolean();
+        }
+        else if (actDateTime.get(Calendar.HOUR_OF_DAY) >= 0 && actDateTime.get(Calendar.HOUR_OF_DAY) <= 3){
+            lowTemp = random.nextBoolean();
+        }
+            
+        if(raiseTemp == true){
+            temperature = lastTemperature+1;
+        }
+        else if(lowTemp == true){
+            temperature = lastTemperature-1;
+        }
+        else{
+            temperature = lastTemperature;
+        }
         
+        JSONObject obj = new JSONObject();
+        obj.put("id","123");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value",Integer.toString(temperature));
         lastTemperature = temperature;
-        return temperature;
+        return obj.toString();
     }
-    
+    /*
     public String getAirPressure(){
-        String airPressure = "";
+        int airPressure;
         
         lastAirPressure = airPressure;
         return airPressure;
@@ -82,5 +114,5 @@ public class Sensor {
         
         lastAirPressure = precipitationAmount;
         return precipitationAmount;
-    }
+    }*/
 }

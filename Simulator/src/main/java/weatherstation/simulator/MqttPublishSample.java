@@ -1,7 +1,12 @@
 package weatherstation.simulator;
 
 import java.io.Console;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -24,11 +29,12 @@ public class MqttPublishSample {
     static final String topicWindStrength        = "/station/sensor1/wind/strength";          //Topic for windstregth
     static final String topicPrecipitationType   = "/station/sensor1/precipitation/type/";    //Topic for precipitation type
     static final String topicPrecipitationAmount = "/station/sensor1/precipitation/amount/";  //Topic for precipitation amount
+    //static final DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     
     public static void main(String[] args) throws MqttException, InterruptedException{
 
             Sensor sensor1      = new Sensor();
-            String broker       = "tcp://vm61.htl-leonding.ac.at:1883";      //broker
+            String broker       = "tcp://test.mosquitto.org:1883";      //broker //tcp://vm61.htl-leonding.ac.at:1883
             String clientId     = "Simulator";                               //ClientID
             MemoryPersistence persistence = new MemoryPersistence();
             
@@ -39,27 +45,29 @@ public class MqttPublishSample {
             System.out.println("Connecting to broker: " + broker);
             mqttClient.connect(connOpts);
             System.out.println("Connected");
+            int count = 0;
             
             while(true){
-                publish(sensor1, mqttClient);   //publish Method
-                Thread.sleep(10000);
+                count += publish(sensor1, mqttClient, count);   //publish Method
+                Thread.sleep(1000);
             }  
     }
 
-    public static void publish(Sensor sensor, MqttClient mqttClient) throws MqttException{
-        JSONObject obj = new JSONObject();
-        obj.put("id","123");
-        obj.put("date","12.04.2018");
-        obj.put("value","20");
+    public static int publish(Sensor sensor, MqttClient mqttClient, int count) throws MqttException{
+        Calendar actDateTime = Calendar.getInstance(TimeZone.getTimeZone("CET"));
+        actDateTime.set(Calendar.HOUR_OF_DAY, count);
+        System.out.println(actDateTime.get(Calendar.HOUR_OF_DAY));
         
         int qos = 0;
         MqttMessage message = null;
         String content = "";
         
-        content = obj.toString();
+        content = sensor.getTemperature(actDateTime);
         message = new MqttMessage(content.getBytes());
         message.setQos(qos);
         mqttClient.publish(topicTemperature, message);
+        
+        return 1;
         
         /*
         content = sensor.getAirPressure();
@@ -101,6 +109,8 @@ public class MqttPublishSample {
         message = new MqttMessage(content.getBytes());
         message.setQos(qos);
         mqttClient.publish(topicPrecipitationAmount, message);*/
+        
+        
     }
     
 }
