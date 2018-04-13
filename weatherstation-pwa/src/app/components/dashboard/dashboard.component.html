@@ -1,15 +1,15 @@
 <body class="rare-wind-gradient">
     <app-navbar></app-navbar>
 
-    <div class="container-fluid d-flex justify-content-center main-container">
-        <div class="row">
-            <div class="pt-3 animated fadeInDown">
+    <!--fullscreen wrapper-->
+    <div class="w-100 h-100 d-flex align-items-start flex-wrap">
+        <div style="padding-top: 65px;" class="container-fluid d-flex justify-content-center main-container position-fixed mb-auto">
                 <station-data></station-data>
-            </div>
         </div>
-
+        <div class="container-fluid d-flex justify-content-center chart-container mt-auto">
+            <temperature-chart></temperature-chart>
+        </div>
     </div>
-
 
     <app-footer></app-footer>
 </body>

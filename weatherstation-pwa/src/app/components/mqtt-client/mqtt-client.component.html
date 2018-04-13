@@ -1,28 +1,30 @@
-<form>
-    <p class="h4 text-center mb-4">Publish</p>
-    <div class="md-form">
-        <i class="fa fa-tag prefix grey-text"></i>
-        <input [(ngModel)]="topic" name="topic "type="text" id="topic-form" class="form-control" mdbActive>
-        <label for="topic-form">Topic</label>
-    </div>
-    <div class="md-form">
-        <i class="fa fa-envelope prefix grey-text"></i>
-        <textarea [(ngModel)]="message" name="message" type="text" id="message-from" class="md-textarea" style="height: 100px" mdbActive></textarea>
-        <label for="message-form">Message</label>
-    </div>
-    <div class="text-center">
-        <button (click)="publish()" class="btn btn-unique waves-light" mdbRippleRadius>Send</button>
-    </div>
-</form>
-<hr>
-<form>
-    <p class="h4 text-center mb-4">Subscribe</p>
-    <div class="md-form">
-        <i class="fa fa-envelope prefix grey-text"></i>
-        <textarea [(ngModel)]="data" name="message" type="text" id="message-from" class="md-textarea" style="height: 100px" mdbActive></textarea>
-        <label for="message-form">Payload</label>
-    </div>
-    <div class="text-center">
-        <button (click)="subscribe()" class="btn btn-unique waves-light" mdbRippleRadius>Subscribe</button>
-    </div>
-</form>
+<body class="p-3">
+    <form>
+        <p class="h4 text-center mb-4">Publish</p>
+        <div class="md-form">
+            <i class="fa fa-tag prefix grey-text"></i>
+            <input [(ngModel)]="topic" name="topic "type="text" id="topic-form" class="form-control" mdbActive>
+            <label for="topic-form">Topic</label>
+        </div>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <textarea [(ngModel)]="message" name="message" type="text" id="message-from" class="md-textarea" style="height: 100px" mdbActive></textarea>
+            <label for="message-form">Message</label>
+        </div>
+        <div class="text-center">
+            <button (click)="publish()" class="btn btn-indigo waves-light" mdbRippleRadius>Send</button>
+        </div>
+    </form>
+    <hr>
+    <form>
+        <p class="h4 text-center mb-4">Subscribe</p>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <textarea name="message" type="text" id="message-from" class="md-textarea" style="height: 100px" readonly mdbActive>{{data}}</textarea>
+            <label for="message-form">Payload</label>
+        </div>
+        <div class="text-center">
+            <button (click)="subscribe()" class="btn btn-indigo waves-light" mdbRippleRadius>Subscribe</button>
+        </div>
+    </form>  
+</body>

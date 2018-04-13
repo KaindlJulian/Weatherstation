@@ -10,9 +10,9 @@ export class MqttClientComponent implements OnInit {
 
   constructor (private mqtt: MyMqttService) { }
 
-  private topic = 'test';
-  private message = 'hi';
-  private data: String;
+  topic = 'test';
+  message = 'hi';
+  data: String;
 
   ngOnInit() {
     this.mqtt.connect();
