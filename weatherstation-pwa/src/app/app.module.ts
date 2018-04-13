@@ -8,7 +8,13 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-import { DashboardComponent, MqttClientComponent, AppNavbarComponent, AppFooterComponent } from './components/index';
+import {
+  DashboardComponent,
+  MqttClientComponent,
+  AppNavbarComponent,
+  AppFooterComponent,
+  StationDataComponent } from './components/index';
+
 import { MyMqttService } from './_services/my-mqtt.service';
 
 @NgModule({
@@ -17,7 +23,8 @@ import { MyMqttService } from './_services/my-mqtt.service';
     DashboardComponent,
     MqttClientComponent,
     AppNavbarComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    StationDataComponent
   ],
   imports: [
     BrowserModule,
