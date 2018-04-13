@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import app from '../App.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
@@ -61,17 +62,59 @@ class mainPage extends Component {
       <div>
         <TopNavbar color={{
           transparent: 'indigo'
-        }}/>
-        <div style={{
-          paddingTop: '20vh'
-        }}>
-          <Button color="primary" onClick={() => this.nextPath('/Second')}>
-            {this.props.searchString}
-          </Button>
-          <hr/>
-          <Line data={this.props.data} options={this.state.options}></Line>
-        </div>
+        }} style={{
+          marginBottom: '20vh'
+        }}/ >
+        <div className="d- flex justify-content-center">
+          <div style = {{width:'100%', margin:0}} className="row">
 
+            <div className="col-md-12 mb-3">
+
+              <h2>This is a test</h2>
+            </div>
+          </div>
+          <div style = {{width:'100%', margin:0}} className="row">
+
+            <div
+              className="col-lg-4 col-md-12 mb-3">
+              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+              </div>
+              
+
+            </div>
+            <div className="col-lg-4 col-md-6 mb-3">
+            <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+                <h2>This is a test</h2>
+              </div>
+
+            </div>
+
+            <div
+              className="col-lg-4 col-md-6 mb-3">
+              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+                  <Line width={'100%'} height={'100%'} data={this.props.data} options={this.state.options}></Line>
+              </div>
+              
+
+            </div>
+          </div>
+
+          <div style = {{width:'100%', margin:0}} className="row">
+
+            <div className="col-md-6 mb-3">
+
+              <h2>This is a test</h2>
+
+            </div>
+            <div className="col-md-6 mb-3">
+
+              <h2>This is a test</h2>
+
+            </div>
+            
+          </div>
+
+        </div>
       </div>
     );
   }
@@ -80,6 +123,13 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   initData: () => loadInitialData(client)
 }, dispatch)
 function mapStateToProps(state) {
-  return {precipitation: state.weather.precipitation, temperature: state.weather.temperature, router: state.router, air: state.weather.air, wind: state.weather.wind, data: state.weather.data}
+  return {
+    precipitation: state.weather.precipitation,
+    temperature: state.weather.temperature,
+    router: state.router,
+    air: state.weather.air,
+    wind: state.weather.wind,
+    data: state.weather.data
+  }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage));

@@ -28,7 +28,7 @@ export default class topNavbar extends Component {
   }
   render() {
     return (
-      <Navbar color={this.props.color.transparent} expand="lg" dark fixed="top" scrolling>
+      <Navbar color={this.props.color.transparent} expand="lg" dark fixed="static" scrolling>
         <Container>
           <NavbarBrand href="/">
       

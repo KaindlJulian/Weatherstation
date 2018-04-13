@@ -1,9 +1,7 @@
-var temp = {labels:  ['00:00','01:15', '02:00', '03:20', '04:00', '05:00', 
-'06:00','07:00','08:00','09:00','10:00','11:00',
-    '12:00','13:00','14:00','15:00','16:00','17:00','18:00','23:59'],
+var temp = {labels:  [],
 datasets: [
   {
-    label: "Population (millions)",
+    label: "Temperature(Celsius)",
     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
     data: []
   }
