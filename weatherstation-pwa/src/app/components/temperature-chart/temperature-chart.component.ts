@@ -35,11 +35,6 @@ export class TemperatureChartComponent implements OnInit {
         legend: {
           display: false
         },
-        title: {
-          display: true,
-          text: 'Temperature in °C',
-          fontColor: '#ffffff'
-        },
         scales: {
           xAxes: [{
             display: true,
@@ -48,7 +43,7 @@ export class TemperatureChartComponent implements OnInit {
               axis: 'y'
             },
             gridLines: {
-              color: '#486bd8'
+              color: '#316aa1'
             }
           }],
           yAxes: [{

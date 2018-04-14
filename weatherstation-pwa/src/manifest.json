@@ -1,11 +1,12 @@
 {
   "short_name": "WeatherApp",
   "name": "NVS Weatherstation 4BHIF",
+  "start_url": "./?utm_source=homescreen",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#2e38d2",
   "background_color": "#2e38d2",
-  "start_url": "./?utm_source=homescreen",
+  "lang": "en",
   "icons": [
     {
       "src": "\/assets\/icons\/icon-72x72.png",
@@ -47,6 +48,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "splash_pages": null
+  ]
 }

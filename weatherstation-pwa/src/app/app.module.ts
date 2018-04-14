@@ -7,6 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { HttpModule } from '@angular/http';
 
 import {
   DashboardComponent,
@@ -14,7 +15,8 @@ import {
   AppNavbarComponent,
   AppFooterComponent,
   StationDataComponent,
-  TemperatureChartComponent} from './components/index';
+  TemperatureChartComponent,
+  WeekChartComponent} from './components/index';
 
 import { MyMqttService } from './_services/my-mqtt.service';
 
@@ -26,14 +28,16 @@ import { MyMqttService } from './_services/my-mqtt.service';
     AppNavbarComponent,
     AppFooterComponent,
     StationDataComponent,
-    TemperatureChartComponent
+    TemperatureChartComponent,
+    WeekChartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpModule,
     MDBBootstrapModule.forRoot(),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [MyMqttService],
   bootstrap: [AppComponent],

@@ -1,6 +1,10 @@
 body {
     height: 100vh;
 }
+.row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
 .main-container {
     height: 45vh;
 }
@@ -10,4 +14,4 @@ body {
 .rare-wind-gradient {
     background-image: -webkit-gradient(linear, left bottom, left top, from(#69aae0), to(#2b33d1));
     background-image: -webkit-linear-gradient(bottom, #69aae0 0%, #2b33d1 100%);
-    background-image: linear-gradient(to top, #69aae0 0%, #2b33d1 100%); }
+    background-image: linear-gradient(to top, #48a6df 0%, #203c73 100%); }

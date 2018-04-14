@@ -5,9 +5,10 @@ import { DashboardComponent, MqttClientComponent } from './components/index';
 
 
 const routes: Routes = [
+    { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'mqtt', component: MqttClientComponent},
-    { path: '**', redirectTo: '/dashboard'}
+    { path: '**', redirectTo: '' }
   ];
   @NgModule({
     imports: [RouterModule.forRoot(routes)],
