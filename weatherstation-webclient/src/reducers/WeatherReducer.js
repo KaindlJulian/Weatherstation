@@ -26,6 +26,27 @@ export default function reducer(state={
     data: {
       
     },
+    options: {
+      scales: {
+        xAxes: [
+          {
+            type: 'time',
+            time: {
+              format: "HH:mm",
+              unit: 'hour',
+              unitStepSize: 1,
+              displayFormats: {
+                'minute': 'HH:mm',
+                'hour': 'HH:mm',
+                min: '00:00',
+                max: '23:59'
+              }
+            }
+          }
+        ]
+      }
+    },
+    topics : ['/Station/temperature']
 }, action){
     switch (action.type) {
         case 'INITIAL_ITEMS':

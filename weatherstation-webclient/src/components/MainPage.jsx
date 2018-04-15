@@ -18,26 +18,7 @@ class mainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: {
-        scales: {
-          xAxes: [
-            {
-              type: 'time',
-              time: {
-                format: "HH:mm",
-                unit: 'hour',
-                unitStepSize: 1,
-                displayFormats: {
-                  'minute': 'HH:mm',
-                  'hour': 'HH:mm',
-                  min: '00:00',
-                  max: '23:59'
-                }
-              }
-            }
-          ]
-        }
-      }
+
     };
 
     this.nextPath = this
@@ -47,11 +28,18 @@ class mainPage extends Component {
 
   componentWillMount() {
     client = mqtt.connect('ws://test.mosquitto.org:8080')
-    console.log(client);
-    client.subscribe('/Station/temperature');
+    console.log(this.props.topics);
+    for(var topic of this.props.topics){
+      client.subscribe(topic);
+    }
+    
     this
       .props
       .initData(client);
+  }
+  componentWillUnmount() {
+    client.unsubscribe(this.props.topics)
+    client.end();
   }
   nextPath(path) {
     this
@@ -98,7 +86,7 @@ class mainPage extends Component {
             <div
               className="col-lg-12 col-sm-12 col-md-12">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
-                  <Line height={75} data={this.props.data} options={this.state.options}></Line>
+                  <Line height={75} data={this.props.data} options={this.props.options}></Line>
               </div>
               
 
@@ -107,13 +95,15 @@ class mainPage extends Component {
           </div>
 
         </div>
-        <Impressum/>
+        <Impressum color={{
+          transparent: 'indigo'
+        }}/>
       </div>
     );
   }
 }
 const mapDispatchToProps = dispatch => bindActionCreators({
-  initData: () => loadInitialData(client)
+  initData: () => loadInitialData(client),
 }, dispatch)
 function mapStateToProps(state) {
   return {
@@ -122,7 +112,9 @@ function mapStateToProps(state) {
     router: state.router,
     air: state.weather.air,
     wind: state.weather.wind,
-    data: state.weather.data
+    data: state.weather.data,
+    options : state.weather.options,
+    topics : state.weather.topics
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage));
