@@ -5,3 +5,4 @@ export * from './app-footer/app-footer.component';
 export * from './station-data/station-data.component';
 export * from './temperature-chart/temperature-chart.component';
 export * from './week-chart/week-chart.component';
+export * from './stations/stations.component';

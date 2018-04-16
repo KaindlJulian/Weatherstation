@@ -16,7 +16,8 @@ import {
   AppFooterComponent,
   StationDataComponent,
   TemperatureChartComponent,
-  WeekChartComponent} from './components/index';
+  WeekChartComponent,
+  StationsComponent} from './components/index';
 
 import { MyMqttService } from './_services/my-mqtt.service';
 
@@ -29,7 +30,8 @@ import { MyMqttService } from './_services/my-mqtt.service';
     AppFooterComponent,
     StationDataComponent,
     TemperatureChartComponent,
-    WeekChartComponent
+    WeekChartComponent,
+    StationsComponent
   ],
   imports: [
     BrowserModule,

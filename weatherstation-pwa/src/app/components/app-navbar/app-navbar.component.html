@@ -1,5 +1,5 @@
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand navbar-dark fixed-top animated fadeIn">
+<mdb-navbar SideClass="navbar navbar-expand navbar-dark fixed-top animated fadeInDown z-depth-0">
     <logo>
         <a class="logo navbar-brand waves-light h4 mb-auto" mdbRippleRadius href="#">Weather</a>
     </logo>
@@ -7,17 +7,17 @@
     <links class="pull-right ml-auto">
         <ul class="navbar-nav pull-left">
             <li class="nav-item waves-light mr-3" mdbRippleRadius>
-                <a class="nav-link" href="mqtt">Stations</a>
+                <a class="nav-link" href="stations">Stations</a>
             </li>
             <!--Dropdown-->
             <li class="nav-item dropdown btn-group" dropdown>
                 <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </a>
-                <div *dropdownMenu class="dropdown-menu dropdown" role="menu">
-                    <a class="dropdown-item waves-dark" href="#" mdbRippleRadius>Add new Station</a>
-                    <div class="divider dropdown-divider"></div>
+                <div *dropdownMenu class="dropdown-menu dropdown animated fadeInDown" role="menu">
                     <a class="dropdown-item waves-dark" href="#" mdbRippleRadius>Settings</a>
+                    <div class="divider dropdown-divider"></div>
+                    <a class="dropdown-item waves-dark" href="#" mdbRippleRadius>Exit</a>
                 </div>
             </li>     
         </ul>

@@ -14,6 +14,7 @@ export class TemperatureChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    Chart.defaults.global.defaultFontColor = 'white';
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
