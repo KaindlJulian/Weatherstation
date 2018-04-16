@@ -48,6 +48,7 @@ var temp = {labels:  [],
             ]
           }
         },
+        topic:''
     }, action){
         switch (action.type) {
             case 'INIT_MONTHLY_REPORT':
@@ -64,6 +65,8 @@ var temp = {labels:  [],
                 temperature: action.payload,
                 data : temp
               }
+              case 'CHANGE_TOPIC':
+              return{...state, topic: action.payload}
               default:
               return state
                 

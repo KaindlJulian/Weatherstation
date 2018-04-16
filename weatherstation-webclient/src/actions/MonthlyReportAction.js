@@ -14,3 +14,6 @@ export function InitMonthlyReport(client){
 		
 	}	
 }
+export function changeTopic(topic){
+	return{type:"CHANGE_TOPIC", payload: topic}
+}

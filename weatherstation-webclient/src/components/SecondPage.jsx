@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import app from '../App.css'
+import styles from '../styles/SecPageStyle.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
-import {InitMonthlyReport} from '../actions/MonthlyReportAction.js'
+import {InitMonthlyReport, changeTopic} from '../actions/MonthlyReportAction.js'
 import {connect} from 'react-redux';
 import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
@@ -11,6 +11,7 @@ import mqtt from 'mqtt'
 import {Bar, Line} from 'react-chartjs-2';
 import Impressum from './Impressum.jsx'
 var client;
+var topic;
 
 export class secondPage extends Component {
   constructor(props) {
@@ -20,7 +21,6 @@ export class secondPage extends Component {
       dropdownOpen: false,
     };
     this.monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    this.topic = '';
     this.changeMonth = this.changeMonth.bind(this);
   }
   
@@ -31,21 +31,23 @@ export class secondPage extends Component {
   }
   
   componentWillMount() {
-    client = mqtt.connect('ws://test.mosquitto.org:8080')
+    client = mqtt.connect('ws://test.mosquitto.org:8080',{resubscribe: false})
   }
 changeMonth(month){
-    client.unsubscribe(this.topic);
-    //this.topic = 'report/monthly/' + month + '/linz';
-    console.log(this.topic);
-    client.subscribe(this.topic);
+    client.unsubscribe(this.props.topic);
+    topic = 'report/monthly/' + month + '/linz';
+    this.props.changeTopic(topic);
+    console.log(this.props.topic);
+    client.subscribe(this.props.topic);
+    this.props.initMonthReport(client);
   }
 
   render() {
     
     return (
-      <div>
+      <div className="rare-grass-gradient">
         <TopNavbar color={{
-          transparent: 'green'
+          transparent: ''
         }}/>
          <div style={{
           marginTop: '10vh'
@@ -56,8 +58,8 @@ changeMonth(month){
             Pick A Month
           </DropdownToggle>
           <DropdownMenu>
-            {this.monthList.map(function(month){
-              return <DropdownItem><div onClick={(month) => this.changeMonth(month)}>{month}</div></DropdownItem>
+            {this.monthList.map(month => {
+                return <DropdownItem key={month}><div onClick={() => this.changeMonth(month)}>{month}</div></DropdownItem>
             }
             )}
           </DropdownMenu>
@@ -66,16 +68,16 @@ changeMonth(month){
 
             <div
               className="col-lg-6 col-md-6 mb-2">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-col border-medium">
+              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
               <h2 className="d-flex justify-content-center">Testing</h2>
               </div>
               
 
             </div>
             <div className="col-lg-6 col-md-6 mb-2">
-            <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-col border-medium">
+            <div style={{width:'100%', height: '100%'}} className="border rounded-left border-light">
                 <h1 className="d-flex justify-content-center">This is a test</h1>
-                <h2>Location: <b>LINZ</b></h2>
+                <h2 className="fontColor">Location: <b>LINZ</b></h2>
                 <h2>asdlkjflasdf</h2>
               </div>
 
@@ -88,7 +90,7 @@ changeMonth(month){
 
             <div
               className="col-lg-12 col-sm-12 col-md-12">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-col border-medium">
+              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
                   <Line height={75} data={this.props.data} options={this.props.options}></Line>
               </div>
               
@@ -98,7 +100,7 @@ changeMonth(month){
           </div>
           </div>
         <Impressum color={{
-          transparent: "green"
+          transparent: ""
         }}/>
       </div>
     )
@@ -111,11 +113,13 @@ function mapStateToProps(state){
     router: state.router,
     data: state.monReport.data,
     options : state.monReport.options,
+    topic : state.monReport.topic
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   initMonthReport: () => InitMonthlyReport(client),
+  changeTopic : () => changeTopic(topic)
 }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(secondPage))

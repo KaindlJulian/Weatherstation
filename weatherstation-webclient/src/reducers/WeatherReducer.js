@@ -2,8 +2,9 @@ var temp = {labels:  [],
 datasets: [
   {
     label: "Temperature(Celsius)",
-    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-    data: []
+    backgroundColor: '',
+    data: [],
+    borderColor:'white'
   }
 ]}
 
@@ -27,9 +28,22 @@ export default function reducer(state={
       
     },
     options: {
+      responsive : true,
+      legend: {
+            labels: {
+                fontColor: "white",
+                fontSize: 12
+            }
+        },
       scales: {
         xAxes: [
           {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
             type: 'time',
             time: {
               format: "HH:mm",
@@ -40,8 +54,20 @@ export default function reducer(state={
                 'hour': 'HH:mm',
                 min: '00:00',
                 max: '23:59'
-              }
+              },
+              
+                
             }
+          }
+        ],
+        yAxes:[
+          {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
           }
         ]
       }

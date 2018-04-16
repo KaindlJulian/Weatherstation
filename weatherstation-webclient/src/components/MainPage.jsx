@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import app from '../App.css'
+import '../styles/App.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
@@ -28,14 +28,15 @@ class mainPage extends Component {
 
   componentWillMount() {
     client = mqtt.connect('ws://test.mosquitto.org:8080')
+    this
+      .props
+      .initData(client);
     console.log(this.props.topics);
     for(var topic of this.props.topics){
       client.subscribe(topic);
     }
     
-    this
-      .props
-      .initData(client);
+    
   }
   componentWillUnmount() {
     client.unsubscribe(this.props.topics)
@@ -50,9 +51,9 @@ class mainPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="rare-wind-gradient">
         <TopNavbar color={{
-          transparent: 'indigo'
+          transparent: ''
         }} / >
         <div style={{
           marginTop: '10vh'
@@ -60,14 +61,14 @@ class mainPage extends Component {
           <div style = {{width:'100%', margin:0}} className="row">
 
             <div
-              className="col-lg-6 col-md-6 mb-2">
+              className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
               <h2 className="d-flex justify-content-center">Testing</h2>
               </div>
               
 
             </div>
-            <div className="col-lg-6 col-md-6 mb-2">
+            <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
             <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
                 <h1 className="d-flex justify-content-center">This is a test</h1>
                 <h2><img src={require('../assets/animated/day.svg')} width={'125vh'} height={'125vw'} alt=""/>
@@ -84,9 +85,9 @@ class mainPage extends Component {
           <div style = {{width:'100%', height:'60vh', margin:0}} className="row">
 
             <div
-              className="col-lg-12 col-sm-12 col-md-12">
+              className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
-                  <Line height={75} data={this.props.data} options={this.props.options}></Line>
+                  <Line height={85} data={this.props.data} options={this.props.options}></Line>
               </div>
               
 
@@ -96,7 +97,7 @@ class mainPage extends Component {
 
         </div>
         <Impressum color={{
-          transparent: 'indigo'
+          transparent: ''
         }}/>
       </div>
     );
