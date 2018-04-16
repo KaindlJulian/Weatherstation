@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,13 @@ export class AppNavbarComponent implements OnInit {
 
   constructor() { }
 
+  @Input() isDashboard: boolean;
+
   ngOnInit() {
+  }
+
+  callDialog() {
+    // emit event
   }
 
 }

@@ -6,7 +6,7 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="assets/icons/icon-72x72.png">
+  <link rel="icon" href="assets/pwa-icons/icon-72x72.png">
 
   <link rel="manifest" href="manifest.json">
 
@@ -24,9 +24,15 @@
 <body>
   <app-root></app-root>
   <noscript>
-      <p>
-        Sorry, JavaScript must be enabled to use this app
-      </p>
+    <div id="nojs-container">
+        <img src="http://www.furqanfreed.com/wp-content/uploads/2017/05/js-used-on-web.png" alt="">
+        <h1>You should enable it!</h1>
+        <a href="https://www.wikihow.com/Turn-on-JavaScript">WikiHow</a>
+    </div>
   </noscript>
 </body>
 </html>
+<style>
+  #nojs-container { text-align: center; font-family: sans-serif; }
+  #nojs-container img { vertical-align: middle }
+</style>

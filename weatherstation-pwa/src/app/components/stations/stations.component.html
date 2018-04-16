@@ -1,3 +1,34 @@
-<p>
-  stations works!
-</p>
+<body class="rare-wind-gradient">
+  <app-navbar [isDashboard]="false" ></app-navbar>
+  
+  <!--fullscreen wrapper-->
+  <div class="w-100 h-100 d-flex align-items-start">
+
+    <!--station-items-->
+    <ul class="station-list list-group">
+      <li class="mt-auto list-group-item transparent">
+          <station-item></station-item>
+      </li>
+      <li class="mt-auto list-group-item transparent">
+          <station-item></station-item>
+      </li>
+      <li class="mt-auto list-group-item transparent">
+          <station-item></station-item>
+      </li>
+    </ul>
+
+  </div>
+
+
+  <app-footer></app-footer>
+</body>
+
+<!-- ng for 
+<li *ngFor="let station of station; let i = index" class="mt-auto border-white">
+    <station-item
+      *ngIf=checkSearch(station)  
+      [station]="station" 
+      (openGroup)="onOpenGroup($event)">
+    </station-item>
+  </li>
+-->

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { DashboardComponent, MqttClientComponent, StationsComponent } from './components/index';
+import { DashboardComponent, MqttClientComponent, StationsComponent, StationItemComponent } from './components/index';
 
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
+    { path: 'test', component: StationItemComponent},
     { path: 'stations', component: StationsComponent},
     { path: 'mqtt', component: MqttClientComponent},
     // any other redirect to dashboard
