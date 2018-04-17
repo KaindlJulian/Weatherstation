@@ -1,14 +1,15 @@
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { HttpModule } from '@angular/http';
 
+import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { HttpModule } from '@angular/http';
+import { environment } from '../environments/environment';
+
+import { AppComponent } from './app.component';
 import {
   DashboardComponent,
   MqttClientComponent,

@@ -13,7 +13,7 @@
                 <a class="nav-link" href="stations">Stations</a>
             </li>
             <li *ngIf="!isDashboard" class="nav-item waves-light" mdbRippleRadius>
-                <a class="nav-link" (click)="callDialog">Add Station</a>
+                <a class="nav-link" (click)="callDialog()">Add Station</a>
             </li>
             <!--Dropdown-->
             <li *ngIf="isDashboard" class="nav-item dropdown btn-group" dropdown>

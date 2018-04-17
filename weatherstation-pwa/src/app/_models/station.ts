@@ -1,4 +1,6 @@
+import { Temperature } from './temperature';
 export class Station {
     id = 0;
-    name = 'Unregistered';  // topic
+    name = '';  // topic
+    lastTemperature = Temperature;
 }

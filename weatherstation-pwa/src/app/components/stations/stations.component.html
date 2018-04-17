@@ -1,5 +1,5 @@
 <body class="rare-wind-gradient">
-  <app-navbar [isDashboard]="false" ></app-navbar>
+  <app-navbar [isDashboard]="false" (addStation)="onCallDialog($event)"></app-navbar>
   
   <!--fullscreen wrapper-->
   <div class="w-100 h-100 d-flex align-items-start">
@@ -17,14 +17,26 @@
       </li>
     </ul>
 
+    <div *ngIf="showNewStationForm" [ngClass]="{'fadeOutDown': moveOut===true}" class="fixed-bottom stationDialog animated fadeInUp">
+      <form>
+        <p class="h5 text-center mb-2">Station Name</p>
+          <div class="md-form d-flex justify-content-center">
+            <input [(ngModel)]="model.name" name="stationName" type="text" id="stationInput" class="form-control mr-2">
+            <button (keyup.enter)="addStation()" (click)="addStation()" class="btn waves-light">Add</button>
+          </div>
+      </form>
+    </div>
+
   </div>
+
+
 
 
   <app-footer></app-footer>
 </body>
 
 <!-- ng for 
-<li *ngFor="let station of station; let i = index" class="mt-auto border-white">
+<li *ngFor="let station of stations; let i = index" class="mt-auto border-white">
     <station-item
       *ngIf=checkSearch(station)  
       [station]="station" 

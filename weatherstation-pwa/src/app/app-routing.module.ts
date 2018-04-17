@@ -7,10 +7,9 @@ import { DashboardComponent, MqttClientComponent, StationsComponent, StationItem
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'test', component: StationItemComponent},
     { path: 'stations', component: StationsComponent},
     { path: 'mqtt', component: MqttClientComponent},
-    // any other redirect to dashboard
+    // any other path redirects to dashboard
     { path: '**', redirectTo: '' }
   ];
   @NgModule({
