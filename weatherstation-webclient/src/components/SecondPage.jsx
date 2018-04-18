@@ -67,17 +67,17 @@ changeMonth(month){
           <div style = {{width:'100%', margin:0}} className="row">
 
             <div
-              className="col-lg-6 col-md-6 mb-2">
+              className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
               <h2 className="d-flex justify-content-center">Testing</h2>
               </div>
               
 
             </div>
-            <div className="col-lg-6 col-md-6 mb-2">
+            <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
             <div style={{width:'100%', height: '100%'}} className="border rounded-left border-light">
                 <h1 className="d-flex justify-content-center">This is a test</h1>
-                <h2 className="fontColor">Location: <b>LINZ</b></h2>
+                <h2>Location: <b>LINZ</b></h2>
                 <h2>asdlkjflasdf</h2>
               </div>
 
@@ -89,7 +89,7 @@ changeMonth(month){
           <div style = {{width:'100%', height:'60vh', margin:0}} className="row">
 
             <div
-              className="col-lg-12 col-sm-12 col-md-12">
+              className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
               <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
                   <Line height={75} data={this.props.data} options={this.props.options}></Line>
               </div>
