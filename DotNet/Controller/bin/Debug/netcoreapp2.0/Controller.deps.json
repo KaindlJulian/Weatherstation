@@ -1,17 +1,23 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "2b4e1cc83a6b914fb2b96e6fd1894b598486a846"
+    "signature": "ea0fccb307518f8b46ef40d2bae699c4a915a6cf"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "Controller/1.0.0": {
         "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
           "OpenNETCF.MQTT": "1.0.17253"
         },
         "runtime": {
           "Controller.dll": {}
+        }
+      },
+      "Newtonsoft.Json/11.0.2": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "opennetcf-extensions-standard/1.0.17160": {
@@ -34,6 +40,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Newtonsoft.Json/11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "path": "newtonsoft.json/11.0.2",
+      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "opennetcf-extensions-standard/1.0.17160": {
       "type": "package",

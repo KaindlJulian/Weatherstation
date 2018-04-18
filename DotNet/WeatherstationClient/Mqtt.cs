@@ -12,25 +12,14 @@ namespace WeatherstationClient
         private Dictionary<string, Func<string, string, string, Data, Task>> handlers = new Dictionary<string, Func<string, string, string, Data, Task>>();
         private MQTTClient client;
 
-        public async Task<bool> Run(string hostname, string clientId, string[] topics = null, QoS qoS = QoS.AcknowledgeDelivery)
+        public async Task Run(string hostname, string clientId, EventHandler callback, string[] topics = null, QoS qoS = QoS.AcknowledgeDelivery)
         {
             client = new MQTTClient(hostname);
-            await client.ConnectAsync(clientId);
-            if (!client.IsConnected)
-            {
-                return false;
-            }
 
+            client.Connected += callback;
             client.MessageReceived += Client_MessageReceived;
-            if(topics != null)
-            {
-                foreach (string topic in topics)
-                {
-                    client.Subscriptions.Add(topic, qoS);
-                }
-            }
 
-            return true;
+            await client.ConnectAsync(clientId);
         }
         
         /// <summary>
@@ -38,16 +27,22 @@ namespace WeatherstationClient
         /// </summary>
         /// <param name="topic"></param>
         /// <param name="handler">string topic, string station, string subtopic, Data data</param>
-        public void Subscribe(string topic, Func<string, string, string, Data, Task> handler, QoS qoS = QoS.AssureDelivery)
+        public void Subscribe(string topic, Func<string, string, string, Data, Task> handler, bool station = false, QoS qoS = QoS.AssureDelivery)
         {
+            if (station == true)
+                topic = "station/+/" + topic;
+
             client.Subscriptions.Add(topic, qoS);
             handlers.Add(topic, handler);
         }
 
-        public async Task Publish(string topic, Data data, QoS qoS = QoS.AssureDelivery, bool retain = false)
+        public async Task Publish(string topic, Data data, string station = null, QoS qoS = QoS.AssureDelivery, bool retain = false)
         {
             if (client == null)
                 return;
+
+            if (station != null)
+                topic = "station/" + station + "/" + topic;
 
             await client.PublishAsync(topic, JsonConvert.SerializeObject(data), qoS, retain);
         }
@@ -76,7 +71,7 @@ namespace WeatherstationClient
 
         private (string station, string subtopic) ParseTopic(string topic)
         {
-            if (!topic.StartsWith("/station/"))
+            if (!topic.StartsWith("station/"))
                 return (null, topic);
 
             topic = topic.Substring(9);
