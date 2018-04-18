@@ -72,23 +72,16 @@ export default function reducer(state={
         ]
       }
     },
-    topics : ['/Station/temperature']
+    topics : ['/station/sensor1/temperature/']
 }, action){
     switch (action.type) {
-        case 'INITIAL_ITEMS':
+        case 'TEMPERATURE':
         console.log(action.payload);
-        var counter = 0
-        for(var obj of action.payload.temperature){
-          temp.datasets[0].data.push(obj);
-          temp.labels.push(counter + ':00');
-          counter++;
-        }
-        
         return {
             ...state,
             temperature: action.payload,
-            data : temp
           }
+
           default:
           return state
             

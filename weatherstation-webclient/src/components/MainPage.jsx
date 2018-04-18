@@ -74,7 +74,7 @@ class mainPage extends Component {
                 <h2><img src={require('../assets/animated/day.svg')} width={'125vh'} height={'125vw'} alt=""/>
                 SUNNY</h2>
                 <h2>Location: <b>LINZ</b></h2>
-                <h2>asdlkjflasdf</h2>
+                <h2>{this.props.temperature}</h2>
               </div>
 
             </div>
