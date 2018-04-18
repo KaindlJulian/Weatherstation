@@ -16,7 +16,6 @@ export class MyMqttService {
   public connect() {
     this.client = mqtt.connect(MQTT_URL, {
       port: 8080,
-      protocol: 'ws'
     });
     this.state = 'CONNECTED';
     console.log(this.client);
@@ -27,6 +26,7 @@ export class MyMqttService {
       console.log(JSON.stringify(message));
   }
 
+  // subscribe to topic and return obs
   public subscribe(topic): Observable<any> {
     this.client.subscribe(topic);
     return new Observable<any> (observer => {

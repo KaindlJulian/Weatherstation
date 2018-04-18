@@ -28,7 +28,7 @@ export class StationsComponent implements OnInit {
   }
 
   addStation() {
-    // subscribe to related topics
+    // subscribe to related topics 
 
     this.moveOut = true;
   }

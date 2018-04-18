@@ -1,5 +1,5 @@
 {
-  "short_name": "WeatherApp",
+  "short_name": "Wetter",
   "name": "NVS Weatherstation 4BHIF",
   "start_url": "./?utm_source=homescreen",
   "display": "standalone",
