@@ -22,6 +22,7 @@ import {
   StationItemComponent} from './components/index';
 
 import { MyMqttService } from './_services/my-mqtt.service';
+import { SessionsStorageService } from './_services/sessions-storage.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { MyMqttService } from './_services/my-mqtt.service';
     MDBBootstrapModule.forRoot(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [MyMqttService],
+  providers: [MyMqttService, SessionsStorageService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

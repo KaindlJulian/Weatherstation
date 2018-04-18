@@ -1,15 +1,11 @@
-<body class="p-3">
-    <div class="nav-container">
-         <app-navbar [isDashboard]="false"></app-navbar>
-    </div>
-    
+<body class="p-4">    
     <form>
-        <p class="h4 text-center mb-4">Publish</p>
-        <div class="md-form">
+        <div class="md-form mt-5">
             <i class="fa fa-tag prefix grey-text"></i>
             <input [(ngModel)]="topic" name="topic "type="text" id="topic-form" class="form-control" mdbActive>
             <label for="topic-form">Topic</label>
         </div>
+        <p class="h4 text-center mb-4">Publish</p>
         <div class="md-form">
             <i class="fa fa-envelope prefix grey-text"></i>
             <textarea [(ngModel)]="message" name="message" type="text" id="message-from" class="md-textarea p-0" mdbActive></textarea>
