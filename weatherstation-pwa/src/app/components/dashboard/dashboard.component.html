@@ -1,4 +1,18 @@
 <body class="rare-wind-gradient">
-    <app-navbar></app-navbar>
+    <app-navbar [isDashboard]="true"></app-navbar>
+
+    <!--fullscreen wrapper-->
+    <div class="w-100 h-100 d-flex align-items-start flex-wrap">
+         <!--40vh-->
+        <div class="container-fluid d-flex justify-content-center main-container position-fixed mb-auto">
+            <station-data></station-data>
+        </div>
+        <!--60vh-->
+        <div class="container-fluid d-flex justify-content-center chart-container mt-auto row">
+            <temperature-chart class="col-12 mt-1 mb-auto"></temperature-chart>
+            <week-chart class="col-12 mb-auto"></week-chart>
+        </div>
+    </div>
+
     <app-footer></app-footer>
 </body>

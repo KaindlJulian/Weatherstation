@@ -1,5 +1,5 @@
 .nav-item {
-    min-width: 60px;
+    min-width: 20px;
     text-align: center;
 }
 
@@ -11,4 +11,9 @@
 li.dropdown:last-child .dropdown-menu {
     right: 0;
     left: auto;
+}
+
+.back-arrow-icon {
+    height: 30px;
+    width: 30px;
 }

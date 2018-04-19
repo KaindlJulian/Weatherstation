@@ -1,15 +1,28 @@
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-import { DashboardComponent, MqttClientComponent, AppNavbarComponent, AppFooterComponent } from './components/index';
+import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { HttpModule } from '@angular/http';
+import { environment } from '../environments/environment';
+
+import { AppComponent } from './app.component';
+import {
+  DashboardComponent,
+  MqttClientComponent,
+  AppNavbarComponent,
+  AppFooterComponent,
+  StationDataComponent,
+  TemperatureChartComponent,
+  WeekChartComponent,
+  StationsComponent,
+  StationItemComponent} from './components/index';
+
 import { MyMqttService } from './_services/my-mqtt.service';
+import { SessionsStorageService } from './_services/sessions-storage.service';
 
 @NgModule({
   declarations: [
@@ -17,16 +30,22 @@ import { MyMqttService } from './_services/my-mqtt.service';
     DashboardComponent,
     MqttClientComponent,
     AppNavbarComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    StationDataComponent,
+    TemperatureChartComponent,
+    WeekChartComponent,
+    StationsComponent,
+    StationItemComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpModule,
     MDBBootstrapModule.forRoot(),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [MyMqttService],
+  providers: [MyMqttService, SessionsStorageService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -2,13 +2,37 @@
 <html lang="en" class="full-height">
 <head>
   <meta charset="utf-8">
-  <title>WeatherstationPwa</title>
+  <title>Weatherstation</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" href="assets/pwa-icons/icon-72x72.png">
+
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="WeatherApp">
+  <meta name="apple-mobile-web-app-title" content="WeatherApp">
+  <meta name="msapplication-starturl" content="./?utm_source=homescreen">
+  <meta name="theme-color" content="#2e38d2"/>
+  <meta name="Description" content="
+  Author: Julian Kaindl, 
+  Class: 4BHIF, 
+  Subject: NVS">
 </head>
 <body>
   <app-root></app-root>
+  <noscript>
+    <div id="nojs-container">
+        <img src="http://www.furqanfreed.com/wp-content/uploads/2017/05/js-used-on-web.png" alt="">
+        <h1>You should enable it!</h1>
+        <a href="https://www.wikihow.com/Turn-on-JavaScript">WikiHow</a>
+    </div>
+  </noscript>
 </body>
 </html>
+<style>
+  #nojs-container { text-align: center; font-family: sans-serif; }
+  #nojs-container img { vertical-align: middle }
+</style>

@@ -1,12 +1,30 @@
-
-<h1>Publish</h1>
-topic: <input name="topic" [(ngModel)]="topic" type="text" placeholder="topic">
-<br><br>
-message: <input name="message" [(ngModel)]="message" type="text" placeholder="message">
-<br><br>
-<button (click)="publish()">publish</button>
-
-<h1>Subscribe</h1>
-payload: {{data}}
-<br><br>
-<button (click)="subscribe()">subscribe</button>
+<body class="p-4">    
+    <form>
+        <div class="md-form mt-5">
+            <i class="fa fa-tag prefix grey-text"></i>
+            <input [(ngModel)]="topic" name="topic "type="text" id="topic-form" class="form-control" mdbActive>
+            <label for="topic-form">Topic</label>
+        </div>
+        <p class="h4 text-center mb-4">Publish</p>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <textarea [(ngModel)]="message" name="message" type="text" id="message-from" class="md-textarea p-0" mdbActive></textarea>
+            <label for="message-form">Message</label>
+        </div>
+        <div class="text-center">
+            <button (click)="publish()" class="btn btn-indigo waves-light" mdbRippleRadius>Send</button>
+        </div>
+    </form>
+    <hr>
+    <form>
+        <p class="h4 text-center mb-4">Subscribe</p>
+        <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <textarea name="message" type="text" id="message-from" class="md-textarea p-0" style="height: 100px">{{data}}</textarea>
+        </div>
+        <div class="text-center">
+            <button (click)="subscribe()" class="btn btn-indigo waves-light" mdbRippleRadius>Subscribe</button>
+        </div>
+    </form>  
+    <app-footer></app-footer>
+</body>

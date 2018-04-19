@@ -5,4 +5,6 @@ D:\Projects\Weatherstation\DotNet\Controller\bin\Debug\netcoreapp2.0\Controller.
 D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CoreCompileInputs.cache
 D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfoInputs.cache
 D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfo.cs
-D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.csprojResolveAssemblyReference.cache
+D:\Projects\Weatherstation\DotNet\Controller\bin\Debug\netcoreapp2.0\Controller.pdb
+D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.dll
+D:\Projects\Weatherstation\DotNet\Controller\obj\Debug\netcoreapp2.0\Controller.pdb

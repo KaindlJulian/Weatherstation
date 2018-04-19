@@ -11,29 +11,32 @@ namespace LogWriter
     {
         static readonly string[] TOPICS = new[]
         {
-            "/station/<name>/temperature",
-            "/station/<name>/air/pressure",
-            "/station/<name>/air/purity",
-            "/station/<name>/air/toxicity",
-            "/station/<name>/air/humidity",
-            "/station/<name>/wind/direction",
-            "/station/<name>/wind/strength",
-            "/station/<name>/precipitation/type",
-            "/station/<name>/precipitation/amount"
+            "station/+/temperature",
+            "station/+/air/pressure",
+            "station/+/air/purity",
+            "station/+/air/toxicity",
+            "station/+/air/humidity",
+            "station/+/wind/direction",
+            "station/+/wind/strength",
+            "station/+/precipitation/type",
+            "station/+/precipitation/amount"
         };
         
 
         static void Main(string[] args)
         {
             MainAsync(args).Wait();
+            Console.WriteLine("Press enter to exit");
+            Console.ReadKey();
         }
 
         static async Task MainAsync(string[] args)
         {
             Mqtt mqtt = new Mqtt();
-            await mqtt.Run("localhost", "LogWriter", TOPICS, QoS.AssureDelivery);
-
-            mqtt.Subscribe("/temperature", Temperature);
+            await mqtt.Run("localhost", "LogWriter", (sender, e) =>
+            {
+                mqtt.Subscribe("temperature", Temperature, true);
+            }, TOPICS, QoS.AssureDelivery);
         }
 
         private static Task Temperature(string topic, string station, string subtopic, Data data)

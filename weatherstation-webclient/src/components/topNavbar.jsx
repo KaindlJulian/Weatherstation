@@ -28,7 +28,7 @@ export default class topNavbar extends Component {
   }
   render() {
     return (
-      <Navbar color={this.props.color.transparent} expand="lg" dark fixed="top" scrolling>
+      <Navbar color={this.props.color.transparent} expand="lg" dark fixed="static" scrolling>
         <Container>
           <NavbarBrand href="/">
       
@@ -46,7 +46,7 @@ export default class topNavbar extends Component {
               <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Monthly Report</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Hello boy</NavLink>
+              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Yearly Report</NavLink>
               </NavItem>
               <NavItem>
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>

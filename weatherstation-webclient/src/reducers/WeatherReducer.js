@@ -1,11 +1,10 @@
-var temp = {labels:  ['00:00','01:15', '02:00', '03:20', '04:00', '05:00', 
-'06:00','07:00','08:00','09:00','10:00','11:00',
-    '12:00','13:00','14:00','15:00','16:00','17:00','18:00','23:59'],
+var temp = {labels:  [],
 datasets: [
   {
-    label: "Population (millions)",
-    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-    data: []
+    label: "Temperature(Celsius)",
+    backgroundColor: '',
+    data: [],
+    borderColor:'white'
   }
 ]}
 
@@ -28,15 +27,61 @@ export default function reducer(state={
     data: {
       
     },
+    options: {
+      responsive : true,
+      legend: {
+            labels: {
+                fontColor: "white",
+                fontSize: 12
+            }
+        },
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
+            type: 'time',
+            time: {
+              format: "HH:mm",
+              unit: 'hour',
+              unitStepSize: 1,
+              displayFormats: {
+                'minute': 'HH:mm',
+                'hour': 'HH:mm',
+                min: '00:00',
+                max: '23:59'
+              },
+              
+                
+            }
+          }
+        ],
+        yAxes:[
+          {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
+          }
+        ]
+      }
+    },
+    topics : ['/station/sensor1/temperature/']
 }, action){
     switch (action.type) {
-        case 'INITIAL_ITEMS':
-        temp.datasets[0].data.push(action.payload.temperature)
+        case 'TEMPERATURE':
+        console.log(action.payload);
         return {
             ...state,
             temperature: action.payload,
-            data : temp
           }
+
           default:
           return state
             
