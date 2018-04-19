@@ -15,7 +15,8 @@ import org.json.JSONObject;
  * @author chris
  */
 public class Sensor {
-    String [] windDirections       = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+    String [] windDirections       = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
+    String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };
     int lastTemperature            = 8;
     int lastAirPressure            = 1000;
     String lastAirPurity           = "";
@@ -23,7 +24,7 @@ public class Sensor {
     int lastAirHumidity            = 40;
     int lastWindDirection          = 2;
     int lastWindStrength           = 5;
-    String lastPrecipitationType   = "rain";
+    int lastPrecipitationType      = 1;
     double lastPrecipitationAmount = 0.6;
     Random random                  = new Random();
     static final int maxTempSpring = 30;
@@ -72,6 +73,54 @@ public class Sensor {
         lastTemperature = temperature;
         return obj.toString();
     }
+        
+    public String getAirHumidity(Calendar actDateTime){
+        int airHumidity = 0;
+        int index = random.nextInt(8);
+        boolean operation = random.nextBoolean();
+        
+        if(operation == true)
+            airHumidity = lastAirHumidity+index;
+        else
+            airHumidity = lastAirHumidity-index;
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","AIR_HUMIDITY");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value",Integer.toString(airHumidity));
+        lastAirPressure = airHumidity;
+        return obj.toString();
+    }
+    
+    public String getPrecipitationType(Calendar actDateTime){
+        int precipitationType = 0;
+        int index = random.nextInt(4);
+        boolean change = random.nextBoolean();
+        
+        if((index == lastPrecipitationType-1 && change == true) || (index == lastPrecipitationType+1 && change == true))
+            precipitationType = index;
+        else
+            precipitationType = lastPrecipitationType;
+
+        if(precipitationTypes[precipitationType].equals("snowy") && lastTemperature >= 3 ||
+            precipitationTypes[precipitationType].equals("rainy") && lastTemperature <= -2)
+            precipitationType = lastPrecipitationType;
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","PRECIPITATION_TYPE");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value", precipitationTypes[precipitationType]);
+        lastAirPressure = precipitationType;
+        return obj.toString();
+    }
+    /*
+    public String getPrecipitationAmount(){
+        String precipitationAmount = "";
+        
+        lastAirPressure = precipitationAmount;
+        return precipitationAmount;
+    }*/
+    
     /*
     public String getAirPressure(){
         int airPressure;
@@ -93,14 +142,8 @@ public class Sensor {
         lastAirPressure = airToxicity;
         return airToxicity;
     }
-    
-    public String getAirHumidity(){
-        String airHumidity = "";
-        
-        lastAirPressure = airHumidity;
-        return airHumidity;
-    }
     */
+    
     public String getWindDirection(Calendar actDateTime){
         int windDirection = 0;
         int index = random.nextInt(7);
@@ -137,20 +180,6 @@ public class Sensor {
         
         return obj.toString();
     }
-    /*
-    public String getPrecipitationType(){
-        String precipitationType = "";
-        
-        lastAirPressure = precipitationType;
-        return precipitationType    ;
-    }
-    
-    public String getPrecipitationAmount(){
-        String precipitationAmount = "";
-        
-        lastAirPressure = precipitationAmount;
-        return precipitationAmount;
-    }*/
     
     public boolean checkTemp (int month, int temperature){
         
