@@ -18,7 +18,7 @@ public class Sensor {
     String [] windDirections       = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
     String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };
     int lastTemperature            = 8;
-    int lastAirPressure            = 1000;
+    double lastAirPressure         = 1000;
     String lastAirPurity           = "";
     String lastAirToxicity         = "";
     int lastAirHumidity            = 40;
@@ -71,24 +71,28 @@ public class Sensor {
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value",Integer.toString(temperature));
         lastTemperature = temperature;
+        
         return obj.toString();
     }
         
     public String getAirHumidity(Calendar actDateTime){
         int airHumidity = 0;
-        int index = random.nextInt(8);
+        int index = random.nextInt(4);
         boolean operation = random.nextBoolean();
         
-        if(operation == true)
+        if(operation == false){
             airHumidity = lastAirHumidity+index;
-        else
+        }
+        else{
             airHumidity = lastAirHumidity-index;
+        }
         
         JSONObject obj = new JSONObject();
         obj.put("id","AIR_HUMIDITY");
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value",Integer.toString(airHumidity));
-        lastAirPressure = airHumidity;
+        lastAirHumidity = airHumidity;
+        
         return obj.toString();
     }
     
@@ -97,24 +101,27 @@ public class Sensor {
         int index = random.nextInt(4);
         boolean change = random.nextBoolean();
         
-        if((index == lastPrecipitationType-1 && change == true) || (index == lastPrecipitationType+1 && change == true))
+        if((index == lastPrecipitationType-1 && change == true) || (index == lastPrecipitationType+1 && change == true)){
             precipitationType = index;
-        else
+        }
+        else{
             precipitationType = lastPrecipitationType;
+        }
 
         if(precipitationTypes[precipitationType].equals("snowy") && lastTemperature >= 3 ||
-            precipitationTypes[precipitationType].equals("rainy") && lastTemperature <= -2)
+            precipitationTypes[precipitationType].equals("rainy") && lastTemperature <= -2){
             precipitationType = lastPrecipitationType;
+        }
         
         JSONObject obj = new JSONObject();
         obj.put("id","PRECIPITATION_TYPE");
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value", precipitationTypes[precipitationType]);
         lastPrecipitationType = precipitationType;
+        
         return obj.toString();
     }
     
-    //FERTIG STELLEN!
     public String getPrecipitationAmount(Calendar actDateTime){
         double precipitationAmount = 0.0;
         int index = random.nextInt(40);
@@ -142,8 +149,7 @@ public class Sensor {
             else{
                 sumIndex = help - 15;
             }
-        }
-        
+        } 
         precipitationAmount = sumIndex;
         
         JSONObject obj = new JSONObject();
@@ -151,17 +157,32 @@ public class Sensor {
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value", Double.toString(precipitationAmount));
         lastPrecipitationAmount = precipitationAmount;
+        
+        return obj.toString();
+    }
+    
+    public String getAirPressure(Calendar actDateTime){
+        double airPressure = 0;
+        double index = random.nextDouble()/2;
+        boolean change = random.nextBoolean();
+        
+        if(change == false){
+            airPressure = lastAirPressure + index;
+        }
+        else{
+            airPressure = lastAirPressure - index;
+        }
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","AIR_PRESSURE");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value", Double.toString(airPressure));
+        lastAirPressure = airPressure;
+        
         return obj.toString();
     }
     
     /*
-    public String getAirPressure(){
-        int airPressure;
-        
-        lastAirPressure = airPressure;
-        return airPressure;
-    }
-    
     public String getAirPurity(){
         String airPurity = "";
         
@@ -181,10 +202,12 @@ public class Sensor {
         int windDirection = 0;
         int index = random.nextInt(7);
         
-        if(index == lastWindDirection-1 || index == lastWindDirection+1)
+        if(index == lastWindDirection-1 || index == lastWindDirection+1){
             windDirection = index;
-        else
+        }
+        else{
             windDirection = lastWindDirection;
+        }
         
         JSONObject obj = new JSONObject();
         obj.put("id","WIND_DIRECTION");
@@ -200,12 +223,14 @@ public class Sensor {
         int index = random.nextInt(30);
         
         if(index == lastWindStrength-1 || index == lastWindStrength-2 || index == lastWindStrength -3 ||
-           index == lastWindStrength +1 || index == lastWindStrength +2 || index == lastWindStrength +3)
+           index == lastWindStrength +1 || index == lastWindStrength +2 || index == lastWindStrength +3){
             windStrength = index;
-        else
+        }
+        else{
             windStrength = lastWindStrength;
+        }
         
-                JSONObject obj = new JSONObject();
+        JSONObject obj = new JSONObject();
         obj.put("id","WIND_STRENGTH");
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value", Integer.toString(windStrength));
@@ -218,17 +243,26 @@ public class Sensor {
         
         if(month == 1 || month == 2 || month == 12)
         {
-            if(temperature <= maxTempWinter && temperature >= minTempWinter) return true;
+            if(temperature <= maxTempWinter && temperature >= minTempWinter){
+                return true;
+            }
         }
         else if (month == 3 || month == 4 || month == 5){
-            if(temperature <= maxTempSpring && temperature >= minTempSpring) return true;
+            if(temperature <= maxTempSpring && temperature >= minTempSpring){
+                return true;
+            }
         }
         else if (month == 6 || month == 7 || month == 8){
-            if(temperature <= maxTempSummer && temperature >= minTempSummer) return true;
+            if(temperature <= maxTempSummer && temperature >= minTempSummer){
+                return true;
+            }
         }
         else if (month == 9 || month == 10 || month == 11){
-            if(temperature <= maxTempAutumn && temperature >= minTempAutumn) return true;
+            if(temperature <= maxTempAutumn && temperature >= minTempAutumn){
+                return true;
+            }
         }
+        
         return false;
     }
 }
