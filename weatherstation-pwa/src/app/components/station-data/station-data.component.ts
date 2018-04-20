@@ -40,10 +40,12 @@ export class StationDataComponent implements OnInit {
    */
   private initMqtt(stationName: String) {
     this.mqttService.connect();
-    this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
+     this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
       this.station.lastUpdate = this.temperature.date;
       this.station.lastTemperature = this.temperature;
+      this.storageService.setChartLabel(payload.date);
+      this.storageService.setChartDataset(this.temperature);
     });
     this.mqttService.subscribe('/station/' + stationName + '/wind/direction/').subscribe(payload => {
       this.wind.direction = payload.value;

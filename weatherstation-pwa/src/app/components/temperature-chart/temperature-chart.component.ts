@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import { SessionsStorageService } from '../../_services/sessions-storage.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,20 +10,23 @@ import { Chart } from 'chart.js';
 })
 export class TemperatureChartComponent implements OnInit {
 
-  chart = [];
+  chart: Chart = [];
+  private labels: String[] = [];
+  private dataset: Number[] = [];
 
-  constructor() { }
+  constructor(private storageService: SessionsStorageService) { }
 
   ngOnInit() {
-    Chart.defaults.global.defaultFontColor = 'white';
+
+
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        labels: ["00:30", "1:30", "2:30", "3:30", "4:30", "5:30"],
         datasets: [
           {
-            data: [18, 20, 23, 24, 24, 25, 24],
-            label: '9:00',
+            data: [23, 24, 25 , 12,  11, 23],
+            label: 'temp',
             borderColor: '#ffffff',
             borderWidth: 1,
             backgroundColor: '#ffffff',
@@ -60,6 +64,24 @@ export class TemperatureChartComponent implements OnInit {
           }]
         }
       }
+    });
+
+    Chart.defaults.global.defaultFontColor = 'white';
+
+    this.storageService.chartLabel.subscribe(label => {
+      this.chart.data.labels.shift();
+      this.chart.data.labels.push(label);
+      this.chart.update();
+    });
+
+    this.storageService.chartData.subscribe(data => {
+      this.chart.data.datasets.forEach( dataset => {
+        dataset.data.shift();
+      });
+      this.chart.data.datasets.forEach( dataset => {
+        dataset.data.push(data);
+      });
+      this.chart.update();
     });
   }
 
