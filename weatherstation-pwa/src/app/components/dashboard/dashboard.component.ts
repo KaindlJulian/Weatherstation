@@ -13,9 +13,5 @@ export class DashboardComponent implements OnInit {
   station: Station;
 
   ngOnInit() {
-    // get selected station from stationservice
-    // subscribe to related topics via mqtt service observables
   }
-
-
 }

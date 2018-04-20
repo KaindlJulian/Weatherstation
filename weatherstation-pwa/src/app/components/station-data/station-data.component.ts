@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionsStorageService } from './../../_services/sessions-storage.service';
 import { MyMqttService } from './../../_services/my-mqtt.service';
-import { Station, Temperature, Wind } from '../../_models/index';
+import { Station, Temperature, Wind, Air, Precipitation } from '../../_models/index';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -13,9 +13,11 @@ export class StationDataComponent implements OnInit {
 
   // display values
   private station: Station;
-  private temperature: Temperature = new Temperature();
-  private wind: Wind = new Wind();
-  private direction_path = 'assets/weather/wind-directions/north.svg';
+  private temperature = new Temperature();
+  private wind = new Wind();
+  private air = new Air();
+  private precipitation = new Precipitation();
+  private direction_path = 'assets/weather/wind-directions/N.svg';
 
   constructor(
     private storageService: SessionsStorageService,
@@ -23,9 +25,10 @@ export class StationDataComponent implements OnInit {
 
   ngOnInit() {
     this.station = this.storageService.getDashboardStation();
-
-    // for testing, ERROR: station.name is property of null
-    this.station = new Station();
+    if (!this.station) {
+      this.station = new Station();
+      this.station.name = 'sensor1';
+    }
     // todo: if station is null and local storage is empty dashboard redirects to station-list
 
     this.initMqtt(this.station.name);
@@ -37,15 +40,25 @@ export class StationDataComponent implements OnInit {
    */
   private initMqtt(stationName: String) {
     this.mqttService.connect();
-    this.mqttService.subscribe('temperature').subscribe(payload => {
+     this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
+      this.station.lastUpdate = this.temperature.date;
+      this.station.lastTemperature = this.temperature;
+      this.storageService.setChartLabel(payload.date);
+      this.storageService.setChartDataset(this.temperature);
     });
-    this.mqttService.subscribe('wind/direction').subscribe(payload => {
-      this.wind.direction = JSON.parse(payload);
+    this.mqttService.subscribe('/station/' + stationName + '/wind/direction/').subscribe(payload => {
+      this.wind.direction = payload.value;
       this.direction_path = 'assets/weather/wind-directions/' + this.wind.direction + '.svg';
     });
-    this.mqttService.subscribe('wind/speed').subscribe(payload => {
-      this.wind.speed = JSON.parse(payload);
+    this.mqttService.subscribe('/station/' + stationName + '/wind/strength/').subscribe(payload => {
+      this.wind.speed = payload.value;
+    });
+    this.mqttService.subscribe('/station/' + stationName + '/air/humidity/').subscribe(payload => {
+      this.air.humidity = payload.value;
+    });
+    this.mqttService.subscribe('/station/' + stationName + '/precipitation/type/').subscribe(payload => {
+      this.precipitation.type = payload.value;
     });
   }
 
