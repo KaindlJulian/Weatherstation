@@ -1,6 +1,6 @@
 export const initialItems = (res) => ({
 	type: res.id,
-	payload: res.value
+	payload: res
 })
 
 export function loadInitialData(client){

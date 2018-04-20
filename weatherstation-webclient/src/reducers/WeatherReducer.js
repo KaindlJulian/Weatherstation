@@ -8,8 +8,10 @@ datasets: [
   }
 ]}
 
+
 export default function reducer(state={
     temperature: 0,
+    date : '',
     air: {
       pressure: 0,
       purity: 0,
@@ -17,8 +19,8 @@ export default function reducer(state={
       humidity: 0,
     },
     wind : {
-      direction : "",
-      strength : 0,
+      direction : "N",
+      strength: 0,
     },
     precipitation: {
       type : "",
@@ -72,14 +74,48 @@ export default function reducer(state={
         ]
       }
     },
-    topics : ['/station/sensor1/temperature/']
+    topics : [
+      '/station/sensor1/temperature/',
+       '/station/sensor1/wind/direction/',
+        '/station/sensor1/wind/strength/',
+        '/station/sensor1/air/humidity/']
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
         console.log(action.payload);
         return {
             ...state,
-            temperature: action.payload,
+            temperature: action.payload.value,
+            date : action.payload.date
+          }
+          case 'WIND_DIRECTION':
+          console.log(action.payload)
+          return{
+            ...state,
+            wind : {
+              ...state.wind,
+              direction : action.payload.value,
+            }
+            
+          }
+          case 'WIND_STRENGTH':
+          console.log(action.payload)
+          return{
+            ...state,
+            wind : {
+              ...state.wind,
+              strength : action.payload.value,
+            }
+            
+          }
+          case 'AIR_HUMIDITY':
+          console.log(action.payload)
+          return{
+            ...state,
+            air : {
+              ...state.air,
+              humidity: action.payload.value
+            }
           }
 
           default:
