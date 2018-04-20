@@ -15,8 +15,11 @@ import org.json.JSONObject;
  * @author chris
  */
 public class Sensor {
-    String [] windDirections       = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
-    String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };
+
+    String [] windDirections       = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };            //Array where the wind directions are saved in
+    String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };         //Array where the precipitation types are saved
+    
+    //last values of the random functions
     int lastTemperature            = 8;
     double lastAirPressure         = 1000;
     String lastAirPurity           = "";
@@ -26,7 +29,11 @@ public class Sensor {
     int lastWindStrength           = 5;
     int lastPrecipitationType      = 1;
     double lastPrecipitationAmount = 0.0;
+    
+    //random generator
     Random random                  = new Random();
+    
+    //static numbers which set the borders of the seasons
     static final int maxTempSpring = 30;
     static final int maxTempSummer = 40;
     static final int maxTempAutumn = 30;
@@ -36,6 +43,7 @@ public class Sensor {
     static final int minTempAutumn = -15;
     static final int minTempWinter = -30;
     
+    //random function which returns a realistic temperture in JSON-format
     public String getTemperature(Calendar actDateTime){
         int temperature;
         boolean raiseTemp = false;
@@ -75,6 +83,7 @@ public class Sensor {
         return obj.toString();
     }
         
+    //random function which returns a realistic airhumidity in JSON-format
     public String getAirHumidity(Calendar actDateTime){
         int airHumidity = 0;
         int index = random.nextInt(4);
@@ -95,7 +104,8 @@ public class Sensor {
         
         return obj.toString();
     }
-    
+
+    //random function which returns a realistic precipitation type in JSON-format    
     public String getPrecipitationType(Calendar actDateTime){
         int precipitationType = 0;
         int index = random.nextInt(4);
@@ -122,6 +132,7 @@ public class Sensor {
         return obj.toString();
     }
     
+    //random function which returns a realistic precipitation amount in JSON-format
     public String getPrecipitationAmount(Calendar actDateTime){
         double precipitationAmount = 0.0;
         int index = random.nextInt(40);
@@ -160,7 +171,8 @@ public class Sensor {
         
         return obj.toString();
     }
-    
+
+    //random function which returns a realistic airpressure in JSON-format    
     public String getAirPressure(Calendar actDateTime){
         double airPressure = 0;
         double index = random.nextDouble()/2;
@@ -183,6 +195,7 @@ public class Sensor {
     }
     
     /*
+    //random function which returns a realistic airpurity in JSON-format
     public String getAirPurity(){
         String airPurity = "";
         
@@ -190,6 +203,7 @@ public class Sensor {
         return airPurity;
     }
     
+    //random function which returns a realistic airtoxicity in JSON-format    
     public String getAirToxicity(){
         String airToxicity = "";
         
@@ -197,7 +211,8 @@ public class Sensor {
         return airToxicity;
     }
     */
-    
+
+    //random function which returns a realistic winddirection in JSON-format    
     public String getWindDirection(Calendar actDateTime){
         int windDirection = 0;
         int index = random.nextInt(7);
@@ -217,7 +232,8 @@ public class Sensor {
         
         return obj.toString();
     }
-    
+
+    //random function which returns a realistic windstrength in JSON-format    
     public String getWindStrength(Calendar actDateTime){
         int windStrength = 0;
         int index = random.nextInt(30);
@@ -238,7 +254,8 @@ public class Sensor {
         
         return obj.toString();
     }
-    
+
+    //a fucntion which checks if the random generated temperature is valid
     public boolean checkTemp (int month, int temperature){
         
         if(month == 1 || month == 2 || month == 12)
