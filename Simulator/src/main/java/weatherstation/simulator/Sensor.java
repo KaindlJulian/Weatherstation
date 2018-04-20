@@ -25,7 +25,7 @@ public class Sensor {
     int lastWindDirection          = 2;
     int lastWindStrength           = 5;
     int lastPrecipitationType      = 1;
-    double lastPrecipitationAmount = 0.6;
+    double lastPrecipitationAmount = 0.0;
     Random random                  = new Random();
     static final int maxTempSpring = 30;
     static final int maxTempSummer = 40;
@@ -110,16 +110,49 @@ public class Sensor {
         obj.put("id","PRECIPITATION_TYPE");
         obj.put("date", actDateTime.getTime().toString());
         obj.put("value", precipitationTypes[precipitationType]);
-        lastAirPressure = precipitationType;
+        lastPrecipitationType = precipitationType;
         return obj.toString();
     }
-    /*
-    public String getPrecipitationAmount(){
-        String precipitationAmount = "";
+    
+    //FERTIG STELLEN!
+    public String getPrecipitationAmount(Calendar actDateTime){
+        double precipitationAmount = 0.0;
+        int index = random.nextInt(40);
+        double doubleIndex = random.nextDouble();
+        double sumIndex = index+doubleIndex;
+        double help = sumIndex;
         
-        lastAirPressure = precipitationAmount;
-        return precipitationAmount;
-    }*/
+        if(lastPrecipitationType == 0 || lastPrecipitationType == 1){
+            sumIndex = 0;
+        }
+        else if (lastPrecipitationAmount - sumIndex > 5 || lastPrecipitationAmount - sumIndex < -5){
+            sumIndex = lastPrecipitationAmount;
+        }
+        else if (lastPrecipitationAmount - sumIndex < 5 || lastPrecipitationAmount - sumIndex > -5){
+            sumIndex = help;
+        }
+        else{
+            sumIndex = lastPrecipitationAmount;
+        }
+        
+        if( ( lastPrecipitationType == 2 || lastPrecipitationType == 3 ) && lastPrecipitationAmount == 0){
+            if(help < 20){
+                sumIndex = help;
+            }
+            else{
+                sumIndex = help - 15;
+            }
+        }
+        
+        precipitationAmount = sumIndex;
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","PRECIPITATION_AMOUNT");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value", Double.toString(precipitationAmount));
+        lastPrecipitationAmount = precipitationAmount;
+        return obj.toString();
+    }
     
     /*
     public String getAirPressure(){
@@ -164,7 +197,7 @@ public class Sensor {
     
     public String getWindStrength(Calendar actDateTime){
         int windStrength = 0;
-        int index = random.nextInt(30-1)-1;
+        int index = random.nextInt(30);
         
         if(index == lastWindStrength-1 || index == lastWindStrength-2 || index == lastWindStrength -3 ||
            index == lastWindStrength +1 || index == lastWindStrength +2 || index == lastWindStrength +3)

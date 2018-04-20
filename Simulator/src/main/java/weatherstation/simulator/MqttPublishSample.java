@@ -92,6 +92,12 @@ public class MqttPublishSample {
         message.setRetained(true);
         mqttClient.publish(topicPrecipitationType, message);
         
+        content = sensor.getPrecipitationAmount(actDateTime);
+        message = new MqttMessage(content.getBytes());
+        message.setQos(qos);
+        message.setRetained(true);
+        mqttClient.publish(topicPrecipitationAmount, message);
+        
         return 1;
         
         /*
@@ -108,13 +114,7 @@ public class MqttPublishSample {
         content = sensor.getAirToxicity();
         message = new MqttMessage(content.getBytes());
         message.setQos(qos);
-        mqttClient.publish(topicAirToxicity, message);
-
-        
-        content = sensor.getPrecipitationAmount();
-        message = new MqttMessage(content.getBytes());
-        message.setQos(qos);
-        mqttClient.publish(topicPrecipitationAmount, message);*/
+        mqttClient.publish(topicAirToxicity, message);*/
         
         
     }
