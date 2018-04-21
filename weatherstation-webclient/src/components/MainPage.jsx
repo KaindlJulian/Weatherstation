@@ -113,15 +113,15 @@ class mainPage extends Component {
 
               </div>
               <hr/>
-              <h2>Luftfeuchtigkeit: {this.props.air.humidity}%</h2>
+              <h2>Humidity: {this.props.air.humidity}%</h2>
               <ProgressLine
                 progress={this.props.air.humidity / 100}
                 options={options}
                 initialAnimate={true}
                 containerStyle={containerStyle}
                 containerClassName={'.progressbar'} />
-              
               </div>
+              
               
 
             </div>
@@ -130,8 +130,8 @@ class mainPage extends Component {
                 <h1 className="d-flex justify-content-center">Allgemeines</h1>
                 <br/>
                 <hr/>
-                <h2><img src={require('../assets/animated/cloudy-day-3.svg')} width={'125vh'} height={'125vw'} alt=""/>
-                SUNNY</h2>
+                <h2><img src={require('../assets/animated/' + this.props.precipitation.type + '.svg')} width={'100vh'} height={'100vw'} alt=""/>
+                {this.props.precipitation.type.toUpperCase()} <div> Precipitation Amount: {this.props.precipitation.amount}ml <img src={require('../assets/static/water-drops.svg')} width={'75vh'} height={'75vw'} alt=""/></div> </h2>
                 <hr/>
                 <h2>Location: <b>LINZ</b> <i className="fa fa-map-marker mr-1" aria-hidden="true"></i></h2>
                 <hr/>
@@ -145,7 +145,7 @@ class mainPage extends Component {
             
           </div>
 
-          <div style = {{width:'100%', height:'60vh', margin:0}} className="row">
+          <div style = {{width:'100%', height:'65vh', margin:0}} className="row">
 
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">

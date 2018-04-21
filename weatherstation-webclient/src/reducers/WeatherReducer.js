@@ -23,7 +23,7 @@ export default function reducer(state={
       strength: 0,
     },
     precipitation: {
-      type : "",
+      type : "sunny",
       amount : 0
     },
     data: {
@@ -78,7 +78,8 @@ export default function reducer(state={
       '/station/sensor1/temperature/',
        '/station/sensor1/wind/direction/',
         '/station/sensor1/wind/strength/',
-        '/station/sensor1/air/humidity/']
+        '/station/sensor1/air/humidity/',
+        '/station/sensor1/precipitation/type/']
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
@@ -115,6 +116,15 @@ export default function reducer(state={
             air : {
               ...state.air,
               humidity: action.payload.value
+            }
+          }
+          case 'PRECIPITATION_TYPE':
+          console.log(action.payload)
+          return{
+            ...state,
+            precipitation : {
+              ...state.precipitation,
+              type: action.payload.value
             }
           }
 
