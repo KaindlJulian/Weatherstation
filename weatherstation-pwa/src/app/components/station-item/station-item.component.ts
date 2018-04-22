@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { Station } from '../../_models/index';
 
@@ -13,12 +13,12 @@ export class StationItemComponent implements OnInit {
   constructor(private router: Router) { }
 
   @Input() station: Station;
+  @Output() openInDashboard: EventEmitter<Station> = new EventEmitter();
 
   ngOnInit() {
   }
 
   openDashboard() {
-    // save selected station in local storage
-    this.router.navigate(['dashboard']);
+    this.openInDashboard.emit(this.station);
   }
 }

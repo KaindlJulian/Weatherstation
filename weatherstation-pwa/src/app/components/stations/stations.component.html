@@ -6,15 +6,13 @@
 
     <!--station-items-->
     <ul class="station-list list-group">
-      <li class="mt-auto list-group-item transparent">
-          <station-item></station-item>
-      </li>
-      <li class="mt-auto list-group-item transparent">
-          <station-item></station-item>
-      </li>
-      <li class="mt-auto list-group-item transparent">
-          <station-item></station-item>
-      </li>
+        <li *ngFor="let station of stations" class="mt-auto list-group-item transparent">
+            <station-item
+              [station]="station"
+              (openInDashboard)="onOpenInDashboard($event)"
+              >
+            </station-item>
+          </li>
     </ul>
 
     <div *ngIf="showNewStationForm" [ngClass]="{'fadeOutDown': moveOut===true}" class="fixed-bottom stationDialog animated fadeInUp">

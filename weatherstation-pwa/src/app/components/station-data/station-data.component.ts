@@ -18,12 +18,13 @@ export class StationDataComponent implements OnInit {
   private air = new Air();
   private precipitation = new Precipitation();
   private direction_path = 'assets/weather/wind-directions/N.svg';
+  private type_path = 'assets/weather/static/sunny.svg';
 
   constructor(
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.station = this.storageService.getDashboardStation();
     if (!this.station) {
       this.station = new Station();
@@ -42,10 +43,7 @@ export class StationDataComponent implements OnInit {
     this.mqttService.connect();
      this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
-      this.station.lastUpdate = this.temperature.date;
-      this.station.lastTemperature = this.temperature;
-      this.storageService.setChartLabel(payload.date);
-      this.storageService.setChartDataset(this.temperature);
+      this.setTemperatures(payload);
     });
     this.mqttService.subscribe('/station/' + stationName + '/wind/direction/').subscribe(payload => {
       this.wind.direction = payload.value;
@@ -59,7 +57,19 @@ export class StationDataComponent implements OnInit {
     });
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/type/').subscribe(payload => {
       this.precipitation.type = payload.value;
+      this.type_path = 'assets/weather/static/' + this.precipitation.type + '.svg';
     });
   }
 
+  private setTemperatures(payload: any) {
+    this.station.lastUpdate = this.temperature.date;
+    this.storageService.setChartLabel(payload.date);
+    this.storageService.setChartDataset(this.temperature);
+    if (this.temperature !== this.station.lastTemperature) {
+      this.station.lastTemperature = this.temperature;
+      if (this.storageService.getDashboardStation === null) {
+        this.storageService.setDashboardStation(this.station);
+      }
+    }
+  }
 }

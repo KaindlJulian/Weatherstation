@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { SessionsStorageService } from '../../_services/sessions-storage.service';
 
 @Component({
   selector: 'app-navbar',

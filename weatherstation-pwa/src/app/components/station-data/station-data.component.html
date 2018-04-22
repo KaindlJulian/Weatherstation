@@ -4,7 +4,7 @@
     <h5 class="h5-responsive" style="font-size:16px;">{{temperature.date}}</h5>
   </div>
     <div class="d-flex justify-content-center position-relative py-2">
-      <img class="weather-icon" src="assets/weather/static/sunny.svg" alt="weather"> 
+      <img class="weather-icon" [src]="type_path" alt="weather"> 
       <h1 class="h1 mt-auto mb-auto mx-3">{{temperature.value}} °C</h1>
     </div>
     <div class="card transparent z-depth-0">
