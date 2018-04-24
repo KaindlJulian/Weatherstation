@@ -6,12 +6,6 @@ namespace Controller
 {
     class Program
     {
-        static readonly string[] TOPICS = new[]
-        {
-            "station/+/air/toxicity",
-            "station/+/wind/strength"
-        };
-
         static Mqtt mqtt;
 
 
