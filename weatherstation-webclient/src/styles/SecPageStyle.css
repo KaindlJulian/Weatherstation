@@ -5,6 +5,6 @@
 .rare-grass-gradient {
     background-image: -webkit-gradient(linear, left bottom, left top, from(#69f0ae), to(#00c853));
     background-image: -webkit-linear-gradient(bottom, #b9f6ca 0%, #00c853 100%);
-    background-image: linear-gradient(to top, #69f0ae 0%, #00c853 100%);
+    background-image: linear-gradient(to top, #455a64 0%, #7c8487 100%);
   color: white; }; 
     

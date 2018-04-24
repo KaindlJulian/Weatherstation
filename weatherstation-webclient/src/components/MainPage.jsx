@@ -61,7 +61,7 @@ class mainPage extends Component {
   
 
   componentWillMount() {
-    client = mqtt.connect('ws://test.mosquitto.org:8080')
+    client = mqtt.connect('ws://broker.hivemq.com:8000')
   }
 
     
@@ -91,16 +91,18 @@ class mainPage extends Component {
     return (
       <div className="rare-wind-gradient">
         <TopNavbar color={{
-          transparent: ''
+          transparent: 'elegant-color',
+          light: false,
+          dark: true
         }} / >
         <div style={{
           marginTop: '10vh'
         }} className="d- flex justify-content-center">
-          <div style = {{width:'100%', margin:0}} className="row">
+          <div style = {{width:'100%', marginBottom:'10vh'}} className="row mx-0">
 
             <div
               className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+              <div style={{width:'100%', height: '100%'}} className="z-depth-5">
               <h1 style={{textAlign:"center"}}>Testing</h1>
               <br/>
               <hr/>
@@ -126,18 +128,20 @@ class mainPage extends Component {
 
             </div>
             <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
-            <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+            <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
                 <h1 className="d-flex justify-content-center">Allgemeines</h1>
                 <br/>
                 <hr/>
                 <h2><img src={require('../assets/animated/' + this.props.precipitation.type + '.svg')} width={'100vh'} height={'100vw'} alt=""/>
-                {this.props.precipitation.type.toUpperCase()} <div> Precipitation Amount: {this.props.precipitation.amount}ml <img src={require('../assets/static/water-drops.svg')} width={'75vh'} height={'75vw'} alt=""/></div> </h2>
+                
+                {this.props.precipitation.type.toUpperCase()} 
+                <h2 className="pull-right mt-5 mr-3" style={{fontSize:'3rem'}}>{this.props.temperature} °C</h2>
+                <div> Precipitation Amount: {Math.round(this.props.precipitation.amount)} l/m<sup>2</sup><img src={require('../assets/static/water-drops.svg')} width={'75vh'} height={'75vw'} alt=""/></div> </h2>
                 <hr/>
                 <h2>Location: <b>LINZ</b> <i className="fa fa-map-marker mr-1" aria-hidden="true"></i></h2>
                 <hr/>
                 <h2>{this.props.date}</h2>
-                <hr/>
-                <h2>{this.props.temperature} °C</h2>
+                
               </div>
 
             </div>
@@ -149,9 +153,9 @@ class mainPage extends Component {
 
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-indigo border-medium">
+              <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
               
-                  <Line height={85} data={this.props.data} options={this.props.options}></Line>
+                  <Line height={90} data={this.props.data} options={this.props.options}></Line>
               </div>
               
 

@@ -1,42 +1,44 @@
 ﻿using Newtonsoft.Json;
-using OpenNETCF.MQTT;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace WeatherstationClient
 {
     public class Mqtt
     {
-        private Dictionary<string, Func<string, string, string, Data, Task>> handlers = new Dictionary<string, Func<string, string, string, Data, Task>>();
-        private MQTTClient client;
+        Dictionary<string, Func<string, string, string, Data, Task>> handlers = new Dictionary<string, Func<string, string, string, Data, Task>>();
+        private MqttClient client;
 
-        public async Task Run(string hostname, string clientId, EventHandler callback, string[] topics = null, QoS qoS = QoS.AcknowledgeDelivery)
+        public void Run(string hostname, string clientId)
         {
-            client = new MQTTClient(hostname);
+            client = new MqttClient(hostname);
 
-            client.Connected += callback;
-            client.MessageReceived += Client_MessageReceived;
+            client.MqttMsgPublishReceived += Client_MessageReceived;
 
-            await client.ConnectAsync(clientId);
+            client.Connect(clientId);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="topic"></param>
         /// <param name="handler">string topic, string station, string subtopic, Data data</param>
-        public void Subscribe(string topic, Func<string, string, string, Data, Task> handler, bool station = false, QoS qoS = QoS.AssureDelivery)
+        public void Subscribe(string topic, Func<string, string, string, Data, Task> handler, bool station = false, byte qos = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE)
         {
+            handlers.Add(topic, handler);
+
             if (station == true)
                 topic = "station/+/" + topic;
 
-            client.Subscriptions.Add(topic, qoS);
-            handlers.Add(topic, handler);
+            client.Subscribe(new string[] { topic }, new byte[] { qos });
         }
 
-        public async Task Publish(string topic, Data data, string station = null, QoS qoS = QoS.AssureDelivery, bool retain = false)
+        public async Task Publish(string topic, Data data, string station = null, bool retain = false, byte qos = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE)
         {
             if (client == null)
                 return;
@@ -44,16 +46,19 @@ namespace WeatherstationClient
             if (station != null)
                 topic = "station/" + station + "/" + topic;
 
-            await client.PublishAsync(topic, JsonConvert.SerializeObject(data), qoS, retain);
+            client.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(data)), qos, retain);
         }
 
-        private void Client_MessageReceived(string topic, QoS qos, byte[] payload)
+        private void Client_MessageReceived(object sender, MqttMsgPublishEventArgs e)
         {
+            string topic = e.Topic;
+            byte[] payload = e.Message;
+
             var (station, subtopic) = ParseTopic(topic);
             Data data = ParsePayload(payload);
 
             if (!handlers.ContainsKey(subtopic))
-            { 
+            {
                 Console.WriteLine("Received unknown topic: " + topic);
                 return;
             }
@@ -62,7 +67,7 @@ namespace WeatherstationClient
             {
                 handlers[subtopic](topic, station, subtopic, data);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("An error occured during handler execution!");
                 Console.WriteLine(ex);
@@ -74,9 +79,9 @@ namespace WeatherstationClient
             if (!topic.StartsWith("station/"))
                 return (null, topic);
 
-            topic = topic.Substring(9);
-            string station = topic.Substring(topic.IndexOf('/'));
-            topic = topic.Substring(station.Length);
+            topic = topic.Substring(8);
+            string station = topic.Remove(topic.IndexOf('/'));
+            topic = topic.Substring(station.Length + 1);
 
             return (station, topic);
         }
