@@ -1,11 +1,12 @@
 var temp = {labels:  [],
-    datasets: [
-      {
-        label: "Temperature(Celsius)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: []
-      }
-    ]}
+datasets: [
+  {
+    label: "Temperature(Celsius)",
+    backgroundColor: '',
+    data: [],
+    borderColor:'white'
+  }
+]}
     
     export default function reducer(state={
         values: {
@@ -30,24 +31,36 @@ var temp = {labels:  [],
           
         },
         options: {
-          scales: {
-            xAxes: [
-              {
-                type: 'Date',
-                time: {
-                  format: "dd",
-                  unit: 'day',
-                  unitStepSize: 1,
-                  displayFormats: {
-                    'day': 'dd',
-                    min: '1',
-                    max: '31'
-                  }
-                }
-              }
-            ]
-          }
+      responsive : true,
+      legend: {
+            labels: {
+                fontColor: "white",
+                fontSize: 12
+            }
         },
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
+              }   
+        ],
+        yAxes:[
+          {
+            gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#FFFFF", // this here
+                },
+          }
+        ]
+      }
+    },
         topic:''
     }, action){
         switch (action.type) {

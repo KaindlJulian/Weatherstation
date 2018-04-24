@@ -28,25 +28,25 @@ export default class topNavbar extends Component {
   }
   render() {
     return (
-      <Navbar color={this.props.color.transparent} expand="lg" dark fixed="static" scrolling>
+      <Navbar color={this.props.color.transparent} light={this.props.color.light} dark={this.props.color.dark}  expand="lg" fixed="static" scrolling>
         <Container>
           <NavbarBrand href="/">
       
-            <h2 className="text-center font-bold mt-0 pt-0 mb-0 white-text">
+            <h2 className="text-center font-bold mt-0 pt-0 mb-0">
               <em>IoT WeatherStation Client</em>
             </h2>
           </NavbarBrand>
           { !this.state.isWideEnough && <NavbarToggler onClick = {this.onClick} />}
           <Collapse isOpen = {this.state.collapse} navbar>
-            <NavbarNav className="ml-auto">
+            <NavbarNav className="ml-auto black-text">
               <NavItem>
-              <NavLink to='/' className="nav-link waves-light border rounded border-white">Daily Weather</NavLink>
+              <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Daily Weather</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Monthly Report</NavLink>
+              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded border-white">Yearly Report</NavLink>
+              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Yearly Report</NavLink>
               </NavItem>
               <NavItem>
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>

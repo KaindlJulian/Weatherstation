@@ -79,7 +79,8 @@ export default function reducer(state={
        '/station/sensor1/wind/direction/',
         '/station/sensor1/wind/strength/',
         '/station/sensor1/air/humidity/',
-        '/station/sensor1/precipitation/type/']
+        '/station/sensor1/precipitation/type/',
+        '/station/sensor1/precipitation/amount/']
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
@@ -127,6 +128,16 @@ export default function reducer(state={
               type: action.payload.value
             }
           }
+          case 'PRECIPITATION_AMOUNT':
+          console.log(action.payload)
+          return{
+            ...state,
+            precipitation : {
+              ...state.precipitation,
+              amount: action.payload.value
+            }
+          }
+
 
           default:
           return state

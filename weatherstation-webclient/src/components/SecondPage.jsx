@@ -31,7 +31,7 @@ export class secondPage extends Component {
   }
   
   componentWillMount() {
-    client = mqtt.connect('ws://test.mosquitto.org:8080',{resubscribe: false})
+    client = mqtt.connect('ws://broker.hivemq.com:8000',{resubscribe: false})
   }
 changeMonth(month){
     client.unsubscribe(this.props.topic);
@@ -47,14 +47,16 @@ changeMonth(month){
     return (
       <div className="rare-grass-gradient">
         <TopNavbar color={{
-          transparent: ''
+          transparent: 'yellow lighten-5',
+          light: true,
+          dark: false
         }}/>
          <div style={{
           marginTop: '10vh'
         }} className="d- flex justify-content-center">
 
           <Dropdown isOpen = { this.state.dropdownOpen } toggle = { this.toggle }>
-          <DropdownToggle caret color="green">
+          <DropdownToggle caret color="blue-grey darken-1">
             Pick A Month
           </DropdownToggle>
           <DropdownMenu>
@@ -64,18 +66,18 @@ changeMonth(month){
             )}
           </DropdownMenu>
         </Dropdown>
-          <div style = {{width:'100%', margin:0}} className="row">
+          <div style = {{width:'100%', marginBottom:'10vh'}} className="row mx-0">
 
             <div
               className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
+              <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
               <h2 className="d-flex justify-content-center">Testing</h2>
               </div>
               
 
             </div>
             <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
-            <div style={{width:'100%', height: '100%'}} className="border rounded-left border-light">
+            <div style={{width:'100%', height: '100%'}} className="z-depth-5">
                 <h1 className="d-flex justify-content-center">This is a test</h1>
                 <h2>Location: <b>LINZ</b></h2>
                 <h2>asdlkjflasdf</h2>
@@ -90,7 +92,7 @@ changeMonth(month){
 
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
-              <div style={{width:'100%', height: '100%'}} className=" border rounded-left border-light">
+              <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
                   <Line height={75} data={this.props.data} options={this.props.options}></Line>
               </div>
               
