@@ -1,36 +1,28 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "ea0fccb307518f8b46ef40d2bae699c4a915a6cf"
+    "signature": "3481456c0e23a77e5e9b717943289374ff95723e"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "LogWriter/1.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "11.0.2",
-          "OpenNETCF.MQTT": "1.0.17253"
+          "M2Mqtt": "4.3.0",
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "LogWriter.dll": {}
         }
       },
+      "M2Mqtt/4.3.0": {
+        "runtime": {
+          "lib/net45/M2Mqtt.Net.dll": {}
+        }
+      },
       "Newtonsoft.Json/11.0.2": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
-        }
-      },
-      "opennetcf-extensions-standard/1.0.17160": {
-        "runtime": {
-          "lib/netstandard1.1/OpenNETCF.Extensions.dll": {}
-        }
-      },
-      "OpenNETCF.MQTT/1.0.17253": {
-        "dependencies": {
-          "opennetcf-extensions-standard": "1.0.17160"
-        },
-        "runtime": {
-          "lib/netstandard1.3/OpenNETCF.MQTT.dll": {}
         }
       }
     }
@@ -41,26 +33,19 @@
       "serviceable": false,
       "sha512": ""
     },
+    "M2Mqtt/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2A1uM20uxuovQKPA0dkZUqD9gUpIMaX7KxdLiVM7IEXdPRL709hGuudHnvlDxm2/6b2LcOjshrYGVG9vdpipag==",
+      "path": "m2mqtt/4.3.0",
+      "hashPath": "m2mqtt.4.3.0.nupkg.sha512"
+    },
     "Newtonsoft.Json/11.0.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
       "path": "newtonsoft.json/11.0.2",
       "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
-    },
-    "opennetcf-extensions-standard/1.0.17160": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-E2Hbli8QfD2vwGq5mk91zipJp8bOi5+ZXlvVp4z5JeMJTCe5cY5uEV0LabnkoLUPOlrm+z/hIunigAl2gAxC8A==",
-      "path": "opennetcf-extensions-standard/1.0.17160",
-      "hashPath": "opennetcf-extensions-standard.1.0.17160.nupkg.sha512"
-    },
-    "OpenNETCF.MQTT/1.0.17253": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BXjiuN7K2xO4jplBDGQjCxHT8uQb+5dPXvmbS3TNlbz1Dw1f3/zGM3tuDZ7Nuy6DtiKrW7Y7ZrkpS2abdID/fA==",
-      "path": "opennetcf.mqtt/1.0.17253",
-      "hashPath": "opennetcf.mqtt.1.0.17253.nupkg.sha512"
     }
   }
 }

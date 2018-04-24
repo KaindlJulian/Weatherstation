@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="M2Mqtt" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="OpenNETCF.MQTT" Version="1.0.17253" />
   </ItemGroup>
 
   <Import Project="..\WeatherstationClient\WeatherstationClient.projitems" Label="Shared" />

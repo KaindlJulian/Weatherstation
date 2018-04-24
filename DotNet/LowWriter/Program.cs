@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using OpenNETCF.MQTT;
-using System;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 using WeatherstationClient;
 
@@ -25,18 +22,16 @@ namespace LogWriter
 
         static void Main(string[] args)
         {
-            MainAsync(args).Wait();
+            StartMqtt();
             Console.WriteLine("Press enter to exit");
             Console.ReadKey();
         }
 
-        static async Task MainAsync(string[] args)
+        static void StartMqtt()
         {
             Mqtt mqtt = new Mqtt();
-            await mqtt.Run("localhost", "LogWriter", (sender, e) =>
-            {
-                mqtt.Subscribe("temperature", Temperature, true);
-            }, TOPICS, QoS.AssureDelivery);
+            mqtt.Run("localhost", "LogWriter");
+            mqtt.Subscribe("temperature", Temperature, true);
         }
 
         private static Task Temperature(string topic, string station, string subtopic, Data data)
@@ -44,7 +39,7 @@ namespace LogWriter
             if (station == null)
                 return Task.CompletedTask;
 
-            Console.WriteLine($"Station {station} has temperature {(int)data.Value}");
+            Console.WriteLine($"Station {station} has temperature {(double)data.Value}");
 
             return Task.CompletedTask;
         }

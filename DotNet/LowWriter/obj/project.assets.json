@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "M2Mqtt/4.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/M2Mqtt.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net45/M2Mqtt.Net.dll": {}
+        }
+      },
       "Microsoft.NETCore.App/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -205,32 +214,46 @@
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
-      },
-      "opennetcf-extensions-standard/1.0.17160": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.1/OpenNETCF.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.1/OpenNETCF.Extensions.dll": {}
-        }
-      },
-      "OpenNETCF.MQTT/1.0.17253": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "opennetcf-extensions-standard": "1.0.17160"
-        },
-        "compile": {
-          "lib/netstandard1.3/OpenNETCF.MQTT.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/OpenNETCF.MQTT.dll": {}
-        }
       }
     }
   },
   "libraries": {
+    "M2Mqtt/4.3.0": {
+      "sha512": "2A1uM20uxuovQKPA0dkZUqD9gUpIMaX7KxdLiVM7IEXdPRL709hGuudHnvlDxm2/6b2LcOjshrYGVG9vdpipag==",
+      "type": "package",
+      "path": "m2mqtt/4.3.0",
+      "files": [
+        "lib/net39-cf/DeployFileList.txt",
+        "lib/net39-cf/M2Mqtt.NetCf39.dll",
+        "lib/net39-cf/M2Mqtt.NetCf39.pdb",
+        "lib/net45/M2Mqtt.Net.dll",
+        "lib/net45/M2Mqtt.Net.pdb",
+        "lib/netmf42/M2Mqtt.NetMf.dll",
+        "lib/netmf42/M2Mqtt.NetMf.pdb",
+        "lib/netmf42/be/M2Mqtt.NetMf.pdb",
+        "lib/netmf42/be/M2Mqtt.NetMf.pdbx",
+        "lib/netmf42/be/M2Mqtt.NetMf.pe",
+        "lib/netmf42/le/M2Mqtt.NetMf.pdb",
+        "lib/netmf42/le/M2Mqtt.NetMf.pdbx",
+        "lib/netmf42/le/M2Mqtt.NetMf.pe",
+        "lib/netmf43/M2Mqtt.NetMf.dll",
+        "lib/netmf43/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/be/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/be/M2Mqtt.NetMf.pdbx",
+        "lib/netmf43/be/M2Mqtt.NetMf.pe",
+        "lib/netmf43/le/M2Mqtt.NetMf.pdb",
+        "lib/netmf43/le/M2Mqtt.NetMf.pdbx",
+        "lib/netmf43/le/M2Mqtt.NetMf.pe",
+        "lib/win81/M2Mqtt.WinRT.dll",
+        "lib/win81/M2Mqtt.WinRT.pdb",
+        "lib/win81/M2Mqtt.WinRT.pri",
+        "lib/wpa81/M2Mqtt.WinRT.dll",
+        "lib/wpa81/M2Mqtt.WinRT.pdb",
+        "lib/wpa81/M2Mqtt.WinRT.pri",
+        "m2mqtt.4.3.0.nupkg.sha512",
+        "m2mqtt.nuspec"
+      ]
+    },
     "Microsoft.NETCore.App/2.0.0": {
       "sha512": "/mzXF+UtZef+VpzzN88EpvFq5U6z4rj54ZMq/J968H6pcvyLOmcupmTRpJ3CJm8ILoCGh9WI7qpDdiKtuzswrQ==",
       "type": "package",
@@ -715,33 +738,13 @@
         "newtonsoft.json.11.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec"
       ]
-    },
-    "opennetcf-extensions-standard/1.0.17160": {
-      "sha512": "E2Hbli8QfD2vwGq5mk91zipJp8bOi5+ZXlvVp4z5JeMJTCe5cY5uEV0LabnkoLUPOlrm+z/hIunigAl2gAxC8A==",
-      "type": "package",
-      "path": "opennetcf-extensions-standard/1.0.17160",
-      "files": [
-        "lib/netstandard1.1/OpenNETCF.Extensions.dll",
-        "opennetcf-extensions-standard.1.0.17160.nupkg.sha512",
-        "opennetcf-extensions-standard.nuspec"
-      ]
-    },
-    "OpenNETCF.MQTT/1.0.17253": {
-      "sha512": "BXjiuN7K2xO4jplBDGQjCxHT8uQb+5dPXvmbS3TNlbz1Dw1f3/zGM3tuDZ7Nuy6DtiKrW7Y7ZrkpS2abdID/fA==",
-      "type": "package",
-      "path": "opennetcf.mqtt/1.0.17253",
-      "files": [
-        "lib/netstandard1.3/OpenNETCF.MQTT.dll",
-        "opennetcf.mqtt.1.0.17253.nupkg.sha512",
-        "opennetcf.mqtt.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "M2Mqtt >= 4.3.0",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Newtonsoft.Json >= 11.0.2",
-      "OpenNETCF.MQTT >= 1.0.17253"
+      "Newtonsoft.Json >= 11.0.2"
     ]
   },
   "packageFolders": {
@@ -788,6 +791,10 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "M2Mqtt": {
+            "target": "Package",
+            "version": "[4.3.0, )"
+          },
           "Microsoft.NETCore.App": {
             "target": "Package",
             "version": "[2.0.0, )",
@@ -796,10 +803,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[11.0.2, )"
-          },
-          "OpenNETCF.MQTT": {
-            "target": "Package",
-            "version": "[1.0.17253, )"
           }
         },
         "imports": [
@@ -809,5 +812,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'M2Mqtt 4.3.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "M2Mqtt",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

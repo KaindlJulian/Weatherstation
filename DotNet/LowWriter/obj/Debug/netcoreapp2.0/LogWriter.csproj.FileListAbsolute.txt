@@ -8,3 +8,4 @@ D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LogWriter.dl
 D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LogWriter.pdb
 D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LogWriter.dll
 D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LogWriter.pdb
+D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LogWriter.csprojResolveAssemblyReference.cache
