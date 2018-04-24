@@ -1,8 +1,0 @@
-D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LowWriter.deps.json
-D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LowWriter.runtimeconfig.json
-D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LowWriter.runtimeconfig.dev.json
-D:\Projects\Weatherstation\DotNet\LowWriter\bin\Debug\netcoreapp2.0\LowWriter.dll
-D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LowWriter.csprojResolveAssemblyReference.cache
-D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LowWriter.csproj.CoreCompileInputs.cache
-D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LowWriter.AssemblyInfoInputs.cache
-D:\Projects\Weatherstation\DotNet\LowWriter\obj\Debug\netcoreapp2.0\LowWriter.AssemblyInfo.cs
