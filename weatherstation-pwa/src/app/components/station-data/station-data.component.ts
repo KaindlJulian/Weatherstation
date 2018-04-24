@@ -24,14 +24,12 @@ export class StationDataComponent implements OnInit {
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.station = this.storageService.getDashboardStation();
     if (!this.station) {
       this.station = new Station();
       this.station.name = 'sensor1';
     }
-    // todo: if station is null and local storage is empty dashboard redirects to station-list
-
     this.initMqtt(this.station.name);
   }
 
@@ -41,7 +39,7 @@ export class StationDataComponent implements OnInit {
    */
   private initMqtt(stationName: String) {
     this.mqttService.connect();
-     this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
+      this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
       this.setTemperatures(payload);
     });
@@ -58,6 +56,9 @@ export class StationDataComponent implements OnInit {
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/type/').subscribe(payload => {
       this.precipitation.type = payload.value;
       this.type_path = 'assets/weather/static/' + this.precipitation.type + '.svg';
+    });
+    this.mqttService.subscribe('/station/' + stationName + '/precipitation/amount/').subscribe(payload => {
+      this.precipitation.amount = payload.value;
     });
   }
 

@@ -65,8 +65,8 @@ export class SessionsStorageService {
    * @param data value displayed on chart
    */
   public setChartLabel(data: String) {
-    const date = data.substr(data.indexOf(':') - 2, 5);
-    this.chartLabel.next(date);
+    const date = data.substr(data.indexOf(':') - 2, 3);
+    this.chartLabel.next(date + '00');
     console.log(this.chartLabel);
   }
   /**

@@ -27,5 +27,4 @@ export class MqttClientComponent implements OnInit {
   public publish() {
     this.mqtt.publish(this.topic, this.message);
   }
-
 }

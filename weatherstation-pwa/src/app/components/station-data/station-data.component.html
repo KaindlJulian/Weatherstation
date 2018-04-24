@@ -8,9 +8,10 @@
       <h1 class="h1 mt-auto mb-auto mx-3">{{temperature.value}} °C</h1>
     </div>
     <div class="card transparent z-depth-0">
-        <h2 class="h5-responsive d-flex justify-content-between">
+        <h2 class="h5-responsive d-flex justify-content-between mx-3">
           <div><img class="data-icon mr-1" src="assets/misc-icons/humidity.svg">{{air.humidity}}</div>
           <div><img class="data-icon mr-1" src="assets/misc-icons/wind.svg">{{wind.speed}} km/h</div>
+          <div><img class="data-icon mr-1" src="assets/misc-icons/precipitation.svg">{{precipitation.amount}} l/m<sup>2</sup></div>
           <div><img class="data-icon mr-1" [src]="direction_path">{{wind.direction}}</div>
         </h2>
     </div>
