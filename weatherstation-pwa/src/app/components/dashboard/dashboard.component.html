@@ -1,6 +1,9 @@
-<body class="rare-wind-gradient">
-    <app-navbar [isDashboard]="true"></app-navbar>
+<body [ngStyle]="{'background-image':daytime === 'night' ?  
+    'linear-gradient(to top, #061122 0%, #123063 100%)':
+    'linear-gradient(to top, #48a6df 0%, #203c73 100%)'}" 
+    class="rare-wind-gradient">
 
+    <app-navbar [isDashboard]="true"></app-navbar>
     <!--fullscreen wrapper-->
     <div class="w-100 h-100 d-flex align-items-start flex-wrap">
         <!--40vh-->
@@ -13,6 +16,6 @@
             <week-chart class="col-12 mb-auto"></week-chart>
         </div>
     </div>
-
     <app-footer></app-footer>
+
 </body>

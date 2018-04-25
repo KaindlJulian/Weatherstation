@@ -2,7 +2,7 @@
   import { Observable } from 'rxjs/Observable';
   import * as mqtt from 'mqtt';
 
-  const MQTT_URL: String = 'ws://test.mosquitto.org';
+  const MQTT_URL: String = 'wss://m23.cloudmqtt.com';
 
   @Injectable()
   export class MyMqttService {
@@ -16,7 +16,9 @@
      */
     public connect() {
       this.client = mqtt.connect(MQTT_URL, {
-        port: 8080,
+        port: 33965,
+        username: 'qwwegtrz',
+        password: '0L9IZSeX8fMO'
       });
       console.log(this.client);
     }
