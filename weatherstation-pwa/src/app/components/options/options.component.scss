@@ -1,0 +1,19 @@
+.rare-wind-gradient {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#69aae0), to(#2b33d1));
+    background-image: -webkit-linear-gradient(bottom, #69aae0 0%, #2b33d1 100%);
+    background-image: linear-gradient(to top, #329bdb 0%, #203c73 100%); 
+}
+.form-container {
+    margin-top: 70px;
+}
+.dropdown-menu {
+    top: 10px;
+    right: 5px;
+    left: auto;
+}
+.dropdown-item {
+    text-align: center;
+}
+h6 {
+    color: #22437b;
+}

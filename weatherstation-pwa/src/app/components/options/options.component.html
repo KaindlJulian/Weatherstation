@@ -1,0 +1,23 @@
+<body class="rare-wind-gradient container d-flex justify-content-start">
+  <app-navbar [isDashboard]="false"></app-navbar>
+  <div class="container form-container"> 
+    <div>
+      <div class="md-form form-sm d-flex">
+          <input mdbInputDirective type="text" id="unit" class="form-control form-control-sm mr-2">
+          <label for="unit">°C</label>
+        
+          <div class="dropdown" dropdown>
+            <button dropdownToggle class="btn btn-primary dropdown-toggle waves-light" type="button" mdbWavesEffect>
+            </button>
+            <div class="dropdown-menu dropdown-primary">
+              <h6 class="dropdown-header">Temperature Units</h6>
+              <a class="dropdown-item" href="#">°C</a>
+              <a class="dropdown-item" href="#">°F</a>
+              <a class="dropdown-item" href="#">K</a>
+            </div>
+          </div>
+        </div>  
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

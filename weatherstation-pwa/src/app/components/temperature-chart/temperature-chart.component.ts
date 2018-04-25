@@ -22,10 +22,10 @@ export class TemperatureChartComponent implements OnInit {
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: ['shift', 'NaN', 'NaN', 'NaN', 'NaN', 'NaN'], // delete ?
+        labels: ['shift', 'NaN', 'NaN', 'NaN', 'NaN', 'NaN'],
         datasets: [
           {
-            data: [0, 0, 0 , 0,  0, 0],                      // delete ?
+            data: [0, 0, 0 , 0,  0, 0],
             label: 'temp',
             borderColor: '#ffffff',
             borderWidth: 1,

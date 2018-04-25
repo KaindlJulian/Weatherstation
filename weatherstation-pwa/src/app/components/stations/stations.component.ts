@@ -45,7 +45,7 @@ export class StationsComponent implements OnInit {
 
   onOpenInDashboard(station: Station) {
     this.storageService.setDashboardStation(station);
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard', station.name]);
   }
 
 }

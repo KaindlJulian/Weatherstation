@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpModule } from '@angular/http';
@@ -19,7 +19,8 @@ import {
   TemperatureChartComponent,
   WeekChartComponent,
   StationsComponent,
-  StationItemComponent} from './components/index';
+  StationItemComponent,
+  OptionsComponent} from './components/index';
 
 import { MyMqttService } from './_services/my-mqtt.service';
 import { SessionsStorageService } from './_services/sessions-storage.service';
@@ -35,7 +36,8 @@ import { SessionsStorageService } from './_services/sessions-storage.service';
     TemperatureChartComponent,
     WeekChartComponent,
     StationsComponent,
-    StationItemComponent
+    StationItemComponent,
+    OptionsComponent
   ],
   imports: [
     BrowserModule,
