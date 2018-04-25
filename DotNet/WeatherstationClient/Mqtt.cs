@@ -23,6 +23,12 @@ namespace WeatherstationClient
             client.Connect(clientId);
         }
 
+        public void Close()
+        {
+            if(client != null && client.IsConnected)
+                client.Disconnect();
+        }
+
         /// <summary>
         /// 
         /// </summary>

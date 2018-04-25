@@ -12,6 +12,7 @@ namespace Controller
         static void Main(string[] args)
         {
             StartMqtt();
+
             Console.WriteLine("Press enter to continue");
             Console.ReadKey();
 
@@ -19,6 +20,8 @@ namespace Controller
 
             Console.WriteLine("Press enter to exit");
             Console.ReadKey();
+
+            mqtt.Close();
         }
 
         static void StartMqtt()

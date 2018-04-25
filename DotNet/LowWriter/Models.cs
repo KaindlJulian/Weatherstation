@@ -28,12 +28,23 @@ namespace LogWriter
         }
     }
 
-    public class Temperature : StationModel
+    public class DoubleValue : StationModel
     {
         public double Value { get; set; }
 
-        public Temperature() { }
-        public Temperature(string id, DateTime date, string station, double value) : base(id, date, station)
+        public DoubleValue() { }
+        public DoubleValue(string id, DateTime date, string station, double value) : base(id, date, station)
+        {
+            Value = value;
+        }
+    }
+
+    public class StringValue : StationModel
+    {
+        public string Value { get; set; }
+
+        public StringValue() { }
+        public StringValue(string id, DateTime date, string station, string value) : base(id, date, station)
         {
             Value = value;
         }
