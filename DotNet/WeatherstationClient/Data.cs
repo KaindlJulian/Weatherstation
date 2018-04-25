@@ -18,5 +18,13 @@ namespace WeatherstationClient
             Value = value;
             Date = DateTime.Now;
         }
+
+        public T GetValue<T>()
+        {
+            if (Value is JToken token)
+                return token.ToObject<T>();
+            else
+                return default(T);
+        }
     }
 }
