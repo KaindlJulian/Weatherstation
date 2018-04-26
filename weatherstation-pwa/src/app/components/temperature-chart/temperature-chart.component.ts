@@ -18,7 +18,6 @@ export class TemperatureChartComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -28,7 +27,7 @@ export class TemperatureChartComponent implements OnInit {
             data: [0, 0, 0 , 0,  0, 0],
             label: 'temp',
             borderColor: '#ffffff',
-            borderWidth: 1,
+            borderWidth: 1.1,
             backgroundColor: '#ffffff',
             fill: false,
             lineTension: 0
@@ -54,9 +53,9 @@ export class TemperatureChartComponent implements OnInit {
           yAxes: [{
             display: true,
             ticks: {
-              min: 0,
               fontColor: '#fffff',
-              drawTicks: false
+              drawTicks: false,
+              suggestedMin: 2
             },
             gridLines: {
               display: false
@@ -83,6 +82,6 @@ export class TemperatureChartComponent implements OnInit {
       });
       this.chart.update();
     });
-  }
 
+  }
 }

@@ -18,6 +18,9 @@ export class StationItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * emits event to open dashboard
+   */
   openDashboard() {
     this.openInDashboard.emit(this.station);
   }

@@ -34,6 +34,7 @@ export class StationDataComponent implements OnInit {
     if (!this.station) {
       this.station = new Station();
       this.station.name = 'sensor1';
+      this.storageService.setDashboardStation(this.station);
     }
     this.initMqtt(this.station.name);
   }
@@ -63,19 +64,21 @@ export class StationDataComponent implements OnInit {
       this.type_path = 'assets/weather/static/' + this.precipitation.type + '.svg';
     });
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/amount/').subscribe(payload => {
-      this.precipitation.amount = payload.value;
+      this.precipitation.amount = payload.value.slice(0, 4);
     });
   }
 
+  /**
+   * set temperatures for stored stations
+   * @param payload temperature
+   */
   private setTemperatures(payload: any) {
     this.station.lastUpdate = this.temperature.date;
     this.storageService.setChartLabel(payload.date);
     this.storageService.setChartDataset(this.temperature);
     if (this.temperature !== this.station.lastTemperature) {
       this.station.lastTemperature = this.temperature;
-      if (this.storageService.getDashboardStation === null) {
-        this.storageService.setDashboardStation(this.station);
-      }
+      this.storageService.setDashboardStation(this.station);
     }
   }
 

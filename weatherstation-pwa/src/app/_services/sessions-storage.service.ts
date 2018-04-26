@@ -43,6 +43,7 @@ export class SessionsStorageService {
       this.stationList = JSON.parse(localStorage.getItem('stations'));
     }
     if (!this.stationList.includes(station)) {
+      this.stationList.shift();
       this.stationList.push(station);
       localStorage.setItem('stations', JSON.stringify(this.stationList));
       console.log(this.stationList);

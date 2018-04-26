@@ -28,12 +28,18 @@ export class StationsComponent implements OnInit {
     this.moveOut = false;
   }
 
+  /**
+   * opens the dialog modal
+   */
   onCallDialog() {
     this.moveOut = false;
     this.showNewStationForm = false;
     this.showNewStationForm = !this.showNewStationForm;
   }
 
+  /**
+   * calls modal for stationname input
+   */
   addStation() {
     const station = this.model;
     station.lastTemperature = new Temperature;
@@ -43,9 +49,12 @@ export class StationsComponent implements OnInit {
     this.moveOut = true;
   }
 
+  /**
+   * opens selected station in dashboard
+   * @param station station to open
+   */
   onOpenInDashboard(station: Station) {
     this.storageService.setDashboardStation(station);
     this.router.navigate(['dashboard', station.name]);
   }
-
 }
