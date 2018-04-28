@@ -3,7 +3,7 @@ datasets: [
   {
     label: "Temperature(Celsius)",
     backgroundColor: '',
-    data: [],
+    data: [{name: "0:00", pv:0}],
     borderColor:'white'
   }
 ]}
@@ -26,54 +26,7 @@ export default function reducer(state={
       type : "sunny",
       amount : 0
     },
-    data: {
-      
-    },
-    options: {
-      responsive : true,
-      legend: {
-            labels: {
-                fontColor: "white",
-                fontSize: 12
-            }
-        },
-      scales: {
-        xAxes: [
-          {
-            gridLines: {
-                    display: false,
-                },
-                ticks: {
-                  fontColor: "#FFFFF", // this here
-                },
-            type: 'time',
-            time: {
-              format: "HH:mm",
-              unit: 'hour',
-              unitStepSize: 1,
-              displayFormats: {
-                'minute': 'HH:mm',
-                'hour': 'HH:mm',
-                min: '00:00',
-                max: '23:59'
-              },
-              
-                
-            }
-          }
-        ],
-        yAxes:[
-          {
-            gridLines: {
-                    display: false,
-                },
-                ticks: {
-                  fontColor: "#FFFFF", // this here
-                },
-          }
-        ]
-      }
-    },
+    data: [],
     topics : [
       '/station/sensor1/temperature/',
        '/station/sensor1/wind/direction/',
@@ -85,10 +38,13 @@ export default function reducer(state={
     switch (action.type) {
         case 'TEMPERATURE':
         console.log(action.payload);
+        var data = state.data.slice(0)
+        data.push({x:data.length, y: +action.payload.value})
         return {
             ...state,
             temperature: action.payload.value,
-            date : action.payload.date
+            date : action.payload.date,
+            data: data
           }
           case 'WIND_DIRECTION':
           console.log(action.payload)

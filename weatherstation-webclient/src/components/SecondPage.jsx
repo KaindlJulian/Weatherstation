@@ -31,7 +31,11 @@ export class secondPage extends Component {
   }
   
   componentWillMount() {
-    client = mqtt.connect('ws://broker.hivemq.com:8000',{resubscribe: false})
+    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
+      resubscribe: false,
+      username: 'qwwegtrz',
+      password: '0L9IZSeX8fMO'
+    })
   }
 changeMonth(month){
     client.unsubscribe(this.props.topic);
