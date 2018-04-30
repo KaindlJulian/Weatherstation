@@ -8,14 +8,16 @@ import { Station } from '../../_models';
 })
 export class AppFooterComponent implements OnInit {
 
-  constructor() { }
-
   @Output() updateStation: EventEmitter<Station> = new EventEmitter();
+  lastUpdate = new Date();
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   updateButton(): void {
-    this.updateStation.emit();  // act. station
+    this.updateStation.emit();
+    this.lastUpdate = new Date();
   }
 }

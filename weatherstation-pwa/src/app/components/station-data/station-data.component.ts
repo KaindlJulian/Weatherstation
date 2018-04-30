@@ -45,24 +45,31 @@ export class StationDataComponent implements OnInit {
    */
   private initMqtt(stationName: String) {
     this.mqttService.connect();
-      this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
+    // temperature
+    this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
+      this.temperature.date = payload.date.split('CEST')[0];
       this.setTemperatures(payload);
     });
+    // wind direction
     this.mqttService.subscribe('/station/' + stationName + '/wind/direction/').subscribe(payload => {
       this.wind.direction = payload.value;
       this.direction_path = 'assets/weather/wind-directions/' + this.wind.direction + '.svg';
     });
+    // wind strength
     this.mqttService.subscribe('/station/' + stationName + '/wind/strength/').subscribe(payload => {
       this.wind.speed = payload.value;
     });
+    // air humidity
     this.mqttService.subscribe('/station/' + stationName + '/air/humidity/').subscribe(payload => {
       this.air.humidity = payload.value;
     });
+    // precipitation type
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/type/').subscribe(payload => {
       this.precipitation.type = payload.value;
       this.type_path = 'assets/weather/static/' + this.precipitation.type + '.svg';
     });
+    // precipitation amount
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/amount/').subscribe(payload => {
       this.precipitation.amount = payload.value.slice(0, 4);
     });

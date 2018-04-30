@@ -31,6 +31,7 @@
     public publish(topic: string, message: any) {
       if (this.client.connected) {
         this.client.publish(topic, JSON.stringify(message));
+        console.log(topic)
         console.log(JSON.stringify(message));
       }
     }

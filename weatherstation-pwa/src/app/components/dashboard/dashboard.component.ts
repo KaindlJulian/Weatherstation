@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Station, Precipitation } from '../../_models/index';
 import { SessionsStorageService } from '../../_services/sessions-storage.service';
+import { MyMqttService } from '../../_services/my-mqtt.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,9 @@ import { SessionsStorageService } from '../../_services/sessions-storage.service
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private storageService: SessionsStorageService) {}
+  constructor(
+    private storageService: SessionsStorageService,
+    private mqttService: MyMqttService) {}
 
   daytime = 'day';
 
@@ -25,5 +28,13 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
+  }
+
+  updateDashboard() {
+    const actStation = this.storageService.getDashboardStation();
+    this.mqttService.publish('/station/' + actStation.name + '/update', {
+      interval: '10s',
+    });
+    console.log(`station "${actStation.name}" updated`);
   }
 }
