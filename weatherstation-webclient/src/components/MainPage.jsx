@@ -178,7 +178,7 @@ class mainPage extends Component {
                 <Legend.Title>Legend</Legend.Title>
               </Legend>
 
-              <XAxis type="hour">
+              <XAxis id="x" categories={this.props.categories}>
                 <XAxis.Title>Time</XAxis.Title>
               </XAxis>
 
@@ -218,7 +218,8 @@ function mapStateToProps(state) {
     data: state.weather.data,
     options : state.weather.options,
     topics : state.weather.topics,
-    date : state.weather.date
+    date : state.weather.date,
+    categories : state.weather.categories
   }
 }
 export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage)),Highcharts);

@@ -8,7 +8,6 @@ import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
 import mqtt from 'mqtt'
-import {Bar, Line} from 'react-chartjs-2';
 import Impressum from './Impressum.jsx'
 var client;
 var topic;
@@ -97,7 +96,7 @@ changeMonth(month){
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
               <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
-                  <Line height={75} data={this.props.data} options={this.props.options}></Line>
+                
               </div>
               
 

@@ -1,12 +1,5 @@
-var temp = {labels:  [],
-datasets: [
-  {
-    label: "Temperature(Celsius)",
-    backgroundColor: '',
-    data: [{name: "0:00", pv:0}],
-    borderColor:'white'
-  }
-]}
+import $ from 'jquery';
+import 'jquery-ui/ui/core';
 
 
 export default function reducer(state={
@@ -27,6 +20,7 @@ export default function reducer(state={
       amount : 0
     },
     data: [],
+    categories: [],
     topics : [
       '/station/sensor1/temperature/',
        '/station/sensor1/wind/direction/',
@@ -37,14 +31,24 @@ export default function reducer(state={
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
+        var data;
+        var categories;
         console.log(action.payload);
-        var data = state.data.slice(0)
-        data.push({x:data.length, y: +action.payload.value})
+        var d = action.payload.date.substr(action.payload.date.indexOf(':') - 2, 3);
+        data = state.data.slice(0)
+        categories = state.categories.slice(0)
+        if(d == "00:"){
+          data = [];
+          categories = [];
+        }
+        data.push(+action.payload.value)
+        categories.push(d + "00")
         return {
             ...state,
             temperature: action.payload.value,
             date : action.payload.date,
-            data: data
+            data: data,
+            categories : categories
           }
           case 'WIND_DIRECTION':
           console.log(action.payload)
