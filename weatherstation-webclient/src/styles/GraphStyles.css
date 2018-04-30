@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Unica+One);
+.my-styled-chart .highcharts-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  line-height: normal;
+  z-index: 0;
+  /* #1072 */
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Unica One', sans-serif;
+  font-size: 12px;
+}
+.my-styled-chart .highcharts-axis-line {
+    fill: none;
+    stroke: #C0D0E0;
+  }
+  
+  .my-styled-chart .highcharts-yaxis .highcharts-axis-line {
+    stroke-width: 0;
+  }
+  .my-styled-chart .highcharts-axis text{
+      fill: white !important;
+      color:white !important;
+  }
+  
+  .my-styled-chart .highcharts-axis-labels{
+    fill: #E0E0E3 !important;
+    cursor: default;
+    font-size: 0.9em;
+    color: white !important;
+  }
+  .my-styled-chart .highcharts-axis-labels text{
+      color: white !important;
+      fill: white !important;
+  }
+  .my-styled-chart .highcharts-tick {
+    stroke: #C0D0E0;
+  }
+  .my-styled-chart .highcharts-yaxis .highcharts-tick {
+    stroke-width: 0;
+  }
+  .my-styled-chart .highcharts-xaxis .highcharts-tick {
+    stroke-width: 0;
+  }
+  .my-styled-chart .highcharts-data-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: white;
+  }
+  .my-styled-chart .highcharts-data-label-box {
+    fill: none;
+    stroke-width: 0;
+  }
+  .my-styled-chart .highcharts-xaxis-grid .highcharts-grid-line {
+    stroke-width: 0;
+  }
+  .my-styled-chart .highcharts-yaxis-grid .highcharts-grid-line {
+    stroke-width: 0;
+  }
+  
+  .my-styled-chart .highcharts-data-label text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #B0B0B3;
+    text-shadow: 0 0 6px #000000, 0 0 3px #000000;
+    fill: #B0B0B3;
+    text-rendering: geometricPrecision;
+  }
+  .my-styled-chart .highcharts-legend-item text{
+      fill : white !important;
+  }
+  .my-styled-chart .highcharts-legend-title{
+      fill : white !important;
+  }
+  

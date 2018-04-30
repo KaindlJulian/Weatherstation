@@ -8,7 +8,6 @@ import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
 import mqtt from 'mqtt'
-import {Bar, Line} from 'react-chartjs-2';
 import Impressum from './Impressum.jsx'
 var client;
 var topic;
@@ -31,7 +30,11 @@ export class secondPage extends Component {
   }
   
   componentWillMount() {
-    client = mqtt.connect('ws://broker.hivemq.com:8000',{resubscribe: false})
+    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
+      resubscribe: false,
+      username: 'qwwegtrz',
+      password: '0L9IZSeX8fMO'
+    })
   }
 changeMonth(month){
     client.unsubscribe(this.props.topic);
@@ -93,7 +96,7 @@ changeMonth(month){
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
               <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
-                  <Line height={75} data={this.props.data} options={this.props.options}></Line>
+                
               </div>
               
 

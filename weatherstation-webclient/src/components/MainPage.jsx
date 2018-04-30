@@ -8,11 +8,13 @@ import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
 import {Button} from 'mdbreact'
 import mqtt from 'mqtt'
-import {Bar, Line} from 'react-chartjs-2';
+import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
+import Highcharts from 'highcharts';
 import Cloudy from '../assets/animated/cloudy-day-1.svg'
 import Sunny from '../assets/static/weather_sunset.svg';
 import Impressum from './Impressum.jsx'
 import ProgressBar from 'react-progress-bar.js'
+import '../styles/GraphStyles.css'
 var ProgressLine = ProgressBar.Line;
 var client;
 var options = {
@@ -51,17 +53,24 @@ class mainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        change: true,
+        data:[{x: new Date(), y: 2400},
+        {x: new Date(), y: 2210},]
     };
     this.nextPath = this
       .nextPath
       .bind(this);
+      this.click = this.click.bind(this)
 
   }
   
+  
 
   componentWillMount() {
-    client = mqtt.connect('ws://broker.hivemq.com:8000')
+    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
+      username: 'qwwegtrz',
+      password: '0L9IZSeX8fMO'
+    })
   }
 
     
@@ -85,6 +94,12 @@ class mainPage extends Component {
       .props
       .history
       .push(path);
+  }
+  click(){
+    var arr = this.state.data.slice(0)
+    arr.push({x: new Date(), y: 2100})
+    console.log(arr)
+    this.setState({data: arr});
   }
 
   render() {
@@ -149,13 +164,31 @@ class mainPage extends Component {
             
           </div>
 
-          <div style = {{width:'100%', height:'65vh', margin:0}} className="row">
+          <div style = {{width:'100%', height:'65vh', margin:0,}} className="row">
 
             <div
               className="col-lg-12 col-sm-12 col-md-12 animated fadeInUp">
               <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
+              <HighchartsChart className="my-styled-chart">
+              <Chart backgroundColor=""/>
+
+              <Title style={{color:"white"}}>Temperature History | Day</Title>
+
+              <Legend>
+                <Legend.Title>Legend</Legend.Title>
+              </Legend>
+
+              <XAxis id="x" categories={this.props.categories}>
+                <XAxis.Title>Time</XAxis.Title>
+              </XAxis>
+
+              <YAxis id="pressure">
+                <YAxis.Title className="my-styled-chart highcharts-axis-title">Temperature (°C)</YAxis.Title>
+                <LineSeries color="white" id="p1" name="Sensor 1" data={this.props.data} />
+              </YAxis>
+              <Tooltip/>
+            </HighchartsChart>
               
-                  <Line height={90} data={this.props.data} options={this.props.options}></Line>
               </div>
               
 
@@ -185,7 +218,8 @@ function mapStateToProps(state) {
     data: state.weather.data,
     options : state.weather.options,
     topics : state.weather.topics,
-    date : state.weather.date
+    date : state.weather.date,
+    categories : state.weather.categories
   }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage));
+export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage)),Highcharts);
