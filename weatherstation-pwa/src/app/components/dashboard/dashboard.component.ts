@@ -10,6 +10,8 @@ import { MyMqttService } from '../../_services/my-mqtt.service';
 })
 export class DashboardComponent implements OnInit {
 
+  readonly VAPID_PUBLIC_KEY = 'BCAv-JtuHDVsepT0CMr3r-iuqOQe9Mn0lH5Ue4HYdZE0AuA_X7PpqZVYJA84-QTf_2hSN847JAM6Oyfz2c_yNqI';
+
   constructor(
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) {}
@@ -17,6 +19,18 @@ export class DashboardComponent implements OnInit {
   daytime = 'day';
 
   ngOnInit() {
+
+    Notification.requestPermission((status) => {
+      console.log(`notification permission: ${status}`);
+      if (status === 'granted') {
+        const notification = new Notification('Welcome!', {
+          dir: 'auto',
+          body: 'We will give you a notification when something important happens',
+          icon: '../../assets/misc-icons/alert.png'
+        });
+      }
+    });
+
     this.storageService.chartLabel.subscribe( time => {
       if (time === null) {
         this.daytime = 'day';

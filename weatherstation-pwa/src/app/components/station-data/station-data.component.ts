@@ -59,6 +59,9 @@ export class StationDataComponent implements OnInit {
     // wind strength
     this.mqttService.subscribe('/station/' + stationName + '/wind/strength/').subscribe(payload => {
       this.wind.speed = payload.value;
+      if (payload.value >= 90 ) {
+        this.showNotification('wind speed', payload.value);
+      }
     });
     // air humidity
     this.mqttService.subscribe('/station/' + stationName + '/air/humidity/').subscribe(payload => {
@@ -87,6 +90,26 @@ export class StationDataComponent implements OnInit {
       this.station.lastTemperature = this.temperature;
       this.storageService.setDashboardStation(this.station);
     }
+    if (payload.value <= -4 || payload.value >= 35) {
+      this.showNotification('temperature', payload.value);
+    }
   }
 
+  /**
+   * Displays a push notification if the user granted permission.
+   * @param measurement the type of warning
+   * @param value the value
+   */
+  private showNotification(measurement: any, value: any) {
+    Notification.requestPermission((status) => {
+      console.log(`notification permission: ${status}`);
+      if (status === 'granted') {
+        const notification = new Notification('Warning!', {
+          dir: 'auto',
+          body: `${measurement} is at ${value}`,
+          icon: '../../assets/misc-icons/alert.png'
+        });
+      }
+    });
+  }
 }
