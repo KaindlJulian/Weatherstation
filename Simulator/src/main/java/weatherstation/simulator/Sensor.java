@@ -99,6 +99,9 @@ public class Sensor {
         if(airHumidity > 100){
             airHumidity = lastAirHumidity;
         }
+        else if (airHumidity < 30){
+            airHumidity = lastAirHumidity;
+        }
         
         JSONObject obj = new JSONObject();
         obj.put("id","AIR_HUMIDITY");
