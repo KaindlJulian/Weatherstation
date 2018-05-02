@@ -12,6 +12,7 @@ import { Station, Temperature, Wind, Air, Precipitation } from '../../_models/in
 export class StationDataComponent implements OnInit {
 
   // display values
+  private tempUnit: String = '°C';  // as default
   private station: Station;
   private temperature = new Temperature();
   private wind = new Wind();
@@ -27,6 +28,9 @@ export class StationDataComponent implements OnInit {
     private mqttService: MyMqttService) { }
 
   ngOnInit() {
+    if (this.storageService.getTemperatureUnit !== undefined) {
+      this.tempUnit = this.storageService.getTemperatureUnit();
+    }
     this.station = this.storageService.getDashboardStation();
     if (!this.station) {
       this.station = new Station();

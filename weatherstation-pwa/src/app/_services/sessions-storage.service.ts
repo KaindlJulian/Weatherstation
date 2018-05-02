@@ -78,4 +78,36 @@ export class SessionsStorageService {
     this.chartData.next(temperature.value);
     console.log(this.chartData);
   }
+
+  /**
+   * sets notification permission
+   * @param status granted | denied | default
+   */
+  public setNotificationStatus(status: String) {
+    localStorage.setItem('notification-permission', status.toString());
+    console.log(`Notification permission: ${status}`);
+  }
+
+  /**
+   * returns set notification permission
+   */
+  public getNotificationStatus(): String {
+    return localStorage.getItem('notification-permission');
+  }
+
+  /**
+   * sets temp unit
+   * @param unit °C | °F | K
+   */
+  public setTemperatureUnit(unit: String) {
+    localStorage.setItem('tempUnit', unit.toString());
+    console.log(`Temperature unit: ${unit}`);
+  }
+
+  /**
+   * return set temp unit
+   */
+  public getTemperatureUnit(): String {
+    return localStorage.getItem('tempUnit');
+  }
 }
