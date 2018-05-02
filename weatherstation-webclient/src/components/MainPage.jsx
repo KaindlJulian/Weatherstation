@@ -3,15 +3,14 @@ import '../styles/App.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
-import {connect} from 'react-redux';
+import {connect} from 'react-redux'
 import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
 import {Button} from 'mdbreact'
 import mqtt from 'mqtt'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
-import Cloudy from '../assets/animated/cloudy-day-1.svg'
-import Sunny from '../assets/static/weather_sunset.svg';
+import warning from '../assets/static/warning.png'
 import Impressum from './Impressum.jsx'
 import ProgressBar from 'react-progress-bar.js'
 import '../styles/GraphStyles.css'
@@ -54,8 +53,7 @@ class mainPage extends Component {
     super(props);
     this.state = {
         change: true,
-        data:[{x: new Date(), y: 2400},
-        {x: new Date(), y: 2210},]
+        
     };
     this.nextPath = this
       .nextPath
@@ -70,6 +68,14 @@ class mainPage extends Component {
     client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
       username: 'qwwegtrz',
       password: '0L9IZSeX8fMO'
+    })
+    Notification.requestPermission((status) => {
+      console.log(status);
+      const notificaton = new Notification("Welcome", {
+        dir: 'auto',
+        body: 'We will notice you when something important happens',
+        icon: warning
+      })
     })
   }
 
@@ -101,10 +107,25 @@ class mainPage extends Component {
     console.log(arr)
     this.setState({data: arr});
   }
+   WindWarning(props){
+     console.log(props)
+     if(props.wind > 70){
+       return new Notification("Warning", {
+        dir: 'auto',
+        body: 'Warning the wind is over' + props.wind,
+        icon: warning
+      })
+
+     }
+     return null;
+   }
+   
 
   render() {
     return (
+      
       <div className="rare-wind-gradient">
+      <this.WindWarning wind={this.props.wind.strength}/>
         <TopNavbar color={{
           transparent: 'elegant-color',
           light: false,
@@ -130,6 +151,8 @@ class mainPage extends Component {
 
               </div>
               <hr/>
+              <h2 className="my-auto mr-5">Air Purity(CO<sub>1</sub>): {this.props.air.purity} mg/m<sup>3</sup></h2>
+              <hr/>
               <h2>Humidity: {this.props.air.humidity}%</h2>
               <ProgressLine
                 progress={this.props.air.humidity / 100}
@@ -153,7 +176,7 @@ class mainPage extends Component {
                 <h2 className="pull-right mt-5 mr-3" style={{fontSize:'3rem'}}>{this.props.temperature} °C</h2>
                 <div> Precipitation Amount: {Math.round(this.props.precipitation.amount)} l/m<sup>2</sup><img src={require('../assets/static/water-drops.svg')} width={'75vh'} height={'75vw'} alt=""/></div> </h2>
                 <hr/>
-                <h2>Location: <b>LINZ</b> <i className="fa fa-map-marker mr-1" aria-hidden="true"></i></h2>
+                <h2>Location: <b>{this.props.location}</b> <i className="fa fa-map-marker mr-1" aria-hidden="true"></i></h2>
                 <hr/>
                 <h2>{this.props.date}</h2>
                 
@@ -219,7 +242,8 @@ function mapStateToProps(state) {
     options : state.weather.options,
     topics : state.weather.topics,
     date : state.weather.date,
-    categories : state.weather.categories
+    categories : state.weather.categories,
+    location : state.weather.location
   }
 }
 export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage)),Highcharts);
