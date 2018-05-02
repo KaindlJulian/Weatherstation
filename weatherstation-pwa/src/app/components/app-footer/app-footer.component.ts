@@ -16,6 +16,9 @@ export class AppFooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * call station update for current station
+   */
   updateButton(): void {
     this.updateStation.emit();
     this.lastUpdate = new Date();

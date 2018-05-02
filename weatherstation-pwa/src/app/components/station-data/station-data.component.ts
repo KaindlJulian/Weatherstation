@@ -109,6 +109,9 @@ export class StationDataComponent implements OnInit {
           body: `${measurement} is at ${value}`,
           icon: '../../assets/misc-icons/alert.png'
         });
+        notification.onclick = (event) => {
+          window.focus();
+        };
       }
     });
   }

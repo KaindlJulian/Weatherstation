@@ -16,6 +16,9 @@ export class AppNavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * add station dialog
+   */
   callDialog() {
     this.addStation.emit(null);
   }

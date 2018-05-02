@@ -26,8 +26,11 @@ export class DashboardComponent implements OnInit {
         const notification = new Notification('Welcome!', {
           dir: 'auto',
           body: 'We will give you a notification when something important happens',
-          icon: '../../assets/misc-icons/alert.png'
+          icon: '../../assets/misc-icons/alert.png',
         });
+        notification.onclick = (event) => {
+          window.focus();
+        };
       }
     });
 
@@ -44,6 +47,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * publish mqtt messge to update current station
+   */
   updateDashboard() {
     const actStation = this.storageService.getDashboardStation();
     this.mqttService.publish('/station/' + actStation.name + '/update', {
