@@ -22,9 +22,6 @@ export class StationDataComponent implements OnInit {
   private direction_path = 'assets/weather/wind-directions/N.svg';
   private type_path = 'assets/weather/static/sunny.svg';
 
-  // backgroundGradientIdentifier
-  private precipitationGradient = '';
-
   constructor(
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) { }

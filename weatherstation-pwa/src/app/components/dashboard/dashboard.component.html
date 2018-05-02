@@ -5,15 +5,15 @@
 
     <app-navbar [isDashboard]="true"></app-navbar>
     <!--fullscreen wrapper-->
-    <div class="w-100 h-100 d-flex align-items-start flex-wrap">
-        <!--40vh-->
+    <div class="w-100 h-100 d-flex">
+        <!--45vh-->
         <div class="container-fluid d-flex justify-content-center main-container position-fixed mb-2">
             <station-data></station-data>
         </div>
-        <!--60vh-->
+        <!--55vh-->
         <div class="container-fluid d-flex justify-content-center chart-container mt-auto row">
-            <temperature-chart class="col-12 mt-1 mb-auto"></temperature-chart>
-            <week-chart class="col-12 mb-auto"></week-chart>
+            <temperature-chart class="col-sm-12 col-md-4 mt-1 mb-auto"></temperature-chart>
+            <week-chart class="col-sm-12 col-md-6 mt-1 mb-auto"></week-chart>
         </div>
     </div>
     <app-footer (updateStation)="updateDashboard($event)"></app-footer>
