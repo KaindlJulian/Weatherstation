@@ -17,7 +17,6 @@ export class TemperatureChartComponent implements OnInit {
   constructor(private storageService: SessionsStorageService) { }
 
   ngOnInit() {
-
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -38,6 +37,9 @@ export class TemperatureChartComponent implements OnInit {
         responsive: true,
         legend: {
           display: false
+        },
+        tooltips: {
+          enabled: false
         },
         scales: {
           xAxes: [{

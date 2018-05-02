@@ -34,12 +34,14 @@ public class MqttPublishSample {
     public static void main(String[] args) throws MqttException, InterruptedException{
 
             Sensor sensor1      = new Sensor();                                       //sensor
-            String broker       = "tcp://test.mosquitto.org:1883";                    //broker tcp://vm61.htl-leonding.ac.at:1883 tcp://test.mosquitto.org:1883
+            String broker       = "tcp://m23.cloudmqtt.com:13965";                    //broker tcp://vm61.htl-leonding.ac.at:1883 tcp://test.mosquitto.org:1883
             String clientId     = "Simulator";                                        //ClientID
             MemoryPersistence persistence = new MemoryPersistence();
             
             MqttClient mqttClient = new MqttClient(broker, clientId, persistence);    //MQTTClient
             MqttConnectOptions connOpts = new MqttConnectOptions();                   //MQTTConnectionOptions
+            connOpts.setUserName("qwwegtrz");
+            connOpts.setPassword("0L9IZSeX8fMO".toCharArray());
             connOpts.setCleanSession(true);
             
             System.out.println("Connecting to broker: " + broker);
@@ -111,16 +113,16 @@ public class MqttPublishSample {
         message.setQos(qos);
         message.setRetained(true);
         mqttClient.publish(topicAirPressure, message);
-        
-        return 1;
-        
-        /*     
+            
         //publish of the airpurity
-        content = sensor.getAirPurity();
+        content = sensor.getAirPurity(actDateTime);
         message = new MqttMessage(content.getBytes());
         message.setQos(qos);
         mqttClient.publish(topicAirPurity, message);
         
+        return 1;
+        
+        /*
         //publish of the airtoxicity
         content = sensor.getAirToxicity();
         message = new MqttMessage(content.getBytes());

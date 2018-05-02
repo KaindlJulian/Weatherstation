@@ -11,6 +11,7 @@ export class WeekChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

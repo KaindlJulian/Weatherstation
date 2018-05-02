@@ -22,7 +22,7 @@ public class Sensor {
     //last values of the random functions
     int lastTemperature            = 8;
     double lastAirPressure         = 1000;
-    String lastAirPurity           = "";
+    double lastAirPurity              = 0.1;
     String lastAirToxicity         = "";
     int lastAirHumidity            = 40;
     int lastWindDirection          = 2;
@@ -94,6 +94,13 @@ public class Sensor {
         }
         else{
             airHumidity = lastAirHumidity-index;
+        }
+        
+        if(airHumidity > 100){
+            airHumidity = lastAirHumidity;
+        }
+        else if (airHumidity < 30){
+            airHumidity = lastAirHumidity;
         }
         
         JSONObject obj = new JSONObject();
@@ -194,15 +201,37 @@ public class Sensor {
         return obj.toString();
     }
     
-    /*
+    
     //random function which returns a realistic airpurity in JSON-format
-    public String getAirPurity(){
-        String airPurity = "";
+    public String getAirPurity(Calendar actDateTime){
+        double airPurity = 0;
+        double index = random.nextDouble()/20;
+        boolean change = random.nextBoolean();
         
-        lastAirPressure = airPurity;
-        return airPurity;
+        if(change == false){
+            airPurity = lastAirPurity - index;
+        }
+        else{
+            airPurity = lastAirPurity + index;
+        }
+        
+        if(airPurity < 0){
+            airPurity = airPurity * -1;
+        }
+        
+        if(airPurity > 0.8){
+            airPurity = lastAirPurity;
+        }
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","AIR_PURITY");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value", Double.toString(airPurity));
+        lastAirPurity = airPurity;
+        return obj.toString();
     }
     
+    /*
     //random function which returns a realistic airtoxicity in JSON-format    
     public String getAirToxicity(){
         String airToxicity = "";

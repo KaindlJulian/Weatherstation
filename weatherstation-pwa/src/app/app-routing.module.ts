@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: 'mqtt', component: MqttClientComponent},
     { path: 'settings', component: OptionsComponent},
     // any other path redirects to dashboard
-    { path: '**', redirectTo: '' }
+    { path: '**', component: DashboardComponent }
   ];
   @NgModule({
     imports: [RouterModule.forRoot(routes)],

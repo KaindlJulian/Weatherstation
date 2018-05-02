@@ -45,24 +45,34 @@ export class StationDataComponent implements OnInit {
    */
   private initMqtt(stationName: String) {
     this.mqttService.connect();
-      this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
+    // temperature
+    this.mqttService.subscribe('/station/' + stationName + '/temperature/').subscribe(payload => {
       this.temperature = payload;
+      this.temperature.date = payload.date.split('CEST')[0];
       this.setTemperatures(payload);
     });
+    // wind direction
     this.mqttService.subscribe('/station/' + stationName + '/wind/direction/').subscribe(payload => {
       this.wind.direction = payload.value;
       this.direction_path = 'assets/weather/wind-directions/' + this.wind.direction + '.svg';
     });
+    // wind strength
     this.mqttService.subscribe('/station/' + stationName + '/wind/strength/').subscribe(payload => {
       this.wind.speed = payload.value;
+      if (payload.value >= 90 ) {
+        this.showNotification('wind speed', payload.value);
+      }
     });
+    // air humidity
     this.mqttService.subscribe('/station/' + stationName + '/air/humidity/').subscribe(payload => {
       this.air.humidity = payload.value;
     });
+    // precipitation type
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/type/').subscribe(payload => {
       this.precipitation.type = payload.value;
       this.type_path = 'assets/weather/static/' + this.precipitation.type + '.svg';
     });
+    // precipitation amount
     this.mqttService.subscribe('/station/' + stationName + '/precipitation/amount/').subscribe(payload => {
       this.precipitation.amount = payload.value.slice(0, 4);
     });
@@ -80,6 +90,29 @@ export class StationDataComponent implements OnInit {
       this.station.lastTemperature = this.temperature;
       this.storageService.setDashboardStation(this.station);
     }
+    if (payload.value <= -4 || payload.value >= 35) {
+      this.showNotification('temperature', payload.value);
+    }
   }
 
+  /**
+   * Displays a push notification if the user granted permission.
+   * @param measurement the type of warning
+   * @param value the value
+   */
+  private showNotification(measurement: any, value: any) {
+    Notification.requestPermission((status) => {
+      console.log(`notification permission: ${status}`);
+      if (status === 'granted') {
+        const notification = new Notification('Warning!', {
+          dir: 'auto',
+          body: `${measurement} is at ${value}`,
+          icon: '../../assets/misc-icons/alert.png'
+        });
+        notification.onclick = (event) => {
+          window.focus();
+        };
+      }
+    });
+  }
 }

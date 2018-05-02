@@ -55,6 +55,7 @@ Thumbs.db
 
 # Don't check in secret files
 *secret.js
+*vapid-keys.json
 
 # Include when developing application packages.
 pubspec.lock
