@@ -14,3 +14,6 @@ export function loadInitialData(client){
 		
 	}	
 }
+export function changeLocation(loc){
+	return{type: 'LOCATION_CHANGE', payload : loc}
+}

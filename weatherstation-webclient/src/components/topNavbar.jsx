@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import {Button, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
 import { Link, NavLink } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {changeLocation} from '../actions/WeatherActions.js'
+import {bindActionCreators} from 'redux'
 
-export default class topNavbar extends Component {
+let loc; 
+
+class topNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +17,7 @@ export default class topNavbar extends Component {
     };
     this.onClick = this.onClick.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.locationChange = this.locationChange.bind(this)
   }
 
 
@@ -19,6 +25,10 @@ export default class topNavbar extends Component {
     this.setState({
       collapse: !this.state.collapse
     });
+  }
+  locationChange(e){
+    loc = e.currentTarget.textContent
+    this.props.changeLocation(loc);
   }
 
   toggle() {
@@ -52,10 +62,10 @@ export default class topNavbar extends Component {
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                               <DropdownToggle nav caret>Dropdown</DropdownToggle>
                               <DropdownMenu>
-                                  <DropdownItem href="#">Action</DropdownItem>
-                                  <DropdownItem href="#">Another Action</DropdownItem>
-                                  <DropdownItem href="#">Something else here</DropdownItem>
-                                  <DropdownItem href="#">Something else here</DropdownItem>
+                                  <DropdownItem onClick={this.locationChange}>Sensor-1</DropdownItem>
+                                  <DropdownItem onClick={this.locationChange}>Linz</DropdownItem>
+                                  <DropdownItem onClick={this.locationChange}>Leonding</DropdownItem>
+                                  <DropdownItem onClick={this.locationChange}>Wien</DropdownItem>
                               </DropdownMenu>
                               </Dropdown>
                           </NavItem>
@@ -66,3 +76,12 @@ export default class topNavbar extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => bindActionCreators({
+  changeLocation: () => changeLocation(loc),
+}, dispatch)
+
+function mapStateToProps(state) {
+  return {
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(topNavbar);
