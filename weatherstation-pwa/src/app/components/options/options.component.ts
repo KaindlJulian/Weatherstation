@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionsStorageService } from '../../_services/sessions-storage.service';
 
 @Component({
   selector: 'app-options',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OptionsComponent implements OnInit {
 
-  constructor() { }
+  notificationStatus: String;
+  tempUnit: String;
+
+  constructor(private storageService: SessionsStorageService) { }
 
   ngOnInit() {
+    this.notificationStatus = this.storageService.getNotificationStatus();
+    this.tempUnit = this.storageService.getTemperatureUnit();
   }
 
+  private changeUnit(unit: String) {
+    this.tempUnit = unit;
+    this.storageService.setTemperatureUnit(unit);
+  }
 }

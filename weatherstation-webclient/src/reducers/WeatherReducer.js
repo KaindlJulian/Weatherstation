@@ -27,7 +27,9 @@ export default function reducer(state={
         '/station/sensor1/wind/strength/',
         '/station/sensor1/air/humidity/',
         '/station/sensor1/precipitation/type/',
-        '/station/sensor1/precipitation/amount/']
+        '/station/sensor1/precipitation/amount/',
+      '/station/sensor1/air/purity/'],
+      location : 'sensor1'
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
@@ -96,6 +98,21 @@ export default function reducer(state={
               ...state.precipitation,
               amount: action.payload.value
             }
+          }
+          case 'AIR_PURITY':
+          console.log(action.payload)
+          return{
+            ...state,
+            air: {
+              ...state.air,
+              purity : action.payload.value
+            }
+          }
+          case 'LOCATION_CHANGE':
+          console.log(action.payload)
+          return{
+            ...state,
+            location: action.payload
           }
 
 

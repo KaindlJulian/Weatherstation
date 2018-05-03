@@ -1,22 +1,32 @@
 <body class="rare-wind-gradient container d-flex justify-content-start">
   <app-navbar [isDashboard]="false"></app-navbar>
   <div class="container form-container"> 
+    <!--Temperature Unit-->
+    <p class="h5">Temperature Unit</p>
+    <div class="md-form form-sm d-flex">
+      <input readonly mdbInputDirective type="text" id="unit" class="form-control form-control-sm mr-2">
+      <label style="color:white;" for="unit">{{tempUnit}}</label>      
+      <div class="dropdown" dropdown>
+        <button dropdownToggle class="btn btn-primary dropdown-toggle waves-light" type="button" mdbWavesEffect>
+        </button>
+        <div class="dropdown-menu dropdown-primary">
+          <h6 class="dropdown-header">Temperature Units</h6>
+          <a class="dropdown-item" (click)="changeUnit('°C')">°C</a>
+          <a class="dropdown-item" (click)="changeUnit('°F')">°F</a>
+          <a class="dropdown-item" (click)="changeUnit('K')">K</a>
+        </div>
+      </div>
+    </div>  
     <div>
-      <div class="md-form form-sm d-flex">
-          <input mdbInputDirective type="text" id="unit" class="form-control form-control-sm mr-2">
-          <label for="unit">°C</label>
-        
-          <div class="dropdown" dropdown>
-            <button dropdownToggle class="btn btn-primary dropdown-toggle waves-light" type="button" mdbWavesEffect>
-            </button>
-            <div class="dropdown-menu dropdown-primary">
-              <h6 class="dropdown-header">Temperature Units</h6>
-              <a class="dropdown-item" href="#">°C</a>
-              <a class="dropdown-item" href="#">°F</a>
-              <a class="dropdown-item" href="#">K</a>
-            </div>
-          </div>
-        </div>  
+      <p class="h5">Notifications</p>
+      <button disabled type="button" class="btn btn-primary float-right">{{notificationStatus}}</button>  
+      <ul class="small mt-3" style="color: #9a9a9a;">
+        <li>chrome setting</li>
+        <li>advanced</li>
+        <li>content</li>
+        <li>notifications</li>
+        <li>reload page</li>
+      </ul>
     </div>
   </div>
   <app-footer></app-footer>

@@ -12,6 +12,7 @@ import { Station, Temperature, Wind, Air, Precipitation } from '../../_models/in
 export class StationDataComponent implements OnInit {
 
   // display values
+  private tempUnit: String = '°C';  // as default
   private station: Station;
   private temperature = new Temperature();
   private wind = new Wind();
@@ -22,14 +23,14 @@ export class StationDataComponent implements OnInit {
   private direction_path = 'assets/weather/wind-directions/N.svg';
   private type_path = 'assets/weather/static/sunny.svg';
 
-  // backgroundGradientIdentifier
-  private precipitationGradient = '';
-
   constructor(
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) { }
 
   ngOnInit() {
+    if (this.storageService.getTemperatureUnit !== undefined) {
+      this.tempUnit = this.storageService.getTemperatureUnit();
+    }
     this.station = this.storageService.getDashboardStation();
     if (!this.station) {
       this.station = new Station();
@@ -109,6 +110,9 @@ export class StationDataComponent implements OnInit {
           body: `${measurement} is at ${value}`,
           icon: '../../assets/misc-icons/alert.png'
         });
+        notification.onclick = (event) => {
+          window.focus();
+        };
       }
     });
   }
