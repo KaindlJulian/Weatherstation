@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Station, Temperature } from '../_models/index';
 import 'rxjs/add/observable/of';
 import { Subject } from 'rxjs/Subject';
+import { stat } from 'fs';
 
 @Injectable()
 export class SessionsStorageService {
@@ -39,11 +40,10 @@ export class SessionsStorageService {
    * @param station
    */
   public addStationList(station: Station) {
-    if (JSON.parse(localStorage.getItem('stations')) !== null) {
+    if (JSON.parse(localStorage.getItem('stations'))) {
       this.stationList = JSON.parse(localStorage.getItem('stations'));
     }
-    if (!this.stationList.includes(station)) {
-      this.stationList.shift();
+    if (!this.stationList.some(someStation => someStation.name === station.name)) {
       this.stationList.push(station);
       localStorage.setItem('stations', JSON.stringify(this.stationList));
       console.log(this.stationList);

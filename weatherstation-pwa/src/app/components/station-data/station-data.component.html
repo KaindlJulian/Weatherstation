@@ -9,10 +9,22 @@
   </div>
   <div class="card transparent z-depth-0">
       <h2 class="h5-responsive d-flex justify-content-between mx-1">
-        <div class="col-3"><img class="data-icon mr-1" src="assets/misc-icons/humidity.svg">{{air.humidity}}</div>
-        <div class="col-3"><img class="data-icon mr-1" src="assets/misc-icons/wind.svg">{{wind.speed}}</div>
-        <div class="col-3"><img class="data-icon mr-1" src="assets/misc-icons/precipitation.svg">{{precipitation.amount}}</div>
-        <div class="col-3"><img class="data-icon mr-1" [src]="direction_path">{{wind.direction}}</div>
+        <button placement="top" [mdbPopover]="air_humidity_content" class="col-3">
+          <img class="data-icon mr-1" src="assets/misc-icons/humidity.svg">
+          {{air.humidity}}
+        </button>
+        <button placement="bottom" [mdbPopover]="wind_speed_content" class="col-3">
+          <img class="data-icon mr-1" src="assets/misc-icons/wind.svg">
+          {{wind.speed}}
+        </button>
+        <button placement="top" [mdbPopover]="precipitation_amount_content" class="col-3 rightFix">
+          <img class="data-icon mr-1" src="assets/misc-icons/precipitation.svg">
+          {{precipitation.amount}}
+        </button>
+        <button placement="bottom" [mdbPopover]="wind_direction_content" class="col-3">
+          <img class="data-icon mr-1" [src]="direction_path">
+          {{wind.direction}}
+        </button>
       </h2>
   </div>
 </div>

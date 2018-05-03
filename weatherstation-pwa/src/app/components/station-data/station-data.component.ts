@@ -23,12 +23,18 @@ export class StationDataComponent implements OnInit {
   private direction_path = 'assets/weather/wind-directions/N.svg';
   private type_path = 'assets/weather/static/sunny.svg';
 
+  // popover content
+  private air_humidity_content = 'Air Humidity';
+  private wind_speed_content = 'Wind Speed';
+  private precipitation_amount_content = 'Rain Amount';
+  private wind_direction_content = 'WindDirection';
+
   constructor(
     private storageService: SessionsStorageService,
     private mqttService: MyMqttService) { }
 
   ngOnInit() {
-    if (this.storageService.getTemperatureUnit !== undefined) {
+    if (!this.storageService.getTemperatureUnit)  {
       this.tempUnit = this.storageService.getTemperatureUnit();
     }
     this.station = this.storageService.getDashboardStation();
@@ -91,7 +97,7 @@ export class StationDataComponent implements OnInit {
       this.station.lastTemperature = this.temperature;
       this.storageService.setDashboardStation(this.station);
     }
-    if (payload.value <= -4 || payload.value >= 35) {
+    if ((payload.value <= -5 || payload.value >= 35) && payload.value !== this.station.lastTemperature.value) {
       this.showNotification('temperature', payload.value);
     }
   }
@@ -103,7 +109,6 @@ export class StationDataComponent implements OnInit {
    */
   private showNotification(measurement: any, value: any) {
     Notification.requestPermission((status) => {
-      console.log(`notification permission: ${status}`);
       if (status === 'granted') {
         const notification = new Notification('Warning!', {
           dir: 'auto',
