@@ -120,16 +120,13 @@ public class MqttPublishSample {
         message.setQos(qos);
         mqttClient.publish(topicAirPurity, message);
         
-        return 1;
-        
-        /*
         //publish of the airtoxicity
-        content = sensor.getAirToxicity();
+        content = sensor.getAirToxicity(actDateTime);
         message = new MqttMessage(content.getBytes());
         message.setQos(qos);
-        mqttClient.publish(topicAirToxicity, message);*/
+        mqttClient.publish(topicAirToxicity, message);
         
-        
+        return 1;
     }
     
 }

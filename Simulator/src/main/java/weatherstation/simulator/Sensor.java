@@ -17,13 +17,16 @@ import org.json.JSONObject;
 public class Sensor {
 
     String [] windDirections       = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };            //Array where the wind directions are saved in
-    String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };         //Array where the precipitation types are saved
+    String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };         //Array where the precipitation types are saved in
     
-    //last values of the random functions
+    //Array where the toxicity types arre saved in
+    String [] toxicityTypes        = { "good", "acceptable", "unhealthy for sensitive people", "unhealthy", "very unhealthy", "dangerous"};
+    
+    //last values of the random methods
     int lastTemperature            = 8;
     double lastAirPressure         = 1000;
-    double lastAirPurity              = 0.1;
-    String lastAirToxicity         = "";
+    double lastAirPurity           = 0.2;
+    double lastAirToxicity         = 50;
     int lastAirHumidity            = 40;
     int lastWindDirection          = 2;
     int lastWindStrength           = 5;
@@ -219,7 +222,7 @@ public class Sensor {
             airPurity = airPurity * -1;
         }
         
-        if(airPurity > 0.8){
+        if(airPurity > 1.6){
             airPurity = lastAirPurity;
         }
         
@@ -231,15 +234,48 @@ public class Sensor {
         return obj.toString();
     }
     
-    /*
+    
     //random function which returns a realistic airtoxicity in JSON-format    
-    public String getAirToxicity(){
-        String airToxicity = "";
+    public String getAirToxicity(Calendar actDateTime){
+        double airToxicity = 0.0;
+        double index = random.nextDouble();
+        boolean change = random.nextBoolean();
+        int returnNumber = 0;
         
-        lastAirPressure = airToxicity;
-        return airToxicity;
+        if(change == false){
+            airToxicity = lastAirToxicity - index;
+        }
+        else{
+            airToxicity = lastAirToxicity + index;
+        }
+        
+        if(airToxicity < 50 && lastAirPurity < 0.2){
+            returnNumber = 0;
+        }
+        else if((airToxicity > 50 && airToxicity < 100) || (lastAirPurity > 0.2 && lastAirPurity < 0.7)){
+            returnNumber = 1;
+        }
+        else if((airToxicity > 100 && airToxicity < 150) || (lastAirPurity > 0.7 && lastAirPurity < 1)){
+            returnNumber = 2;
+        }
+        else if((airToxicity > 150 && airToxicity < 200) || (lastAirPurity > 1 && lastAirPurity < 1.2)){
+            returnNumber = 3;
+        }
+        else if((airToxicity > 200 && airToxicity < 250) || (lastAirPurity > 1.2 && lastAirPurity < 1.3)){
+            returnNumber = 4;
+        }
+        else{
+            returnNumber = 5;
+        }
+        
+        JSONObject obj = new JSONObject();
+        obj.put("id","AIR_TOXICITY");
+        obj.put("date", actDateTime.getTime().toString());
+        obj.put("value", toxicityTypes[returnNumber]);
+        lastAirToxicity = airToxicity;
+        return obj.toString();
     }
-    */
+    
 
     //random function which returns a realistic winddirection in JSON-format    
     public String getWindDirection(Calendar actDateTime){
