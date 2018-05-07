@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../styles/App.css'
+import app from '../styles/App.css';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
@@ -119,13 +119,32 @@ class mainPage extends Component {
      }
      return null;
    }
+   TemperatureWarning(props){
+     console.log(props)
+     if(props.temperature > 40){
+       return new Notification("Warning", {
+        dir: 'auto',
+        body: 'Warning the Temperature is over'+ props.temperature  + '°C',
+        icon: warning
+      })
+    }else if((props.temperature < 0)){
+      return new Notification("Warning", {
+        dir: 'auto',
+        body: 'Warning the Temperature is under'+ props.temperature  + '°C',
+        icon: warning
+      })
+    }
+    
+     return null;
+   }
    
 
   render() {
     return (
       
-      <div className="rare-wind-gradient">
+      <div style={{backgroundImage : this.props.daytime === 'day' ? 'linear-gradient(to top, #82b1ff 0%, #2962ff 100%)' : 'linear-gradient(to top, #48a6df 0%, #203c73 100%)', color: 'white'}}>
       <this.WindWarning wind={this.props.wind.strength}/>
+      <this.TemperatureWarning temperature={this.props.temperature}/>
         <TopNavbar color={{
           transparent: 'elegant-color',
           light: false,
@@ -152,6 +171,7 @@ class mainPage extends Component {
               </div>
               <hr/>
               <h2 className="my-auto mr-5">Air Purity(CO<sub>1</sub>): {this.props.air.purity} mg/m<sup>3</sup></h2>
+              <h2 className="my-auto mr-5"> Air Toxicity: {this.props.air.toxicity}</h2>
               <hr/>
               <h2>Humidity: {this.props.air.humidity}%</h2>
               <ProgressLine
@@ -243,7 +263,8 @@ function mapStateToProps(state) {
     topics : state.weather.topics,
     date : state.weather.date,
     categories : state.weather.categories,
-    location : state.weather.location
+    location : state.weather.location,
+    daytime : state.weather.daytime
   }
 }
 export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage)),Highcharts);
