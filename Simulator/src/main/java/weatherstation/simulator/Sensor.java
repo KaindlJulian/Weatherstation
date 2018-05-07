@@ -133,6 +133,16 @@ public class Sensor {
             precipitationType = lastPrecipitationType;
         }
         
+        if((actDateTime.get(Calendar.HOUR_OF_DAY) >= 0 && actDateTime.get(Calendar.HOUR_OF_DAY) <= 5 || (actDateTime.get(Calendar.HOUR_OF_DAY) >= 22 && actDateTime.get(Calendar.HOUR_OF_DAY) <= 23)) && precipitationType == 0){
+             JSONObject obj = new JSONObject();
+             obj.put("id","PRECIPITATION_TYPE");
+             obj.put("date", actDateTime.getTime().toString());
+             obj.put("value", "moony");
+             lastPrecipitationType = 0;
+             
+             return obj.toString();
+        }
+        
         JSONObject obj = new JSONObject();
         obj.put("id","PRECIPITATION_TYPE");
         obj.put("date", actDateTime.getTime().toString());
