@@ -17,7 +17,7 @@
       <form>
         <p class="h5 text-center mb-2">Station Name</p>
           <div class="md-form d-flex justify-content-center">
-            <input [(ngModel)]="model.name" name="stationName" type="text" id="stationInput" class="form-control mr-2">
+            <input autofocus [(ngModel)]="model.name" name="stationName" type="text" id="stationInput" class="form-control mr-2">
             <button (keyup.enter)="addStation()" (click)="addStation()" class="btn waves-light">Add</button>
           </div>
       </form>
