@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { Station } from '../../_models/index';
+import { Station, Temperature } from '../../_models/index';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,6 +16,9 @@ export class StationItemComponent implements OnInit {
   @Output() openInDashboard: EventEmitter<Station> = new EventEmitter();
 
   ngOnInit() {
+    if (!this.station.lastTemperature) {
+      this.station.lastTemperature = new Temperature();
+    }
   }
 
   /**
