@@ -1,23 +1,23 @@
 <div class="animated fadeInUp">
   <h5 class="h5-responsive">Last Month</h5>
   <hr class="white border-light">
-
   <div class="row">
     <div class="col-3 week-day border-right">
       <img src="assets/weather/static/cloudy.svg" alt="weather">
-      Week 1
+      <p>{{ weekTemperatures[0] }}</p>
     </div>
     <div class="col-3 week-day border-right">
       <img src="assets/weather/static/cloudy-day-2.svg" alt="weather">
-      Week 2
+      <p>{{ weekTemperatures[1] }}</p>
     </div>
     <div class="col-3 week-day border-right">
       <img src="assets/weather/static/rainy.svg" alt="weather">
-      Week 3
+      <p>{{ weekTemperatures[2] }}</p>
     </div>
     <div class="col-3 week-day">
       <img src="assets/weather/static/snowy.svg" alt="weather">
-      Week 4
+      <p>{{ weekTemperatures[3] }}</p>
     </div>
   </div>
 </div>
+<!-- <button (click)="test()">test</button> -->
