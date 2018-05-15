@@ -1,5 +1,5 @@
 export const initReport = (res) => ({
-	type: "INIT_MONTHLY_REPORT",
+	type: res.id,
 	payload: res
 })
 

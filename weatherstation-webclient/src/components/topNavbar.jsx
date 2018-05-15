@@ -50,7 +50,7 @@ class topNavbar extends Component {
           <Collapse isOpen = {this.state.collapse} navbar>
             <NavbarNav className="ml-auto black-text">
               <NavItem>
-              <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Daily Weather</NavLink>
+              <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Live Weather</NavLink>
               </NavItem>
               <NavItem>
               <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
