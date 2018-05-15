@@ -60,14 +60,14 @@ namespace LogWriter
 
         private static async Task GenerateReports(string station)
         {
-            await GenerateReport("YEARLY_REPORT", "yearly", station, t => t.Date.Month == DateTime.Now.Month);
-            await GenerateReport("YEARLY_REPORT", "yearly", t => t.Date.Month == DateTime.Now.Month);
+            await GenerateReport("YEARLY_REPORT", "yearly", station, t => t.Date.Year == DateTime.Now.Year);
+            await GenerateReport("YEARLY_REPORT", "yearly", t => t.Date.Year == DateTime.Now.Year);
 
-            await GenerateReport("MONTHLY_REPORT", "monthly", station, t => t.Date.Month == DateTime.Now.Month);
-            await GenerateReport("MONTHLY_REPORT", "monthly", t => t.Date.Month == DateTime.Now.Month);
+            await GenerateReport("MONTHLY_REPORT", "monthly", station, t => t.Date.Year == DateTime.Now.Year && t.Date.Month == DateTime.Now.Month);
+            await GenerateReport("MONTHLY_REPORT", "monthly", t => t.Date.Year == DateTime.Now.Year && t.Date.Month == DateTime.Now.Month);
 
-            await GenerateReport("DAYLY_REPORT", "dayly", station, t => t.Date.Month == DateTime.Now.Month);
-            await GenerateReport("DAYLY_REPORT", "dayly", t => t.Date.Month == DateTime.Now.Month);
+            await GenerateReport("DAYLY_REPORT", "dayly", station, t => t.Date.Year == DateTime.Now.Year && t.Date.Month == DateTime.Now.Month && t.Date.Day == DateTime.Now.Day);
+            await GenerateReport("DAYLY_REPORT", "dayly", t => t.Date.Year == DateTime.Now.Year && t.Date.Month == DateTime.Now.Month && t.Date.Day == DateTime.Now.Day);
         }
         public static async Task GenerateReport(string id, string type, string station, System.Linq.Expressions.Expression<Func<DoubleValue, bool>> filter)
         {
