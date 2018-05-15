@@ -36,7 +36,7 @@ export class WeekChartComponent implements OnInit {
 
   private initMqtt(stationName: String) {
     this.mqttService.subscribe('/station/' + stationName + '/life/temperatures/month').subscribe( payload => {
-       this.weekTemperatures = this.calculateWeeklyAvg(payload);
+      this.weekTemperatures = this.calculateWeeklyAvg(payload);
     });
   }
 
@@ -62,7 +62,6 @@ export class WeekChartComponent implements OnInit {
         tempValue = 0;
       }
     });
-
     return displayValues.slice(0, 4);
   }
 
