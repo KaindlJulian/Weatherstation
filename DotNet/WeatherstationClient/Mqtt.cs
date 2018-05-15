@@ -14,13 +14,14 @@ namespace WeatherstationClient
         Dictionary<string, Func<string, string, string, Data, Task>> handlers = new Dictionary<string, Func<string, string, string, Data, Task>>();
         private MqttClient client;
 
-        public void Run(string hostname, string clientId)
+        public void Run(string hostname, int port, string clientId, string user, string password)
         {
-            client = new MqttClient(hostname);
+            client = new MqttClient(hostname, port, true, MqttSslProtocols.TLSv1_2
+                , null, null);
 
             client.MqttMsgPublishReceived += Client_MessageReceived;
 
-            client.Connect(clientId);
+            client.Connect(clientId, user, password);
         }
 
         public void Close()
