@@ -2,7 +2,7 @@
     export default function reducer(state={
       temperature: 0,
       temperatures: [],
-      date : 'May',
+      date : '2018',
       air: {
         pressure: 0,
         purity: 0,
@@ -15,10 +15,10 @@
         amount : 0
       },
       categories: [],
-      topic : 'report/may/monthly'
+      topic : 'report/2018/yearly'
     }, action){
         switch (action.type) {
-            case 'MONTHLY_REPORT':
+            case 'YEARLY_REPORT':
             console.log(action.payload);
 
             
