@@ -5,6 +5,19 @@ import { Station } from '../../_models/index';
 
 // load testdata
 const testdata = require('./testdata.json');
+const p = '../../../assets/weather/static/cloudy.svg';
+const v = '-';
+
+
+// model class
+class Model {
+  constructor (path, value) {
+    this.path = path;
+    this.value = value;
+  }
+  path = '../../../assets/weather/static/cloudy.svg';
+  value = '-';
+}
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,7 +28,7 @@ const testdata = require('./testdata.json');
 export class WeekChartComponent implements OnInit {
 
   // display values
-  weekTemperatures: Array<any> = new Array();
+  weekTemperatures: Array<Model> = new Array();
 
   station: Station;
 
@@ -41,15 +54,15 @@ export class WeekChartComponent implements OnInit {
   }
 
   private initChart() {
-    this.weekTemperatures.push('-', '-', '-', '-');
+    this.weekTemperatures.push(new Model(p, v), new Model(p, v), new Model(p, v), new Model(p, v));
   }
 
   /**
    * returns the average temperatures per week
    * @param data temperature values
    */
-  private calculateWeeklyAvg(data: any): Array<any>  {
-    const tempArr = data.Values;
+  private calculateWeeklyAvg(data: any): Array<any> {
+    const tempArr = data.value.temperatures;
     const displayValues = new Array();
     let tempValue = 0;
 
@@ -57,12 +70,23 @@ export class WeekChartComponent implements OnInit {
       console.log(tempValue, value);
       tempValue += value;
       if (index % 7 === 0 && index !== 0) {
-        displayValues.push(`${(tempValue / 7).toFixed(1)} °C`);
+        displayValues.push(new Model(this.getPath(tempValue), `${(tempValue / 7).toFixed(1)} °C`));
         console.log(displayValues);
         tempValue = 0;
       }
     });
+
     return displayValues.slice(0, 4);
+  }
+
+  private getPath(value) {
+    if (value < 0) {
+      return '../../../assets/weather/static/snowy.svg';
+    } else if (value < 10) {
+      return '../../../assets/weather/static/cloudy.svg';
+    } else {
+      return '../../../assets/weather/static/day.svg';
+    }
   }
 
   test() {

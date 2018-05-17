@@ -3,21 +3,21 @@
   <hr class="white border-light">
   <div class="row">
     <div class="col-3 week-day border-right">
-      <img src="assets/weather/static/cloudy.svg" alt="weather">
-      <p>{{ weekTemperatures[0] }}</p>
+      <img [src]="weekTemperatures[0].path" alt="weather">
+      <p>{{ weekTemperatures[0].value }}</p>
     </div>
     <div class="col-3 week-day border-right">
-      <img src="assets/weather/static/cloudy-day-2.svg" alt="weather">
-      <p>{{ weekTemperatures[1] }}</p>
+      <img [src]="weekTemperatures[1].path" alt="weather">
+      <p>{{ weekTemperatures[1].value }}</p>
     </div>
     <div class="col-3 week-day border-right">
-      <img src="assets/weather/static/rainy.svg" alt="weather">
-      <p>{{ weekTemperatures[2] }}</p>
+      <img [src]="weekTemperatures[2].path" alt="weather">
+      <p>{{ weekTemperatures[2].value }}</p>
     </div>
     <div class="col-3 week-day">
-      <img src="assets/weather/static/snowy.svg" alt="weather">
-      <p>{{ weekTemperatures[3] }}</p>
+      <img [src]="weekTemperatures[3].path" alt="weather">
+      <p>{{ weekTemperatures[3].value }}</p>
     </div>
   </div>
 </div>
-<!-- <button (click)="test()">test</button> -->
+<button (click)="test()">test</button> 
