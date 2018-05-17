@@ -21,7 +21,7 @@
             case 'YEARLY_REPORT':
             console.log(action.payload);
 
-            
+            break;
               case 'CHANGE_TOPIC':
               return{...state, topic: action.payload.topic, date : action.payload.date}
               default:

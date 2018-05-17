@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 
 
 import createHistory from 'history/createBrowserHistory'
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import {  routerMiddleware } from 'react-router-redux'
 
 
 import thunk from 'redux-thunk'

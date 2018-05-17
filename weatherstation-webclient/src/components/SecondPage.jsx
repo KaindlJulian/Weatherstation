@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import styles from '../styles/SecPageStyle.css'
+import '../styles/SecPageStyle.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {InitMonthlyReport, changeTopic} from '../actions/MonthlyReportAction.js'
 import {connect} from 'react-redux';
-import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';

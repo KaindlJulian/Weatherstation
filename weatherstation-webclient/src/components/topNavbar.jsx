@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
-import { Link, NavLink } from 'react-router-dom';
+import { DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
+import { NavLink } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {changeLocation} from '../actions/WeatherActions.js'
 import {bindActionCreators} from 'redux'

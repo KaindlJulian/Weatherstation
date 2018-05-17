@@ -1,6 +1,3 @@
-import $ from 'jquery';
-import 'jquery-ui/ui/core';
-
 
 export default function reducer(state={
     temperature: 0,
@@ -48,7 +45,7 @@ export default function reducer(state={
         }
         data = state.data.slice(0)
         categories = state.categories.slice(0)
-        if(d == "00:"){
+        if(d === "00:"){
           data = [];
           categories = [];
         }
