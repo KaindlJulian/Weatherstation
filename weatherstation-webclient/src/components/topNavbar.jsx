@@ -53,10 +53,10 @@ class topNavbar extends Component {
               <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Live Weather</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
+              <NavLink to='/MonthReport' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Yearly Report</NavLink>
+              <NavLink to='/YearReport' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Yearly Report</NavLink>
               </NavItem>
               <NavItem>
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
