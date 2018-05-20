@@ -60,7 +60,7 @@ class topNavbar extends Component {
               </NavItem>
               <NavItem>
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                              <DropdownToggle nav caret>Dropdown</DropdownToggle>
+                              <DropdownToggle nav caret>Sensors</DropdownToggle>
                               <DropdownMenu>
                                   <DropdownItem onClick={this.locationChange}>Sensor-1</DropdownItem>
                                   <DropdownItem onClick={this.locationChange}>Linz</DropdownItem>

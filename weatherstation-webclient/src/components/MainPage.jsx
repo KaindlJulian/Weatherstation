@@ -67,13 +67,22 @@ class mainPage extends Component {
       username: 'qwwegtrz',
       password: '0L9IZSeX8fMO'
     })
+    if(!JSON.parse(localStorage.getItem("registered"))){
+      localStorage.setItem('registered', false)
+    }
     Notification.requestPermission((status) => {
       console.log(status);
-      const notificaton = new Notification("Welcome", {
-        dir: 'auto',
-        body: 'We will notice you when something important happens',
-        icon: warning
-      })
+      console.log(JSON.parse(localStorage.getItem("registered")))
+      if(JSON.parse(localStorage.getItem("registered")) == false && status == "granted"){
+        const notificaton = new Notification("Welcome", {
+          dir: 'auto',
+          body: 'We will notice you when something important happens',
+          icon: warning
+        })
+        localStorage.setItem('registered', true)
+      }
+      
+      
     })
   }
 
@@ -165,7 +174,7 @@ class mainPage extends Component {
             <div
               className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
               <div style={{width:'100%', height: '100%'}} className="z-depth-5">
-              <h1 style={{textAlign:"center"}}>Testing</h1>
+              <h1 style={{textAlign:"center"}}>Specific Information</h1>
               <br/>
               <hr/>
               <div className="d-flex justify-content-between">
@@ -194,7 +203,7 @@ class mainPage extends Component {
             </div>
             <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
             <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
-                <h1 className="d-flex justify-content-center">Allgemeines</h1>
+                <h1 className="d-flex justify-content-center">General Information</h1>
                 <br/>
                 <hr/>
                 <h2><img src={require('../assets/animated/' + this.props.precipitation.type + '.svg')} width={'100vh'} height={'100vw'} alt=""/>
@@ -229,7 +238,7 @@ class mainPage extends Component {
               </Legend>
 
               <XAxis id="x" categories={this.props.categories}>
-                <XAxis.Title>Time</XAxis.Title>
+                <XAxis.Title>Time in Hours</XAxis.Title>
               </XAxis>
 
               <YAxis id="pressure">

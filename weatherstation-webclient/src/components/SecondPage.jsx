@@ -70,6 +70,9 @@ export class secondPage extends Component {
       password: '0L9IZSeX8fMO'
     })
   }
+  componentDidMount() {
+    this.props.initMonthReport(client);
+  }
 changeMonth(month){
     client.unsubscribe(this.props.topic);
     topic = {
@@ -114,7 +117,7 @@ changeMonth(month){
             <div
               className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
               <div style={{width:'100%', height: '100%'}} className="z-depth-5">
-              <h1 style={{textAlign:"center"}}>Testing</h1>
+              <h1 style={{textAlign:"center"}}>Specific Information</h1>
               <br/>
               <hr/>
               <div className="d-flex justify-content-between">
@@ -141,7 +144,7 @@ changeMonth(month){
             </div>
             <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
             <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
-                <h1 className="d-flex justify-content-center">Allgemeines</h1>
+                <h1 className="d-flex justify-content-center">General Information</h1>
                 <br/>
                 <hr/>
                 <h2> 
@@ -174,7 +177,7 @@ changeMonth(month){
               </Legend>
 
               <XAxis id="x" categories={this.props.categories}>
-                <XAxis.Title>Time</XAxis.Title>
+                <XAxis.Title>Time in Days</XAxis.Title>
               </XAxis>
 
               <YAxis id="pressure">

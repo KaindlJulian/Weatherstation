@@ -15,6 +15,7 @@ ReactDOM.render(<Provider store={store}>
         <Route exact path="/" component={MainPage}/>
         <Route exact path="/MonthReport" component={SecondPage}/>
         <Route exact path ="/YearReport" component={ThirdPage}/>
+        <Route component={MainPage}/>
     </Switch>
 </BrowserRouter>
 </Provider>, document.getElementById('root'));
