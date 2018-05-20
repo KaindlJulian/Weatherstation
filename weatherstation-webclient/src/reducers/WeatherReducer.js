@@ -32,8 +32,8 @@ export default function reducer(state={
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
-        var data;
-        var categories;
+        var data = [];
+        var categories = [];
         var daytime;
         console.log(action.payload);
         
@@ -49,8 +49,13 @@ export default function reducer(state={
           data = [];
           categories = [];
         }
-        data.push(+action.payload.value)
-        categories.push(d + "00")
+        if(data[0] === +action.payload.value && categories[0] === d + "00"){
+
+        }else{  
+          data.push(+action.payload.value)
+          categories.push(d + "00")
+        }
+        
         return {
             ...state,
             temperature: action.payload.value,
