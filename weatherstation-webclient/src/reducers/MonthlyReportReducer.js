@@ -15,13 +15,13 @@
         amount : 0
       },
       categories: [],
-      topic : 'report/may/monthly'
+      topic : '/report/may/monthly/'
     }, action){
         switch (action.type) {
             case 'MONTHLY_REPORT':
             console.log(action.payload);
 
-            
+            break;
               case 'CHANGE_TOPIC':
               return{...state, topic: action.payload.topic, date : action.payload.date}
               default:

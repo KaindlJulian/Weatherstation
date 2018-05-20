@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import app from '../styles/App.css';
+import '../styles/App.css';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
 import {connect} from 'react-redux'
-import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
-import {Button} from 'mdbreact'
 import mqtt from 'mqtt'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
@@ -110,29 +108,38 @@ class mainPage extends Component {
    WindWarning(props){
      console.log(props)
      if(props.wind > 70){
-       return new Notification("Warning", {
+       const notification =  new Notification("Warning", {
         dir: 'auto',
         body: 'Warning the wind is over' + props.wind,
-        icon: warning
+        icon: warning,
+        tag : "WindWarning"
+        
       })
+      
+      setTimeout(notification.close.bind(notification), 4000);
 
      }
      return null;
    }
    TemperatureWarning(props){
      console.log(props)
+     var not;
      if(props.temperature > 40){
-       return new Notification("Warning", {
+        not = new Notification("Warning", {
         dir: 'auto',
         body: 'Warning the Temperature is over'+ props.temperature  + '°C',
-        icon: warning
+        icon: warning,
+        tag : "temperatureWarning"
       })
+      setTimeout(not.close.bind(not), 4000);
     }else if((props.temperature < 0)){
-      return new Notification("Warning", {
+      not = new Notification("Warning", {
         dir: 'auto',
         body: 'Warning the Temperature is under'+ props.temperature  + '°C',
-        icon: warning
+        icon: warning,
+        tag : "temperatureWarning"
       })
+      setTimeout(not.close.bind(not), 4000);
     }
     
      return null;
