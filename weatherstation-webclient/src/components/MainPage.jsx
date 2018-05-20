@@ -65,7 +65,8 @@ class mainPage extends Component {
   componentWillMount() {
     client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
       username: 'qwwegtrz',
-      password: '0L9IZSeX8fMO'
+      password: '0L9IZSeX8fMO',
+      resubscribe : false
     })
     if(!JSON.parse(localStorage.getItem("registered"))){
       localStorage.setItem('registered', false)
