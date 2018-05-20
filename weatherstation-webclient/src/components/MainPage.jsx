@@ -73,7 +73,7 @@ class mainPage extends Component {
     Notification.requestPermission((status) => {
       console.log(status);
       console.log(JSON.parse(localStorage.getItem("registered")))
-      if(JSON.parse(localStorage.getItem("registered")) == false && status == "granted"){
+      if(JSON.parse(localStorage.getItem("registered")) === false && status === "granted"){
         const notificaton = new Notification("Welcome", {
           dir: 'auto',
           body: 'We will notice you when something important happens',
