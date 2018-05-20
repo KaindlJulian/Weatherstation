@@ -18,7 +18,7 @@ export class OptionsComponent implements OnInit {
     this.tempUnit = this.storageService.getTemperatureUnit();
   }
 
-  private changeUnit(unit: String) {
+  public changeUnit(unit: String) {
     this.tempUnit = unit;
     this.storageService.setTemperatureUnit(unit);
   }

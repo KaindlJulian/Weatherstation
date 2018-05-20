@@ -12,22 +12,22 @@ import { Station, Temperature, Wind, Air, Precipitation } from '../../_models/in
 export class StationDataComponent implements OnInit {
 
   // display values
-  private tempUnit: String = '°C';  // as default
-  private station: Station;
-  private temperature = new Temperature();
-  private wind = new Wind();
-  private air = new Air();
-  private precipitation = new Precipitation();
+  public tempUnit: String = '°C';  // as default
+  public temperature = new Temperature();
+  public station: Station;
+  public wind = new Wind();
+  public air = new Air();
+  public precipitation = new Precipitation();
 
   // path values for svgs
-  private direction_path = 'assets/weather/wind-directions/N.svg';
-  private type_path = 'assets/weather/static/sunny.svg';
+  public direction_path = 'assets/weather/wind-directions/N.svg';
+  public type_path = 'assets/weather/static/sunny.svg';
 
   // popover content
-  private air_humidity_content = 'Air Humidity';
-  private wind_speed_content = 'Wind Speed';
-  private precipitation_amount_content = 'Rain Amount';
-  private wind_direction_content = 'WindDirection';
+  public air_humidity_content = 'Air Humidity';
+  public wind_speed_content = 'Wind Speed';
+  public precipitation_amount_content = 'Rain Amount';
+  public wind_direction_content = 'WindDirection';
 
   constructor(
     private storageService: SessionsStorageService,
@@ -93,12 +93,16 @@ export class StationDataComponent implements OnInit {
     this.station.lastUpdate = this.temperature.date;
     this.storageService.setChartLabel(payload.date);
     this.storageService.setChartDataset(this.temperature);
+
+    if (this.station.lastTemperature) {
+      if ((payload.value <= -5 || payload.value >= 35) && payload.value !== this.station.lastTemperature.value) {
+        this.showNotification('temperature', payload.value);
+      }
+    }
+
     if (this.temperature !== this.station.lastTemperature) {
       this.station.lastTemperature = this.temperature;
       this.storageService.setDashboardStation(this.station);
-    }
-    if ((payload.value <= -5 || payload.value >= 35) && payload.value !== this.station.lastTemperature.value) {
-      this.showNotification('temperature', payload.value);
     }
   }
 
@@ -109,15 +113,18 @@ export class StationDataComponent implements OnInit {
    */
   private showNotification(measurement: any, value: any) {
     Notification.requestPermission((status) => {
+      console.log(`notification permission: ${status}`);
       if (status === 'granted') {
-        const notification = new Notification('Warning!', {
-          dir: 'auto',
-          body: `${measurement} is at ${value}`,
-          icon: '../../assets/misc-icons/alert.png'
+
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.showNotification('Alert!', {
+            icon: '../../assets/misc-icons/alert.png',
+            dir: 'auto',
+            body: `${measurement} is at ${value} !`,
+            tag: 'alert-message'
+          });
         });
-        notification.onclick = (event) => {
-          window.focus();
-        };
+
       }
     });
   }

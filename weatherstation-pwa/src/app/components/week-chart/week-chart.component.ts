@@ -54,7 +54,8 @@ export class WeekChartComponent implements OnInit {
   }
 
   private initChart() {
-    this.weekTemperatures.push(new Model(p, v), new Model(p, v), new Model(p, v), new Model(p, v));
+    // this.weekTemperatures.push(new Model(p, v), new Model(p, v), new Model(p, v), new Model(p, v));
+    this.test();
   }
 
   /**
@@ -67,11 +68,9 @@ export class WeekChartComponent implements OnInit {
     let tempValue = 0;
 
     tempArr.forEach((value, index) => {
-      console.log(tempValue, value);
       tempValue += value;
       if (index % 7 === 0 && index !== 0) {
-        displayValues.push(new Model(this.getPath(tempValue), `${(tempValue / 7).toFixed(1)} °C`));
-        console.log(displayValues);
+        displayValues.push(new Model(this.getPath(tempValue / 7), `${(tempValue / 7).toFixed(1)} °C`));
         tempValue = 0;
       }
     });
@@ -82,7 +81,7 @@ export class WeekChartComponent implements OnInit {
   private getPath(value) {
     if (value < 0) {
       return '../../../assets/weather/static/snowy.svg';
-    } else if (value < 10) {
+    } else if (value < 15) {
       return '../../../assets/weather/static/cloudy.svg';
     } else {
       return '../../../assets/weather/static/day.svg';
