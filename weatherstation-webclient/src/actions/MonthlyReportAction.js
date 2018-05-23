@@ -3,10 +3,10 @@ export const initReport = (res) => ({
 	payload: res
 })
 
-export function InitMonthlyReport(client){
+export function InitMonthlyReport(mqttService){
 	return (dispatch) => {
-		console.log(client)
-        client.on('message',(topic, message) => {
+		console.log(mqttService)
+        mqttService.on('message',(topic, message) => {
 			console.log(message.toString())
 			var obj = JSON.parse(message.toString())
 			dispatch(initReport(obj))

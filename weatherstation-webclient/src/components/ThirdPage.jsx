@@ -9,10 +9,11 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import '../styles/GraphStyles.css'
 import Highcharts from 'highcharts';
-import mqtt from 'mqtt'
+import MQTTService from '../Service/MQTTService.js'
 import Impressum from './Impressum.jsx'
 import ProgressBar from 'react-progress-bar.js'
 var ProgressLine = ProgressBar.Line;
+var mqttService;
 var client;
 var topic;
 var options = {
@@ -64,25 +65,26 @@ export class thirdPage extends Component {
   }
   
   componentWillMount() {
-    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
-      resubscribe: false,
-      username: 'qwwegtrz',
-      password: '0L9IZSeX8fMO'
-    })
+    mqttService = new MQTTService()
   }
+  
   componentDidMount() {
-    this.props.InitYearReport(client);
+    client = mqttService.instance
+    this.props.InitYearReport(mqttService);
   }
 changeYear(year){
-    client.unsubscribe(this.props.topic);
+    mqttService.unsubscribeTopic(this.props.topic);
     topic = {
         topic :'report/' + year + '/yearly',
         date : year,
     }
     this.props.changeTopic(topic);
     console.log(this.props.topic);
-    client.subscribe(this.props.topic);
-    this.props.InitYearReport(client);
+    mqttService.subscribeTopic(this.props.topic);
+  }
+  componentWillUnmount() {
+    mqttService.unsubscribeTopic(this.props.topic)
+    mqttService.exit();
   }
 
   render() {

@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
 import {connect} from 'react-redux'
 import TopNavbar from './topNavbar.jsx'
-import mqtt from 'mqtt'
+import MQTTService from '../Service/MQTTService.js'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
 import warning from '../assets/static/warning.png'
@@ -14,6 +14,7 @@ import ProgressBar from 'react-progress-bar.js'
 import '../styles/GraphStyles.css'
 var ProgressLine = ProgressBar.Line;
 var client;
+var mqttService;
 var options = {
   strokeWidth: 4,
   easing: 'easeInOut',
@@ -63,11 +64,7 @@ class mainPage extends Component {
   
 
   componentWillMount() {
-    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
-      username: 'qwwegtrz',
-      password: '0L9IZSeX8fMO',
-      resubscribe : false
-    })
+      mqttService = new MQTTService()
     if(!JSON.parse(localStorage.getItem("registered"))){
       localStorage.setItem('registered', false)
     }
@@ -91,17 +88,19 @@ class mainPage extends Component {
     
     
   componentDidMount() {
+    console.log(mqttService.instance)
+    client = mqttService.instance
     this
       .props
       .initData(client);
     console.log(this.props.topics);
     for(var topic of this.props.topics){
-      client.subscribe(topic);
+      mqttService.subscribeTopic(topic)
     }
   }
   componentWillUnmount() {
-    client.unsubscribe(this.props.topics)
-    client.end();
+    mqttService.unsubscribeTopic(this.props.topics)
+    mqttService.exit();
   }
   nextPath(path) {
     this

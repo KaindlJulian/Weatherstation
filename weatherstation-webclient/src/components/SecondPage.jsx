@@ -9,9 +9,10 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import '../styles/GraphStyles.css'
 import Highcharts from 'highcharts';
-import mqtt from 'mqtt'
+import MQTTService from '../Service/MQTTService.js'
 import Impressum from './Impressum.jsx'
 import ProgressBar from 'react-progress-bar.js'
+var mqttService;
 var ProgressLine = ProgressBar.Line;
 var client;
 var topic;
@@ -46,6 +47,9 @@ var containerStyle = {
     height: '100%'
 };
 
+
+
+
 export class secondPage extends Component {
   constructor(props) {
     super(props);
@@ -63,27 +67,29 @@ export class secondPage extends Component {
     });
   }
   
-  componentWillMount() {
-    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
-      resubscribe: false,
-      username: 'qwwegtrz',
-      password: '0L9IZSeX8fMO'
-    })
+  componentWillMount(){
+    mqttService = new MQTTService()
   }
   componentDidMount() {
+    client = mqttService.instance
     this.props.initMonthReport(client);
   }
 changeMonth(month){
-    client.unsubscribe(this.props.topic);
+    mqttService.unsubscribeTopic(this.props.topic);
     topic = {
       topic :'report/' + month + '/monthly',
       date : month
   }
     this.props.changeTopic(topic);
     console.log(this.props.topic);
-    client.subscribe(this.props.topic);
-    this.props.initMonthReport(client);
+    mqttService.subscribeTopic(this.props.topic);
   }
+  
+  componentWillUnmount() {
+    mqttService.unsubscribeTopic(this.props.topic)
+    mqttService.exit();
+  }
+  
 
   render() {
     
