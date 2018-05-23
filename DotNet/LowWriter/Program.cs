@@ -77,6 +77,7 @@ namespace LogWriter
                     .Where(t => t.Station == station)
                     .Where(filter)
                     .Select(t => t.Value)
+                    .DefaultIfEmpty()
                     .AverageAsync(),
                 Air = new ReportAirModel()
                 {
@@ -84,16 +85,19 @@ namespace LogWriter
                         .Where(t => t.Station == station)
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync(),
                     Purity = await dbContext.AirPuritys
                         .Where(t => t.Station == station)
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync(),
                     Humidity = await dbContext.AirHumidities
                         .Where(t => t.Station == station)
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 },
                 Wind = new ReportWindModel()
@@ -102,6 +106,7 @@ namespace LogWriter
                         .Where(t => t.Station == station)
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 },
                 Precipitation = new ReportPrecipitationModel()
@@ -110,11 +115,12 @@ namespace LogWriter
                         .Where(t => t.Station == station)
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 }
             });
 
-            await mqtt.Publish($"/report/{DateTime.Now.Month}/{type}/{station}", new Data(report), null, true);
+            await mqtt.Publish($"/report/{DateTime.Now.Month}/{type}/{station}", new Data(report.Value), null, true);
         }
 
         public static async Task GenerateReport(string id, string type, System.Linq.Expressions.Expression<Func<DoubleValue, bool>> filter)
@@ -124,20 +130,24 @@ namespace LogWriter
                 Temperature = await dbContext.Temperatures
                     .Where(filter)
                     .Select(t => t.Value)
+                    .DefaultIfEmpty()
                     .AverageAsync(),
                 Air = new ReportAirModel()
                 {
                     Pressure = await dbContext.AirPressures
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync(),
                     Purity = await dbContext.AirPuritys
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync(),
                     Humidity = await dbContext.AirHumidities
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 },
                 Wind = new ReportWindModel()
@@ -145,6 +155,7 @@ namespace LogWriter
                     Strength = await dbContext.WindStrengths
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 },
                 Precipitation = new ReportPrecipitationModel()
@@ -152,11 +163,12 @@ namespace LogWriter
                     Amount = await dbContext.PrecipitationAmounts
                         .Where(filter)
                         .Select(t => t.Value)
+                        .DefaultIfEmpty()
                         .AverageAsync()
                 }
             });
 
-            await mqtt.Publish($"/report/{DateTime.Now.Month}/{type}/", new Data(report), null, true);
+            await mqtt.Publish($"/report/{DateTime.Now.Month}/{type}/", new Data(report.Value), null, true);
         }
 
         private static async Task Temperature(string topic, string station, string subtopic, Data data)

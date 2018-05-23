@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -53,7 +54,11 @@ namespace WeatherstationClient
             if (station != null)
                 topic = "station/" + station + "/" + topic;
 
-            client.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(data)), qos, retain);
+            client.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(data, new JsonSerializerSettings()
+            {
+                DateFormatString = "HH:mm:ss dd.MM.yyyy",
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            })), qos, retain);
         }
 
         private void Client_MessageReceived(object sender, MqttMsgPublishEventArgs e)
@@ -95,7 +100,11 @@ namespace WeatherstationClient
 
         private Data ParsePayload(byte[] payload)
         {
-            return JsonConvert.DeserializeObject<Data>(Encoding.Default.GetString(payload));
+            return JsonConvert.DeserializeObject<Data>(Encoding.Default.GetString(payload), new JsonSerializerSettings()
+            {
+                DateFormatString = "HH:mm:ss dd.MM.yyyy",
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
         }
     }
 }
