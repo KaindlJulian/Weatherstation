@@ -12,7 +12,7 @@ PWA: https://weatherstation-pwa.firebaseapp.com/
 ### Broker
 Online Broker URL `m23.cloudmqtt.com`
 
-|  | Ports  | 
+| Protocol | Ports  | 
 |---|---|
 | TCP  | 13965  |
 | SSL  |  23965 |
