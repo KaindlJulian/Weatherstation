@@ -21,15 +21,15 @@ Online Broker URL `m23.cloudmqtt.com`
 ### Topics
 **Sensor**
 ```xml
-/station/<name>/temperature/
-/station/<name>/air/pressure/
-/station/<name>/air/purity/
-/station/<name>/air/toxicity/
-/station/<name>/air/humidity/
-/station/<name>/wind/direction
-/station/<name>/wind/strength
-/station/<name>/precipitation/type/
-/station/<name>/precipitation/amount/
+/station/<stationName>/temperature/
+/station/<stationName>/air/pressure/
+/station/<stationName>/air/purity/
+/station/<stationName>/air/toxicity/
+/station/<stationName>/air/humidity/
+/station/<stationName>/wind/direction
+/station/<stationName>/wind/strength
+/station/<stationName>/precipitation/type/
+/station/<stationName>/precipitation/amount/
 ```
 **Controller**
 ```xml
