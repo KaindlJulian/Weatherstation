@@ -1,4 +1,4 @@
-
+import monthData from '../data/monthTemperature.json'
     export default function reducer(state={
       temperature: 0,
       temperatures: [],
@@ -15,31 +15,34 @@
         amount : 0
       },
       categories: [],
-      topic : '/report/may/monthly/'
+      topic : '/report/5/monthly/'
     }, action){
         switch (action.type) {
-            case 'MONTHLY_REPORT':
+            case '/report/5/monthly/':
             console.log(action.payload);
             var categories;
             var counter = 0;
-            for(var temp of action.payload.values.temperatures){
-              counter++;
-              categories.push(counter)
-            }
+            var temperatures = monthData.temperatures;
+            console.log(temperatures)
+            var temp =Math.round( action.payload.value.temperature)
+            //for(var temp of action.payload.values.temperatures){
+              //counter++;
+              //categories.push(counter)
+            //}
             return{
               ...state,
-              temperature: action.payload.values.temperature,
-              temperatures: action.payload.values.temperatures,
+              temperature: temp,
+              temperatures : temperatures,
               air: {
-                pressure: action.payload.values.pressure,
-                purity: action.payload.values.purity,
-                humidity: action.payload.values.humidity,
+                pressure: action.payload.value.air.pressure,
+                purity: action.payload.value.air.purity,
+                humidity: action.payload.value.air.humidity,
               },
               wind : {
-                strength: action.payload.values.strength,
+                strength: action.payload.value.wind.strength,
               },
               precipitation: {
-                amount : action.payload.values.amount
+                amount : action.payload.value.precipitation.amount
               },
               categories: categories,
             }

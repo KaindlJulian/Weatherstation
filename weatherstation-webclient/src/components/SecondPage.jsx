@@ -72,12 +72,14 @@ export class secondPage extends Component {
   }
   componentDidMount() {
     client = mqttService.instance
+    mqttService.subscribeTopic(this.props.topic)
     this.props.initMonthReport(client);
   }
 changeMonth(month){
     mqttService.unsubscribeTopic(this.props.topic);
+    var index = this.monthList.indexOf(month);
     topic = {
-      topic :'report/' + month + '/monthly',
+      topic :'report/' + index + '/monthly',
       date : month
   }
     this.props.changeTopic(topic);

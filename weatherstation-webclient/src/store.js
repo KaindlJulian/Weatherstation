@@ -11,7 +11,7 @@ import logger from 'redux-logger'
 import promise from 'redux-promise-middleware';
 
 
-export const history = createHistory()
+export const history = createHistory() 
 
 
 

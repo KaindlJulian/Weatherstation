@@ -1,4 +1,4 @@
-
+import yearData from '../data/yearTemperature.json'
     export default function reducer(state={
       temperature: 0,
       temperatures: [],
@@ -15,25 +15,27 @@
         amount : 0
       },
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      topic : 'report/2018/yearly'
+      topic : '/report/5/yearly/'
     }, action){
         switch (action.type) {
-            case 'YEARLY_REPORT':
+            case '/report/5/yearly/':
+            var temp = Math.round(action.payload.value.temperature)
             console.log(action.payload);
+            var temperatures = yearData.temperatures
             return{
               ...state,
-              temperature: action.payload.values.temperature,
-              temperatures: action.payload.values.temperatures,
+              temperature: temp,
+              temperatures : temperatures,
               air: {
-                pressure: action.payload.values.pressure,
-                purity: action.payload.values.purity,
-                humidity: action.payload.values.humidity,
+                pressure: action.payload.value.air.pressure,
+                purity: action.payload.value.air.purity,
+                humidity: action.payload.value.air.humidity,
               },
               wind : {
-                strength: action.payload.values.strength,
+                strength: action.payload.value.wind.strength,
               },
               precipitation: {
-                amount : action.payload.values.amount
+                amount : action.payload.value.precipitation.amount
               },
             }
             break;

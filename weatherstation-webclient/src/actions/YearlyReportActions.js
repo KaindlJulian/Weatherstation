@@ -1,5 +1,5 @@
-export const initReport = (res) => ({
-	type: res.id,
+export const initReport = (res, topic) => ({
+	type: topic,
 	payload: res
 })
 
@@ -9,7 +9,8 @@ export function InitYearlyReport(mqttService){
         mqttService.on('message',(topic, message) => {
 			console.log(message.toString())
 			var obj = JSON.parse(message.toString())
-			dispatch(initReport(obj))
+			var topic = topic.toString()
+			dispatch(initReport(obj, topic))
 		})
 		
 	}	

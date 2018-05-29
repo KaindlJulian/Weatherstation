@@ -70,6 +70,7 @@ export class thirdPage extends Component {
   
   componentDidMount() {
     client = mqttService.instance
+    mqttService.subscribeTopic(this.props.topic)
     this.props.InitYearReport(mqttService);
   }
 changeYear(year){
