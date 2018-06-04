@@ -4,9 +4,9 @@
 
 ## Clients
 
-Web: https://young-mountain-58538.herokuapp.com/
+Web: https://young-mountain-58538.herokuapp.com
 
-PWA: https://weatherstation-pwa.firebaseapp.com/
+PWA: https://weatherstation-pwa.firebaseapp.com
 
 ## MQTT
 ### Broker
