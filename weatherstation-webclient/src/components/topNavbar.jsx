@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
-import { Link, NavLink } from 'react-router-dom';
+import { DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse, Dropdown, DropdownItem, NavbarNav, Container} from 'mdbreact';
+import { NavLink } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {changeLocation} from '../actions/WeatherActions.js'
 import {bindActionCreators} from 'redux'
@@ -50,17 +50,17 @@ class topNavbar extends Component {
           <Collapse isOpen = {this.state.collapse} navbar>
             <NavbarNav className="ml-auto black-text">
               <NavItem>
-              <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Daily Weather</NavLink>
+              <NavLink to='/' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Live Weather</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
+              <NavLink to='/MonthReport' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Monthly Report</NavLink>
               </NavItem>
               <NavItem>
-              <NavLink to='/Second' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Yearly Report</NavLink>
+              <NavLink to='/YearReport' className="nav-link waves-light border rounded" style={{borderColor: "black"}}>Yearly Report</NavLink>
               </NavItem>
               <NavItem>
                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                              <DropdownToggle nav caret>Dropdown</DropdownToggle>
+                              <DropdownToggle nav caret>Sensors</DropdownToggle>
                               <DropdownMenu>
                                   <DropdownItem onClick={this.locationChange}>Sensor-1</DropdownItem>
                                   <DropdownItem onClick={this.locationChange}>Linz</DropdownItem>

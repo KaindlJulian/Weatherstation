@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import '../styles/App.css'
+import '../styles/App.css';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {loadInitialData} from '../actions/WeatherActions.js'
 import {connect} from 'react-redux'
-import {push} from "react-router-redux"
 import TopNavbar from './topNavbar.jsx'
-import {Button} from 'mdbreact'
-import mqtt from 'mqtt'
+import MQTTService from '../Service/MQTTService.js'
 import { withHighcharts, HighchartsChart, Chart, Legend, YAxis, XAxis, Title, LineSeries, Tooltip} from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
 import warning from '../assets/static/warning.png'
@@ -16,6 +14,7 @@ import ProgressBar from 'react-progress-bar.js'
 import '../styles/GraphStyles.css'
 var ProgressLine = ProgressBar.Line;
 var client;
+var mqttService;
 var options = {
   strokeWidth: 4,
   easing: 'easeInOut',
@@ -65,17 +64,23 @@ class mainPage extends Component {
   
 
   componentWillMount() {
-    client = mqtt.connect('wss://m23.cloudmqtt.com:33965',{
-      username: 'qwwegtrz',
-      password: '0L9IZSeX8fMO'
-    })
+      mqttService = new MQTTService()
+    if(!JSON.parse(localStorage.getItem("registered"))){
+      localStorage.setItem('registered', false)
+    }
     Notification.requestPermission((status) => {
       console.log(status);
-      const notificaton = new Notification("Welcome", {
-        dir: 'auto',
-        body: 'We will notice you when something important happens',
-        icon: warning
-      })
+      console.log(JSON.parse(localStorage.getItem("registered")))
+      if(JSON.parse(localStorage.getItem("registered")) === false && status === "granted"){
+        const notificaton = new Notification("Welcome", {
+          dir: 'auto',
+          body: 'We will notice you when something important happens',
+          icon: warning
+        })
+        localStorage.setItem('registered', true)
+      }
+      
+      
     })
   }
 
@@ -83,17 +88,19 @@ class mainPage extends Component {
     
     
   componentDidMount() {
+    console.log(mqttService.instance)
+    client = mqttService.instance
     this
       .props
       .initData(client);
     console.log(this.props.topics);
     for(var topic of this.props.topics){
-      client.subscribe(topic);
+      mqttService.subscribeTopic(topic)
     }
   }
   componentWillUnmount() {
-    client.unsubscribe(this.props.topics)
-    client.end();
+    mqttService.unsubscribeTopic(this.props.topics)
+    mqttService.exit();
   }
   nextPath(path) {
     this
@@ -110,13 +117,40 @@ class mainPage extends Component {
    WindWarning(props){
      console.log(props)
      if(props.wind > 70){
-       return new Notification("Warning", {
+       const notification =  new Notification("Warning", {
         dir: 'auto',
         body: 'Warning the wind is over' + props.wind,
-        icon: warning
+        icon: warning,
+        tag : "WindWarning"
+        
       })
+      
+      setTimeout(notification.close.bind(notification), 4000);
 
      }
+     return null;
+   }
+   TemperatureWarning(props){
+     console.log(props)
+     var not;
+     if(props.temperature > 40){
+        not = new Notification("Warning", {
+        dir: 'auto',
+        body: 'Warning the Temperature is over'+ props.temperature  + '°C',
+        icon: warning,
+        tag : "temperatureWarning"
+      })
+      setTimeout(not.close.bind(not), 4000);
+    }else if((props.temperature < 0)){
+      not = new Notification("Warning", {
+        dir: 'auto',
+        body: 'Warning the Temperature is under'+ props.temperature  + '°C',
+        icon: warning,
+        tag : "temperatureWarning"
+      })
+      setTimeout(not.close.bind(not), 4000);
+    }
+    
      return null;
    }
    
@@ -124,8 +158,9 @@ class mainPage extends Component {
   render() {
     return (
       
-      <div className="rare-wind-gradient">
+      <div style={{backgroundImage : this.props.daytime === 'day' ? 'linear-gradient(to top, #82b1ff 0%, #2962ff 100%)' : 'linear-gradient(to top, #48a6df 0%, #203c73 100%)', color: 'white'}}>
       <this.WindWarning wind={this.props.wind.strength}/>
+      <this.TemperatureWarning temperature={this.props.temperature}/>
         <TopNavbar color={{
           transparent: 'elegant-color',
           light: false,
@@ -139,7 +174,7 @@ class mainPage extends Component {
             <div
               className="col-lg-6 col-md-6 mb-2 animated fadeInLeft">
               <div style={{width:'100%', height: '100%'}} className="z-depth-5">
-              <h1 style={{textAlign:"center"}}>Testing</h1>
+              <h1 style={{textAlign:"center"}}>Specific Information</h1>
               <br/>
               <hr/>
               <div className="d-flex justify-content-between">
@@ -152,6 +187,7 @@ class mainPage extends Component {
               </div>
               <hr/>
               <h2 className="my-auto mr-5">Air Purity(CO<sub>1</sub>): {this.props.air.purity} mg/m<sup>3</sup></h2>
+              <h2 className="my-auto mr-5"> Air Toxicity: {this.props.air.toxicity}</h2>
               <hr/>
               <h2>Humidity: {this.props.air.humidity}%</h2>
               <ProgressLine
@@ -167,7 +203,7 @@ class mainPage extends Component {
             </div>
             <div className="col-lg-6 col-md-6 mb-2 animated fadeInRight">
             <div style={{width:'100%', height: '100%'}} className=" z-depth-5">
-                <h1 className="d-flex justify-content-center">Allgemeines</h1>
+                <h1 className="d-flex justify-content-center">General Information</h1>
                 <br/>
                 <hr/>
                 <h2><img src={require('../assets/animated/' + this.props.precipitation.type + '.svg')} width={'100vh'} height={'100vw'} alt=""/>
@@ -202,7 +238,7 @@ class mainPage extends Component {
               </Legend>
 
               <XAxis id="x" categories={this.props.categories}>
-                <XAxis.Title>Time</XAxis.Title>
+                <XAxis.Title>Time in Hours</XAxis.Title>
               </XAxis>
 
               <YAxis id="pressure">
@@ -243,7 +279,8 @@ function mapStateToProps(state) {
     topics : state.weather.topics,
     date : state.weather.date,
     categories : state.weather.categories,
-    location : state.weather.location
+    location : state.weather.location,
+    daytime : state.weather.daytime
   }
 }
 export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(mainPage)),Highcharts);

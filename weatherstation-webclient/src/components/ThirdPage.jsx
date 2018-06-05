@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../styles/SecPageStyle.css'
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
-import {InitMonthlyReport, changeTopic} from '../actions/MonthlyReportAction.js'
+import {InitYearlyReport, changeTopic} from '../actions/YearlyReportActions.js'
 import {connect} from 'react-redux';
 import TopNavbar from './topNavbar.jsx'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact'
@@ -12,8 +12,8 @@ import Highcharts from 'highcharts';
 import MQTTService from '../Service/MQTTService.js'
 import Impressum from './Impressum.jsx'
 import ProgressBar from 'react-progress-bar.js'
-var mqttService;
 var ProgressLine = ProgressBar.Line;
+var mqttService;
 var client;
 var topic;
 var options = {
@@ -47,18 +47,15 @@ var containerStyle = {
     height: '100%'
 };
 
-
-
-
-export class secondPage extends Component {
+export class thirdPage extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
     };
-    this.monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    this.changeMonth = this.changeMonth.bind(this);
+    this.yearList = ['2017', '2018', '2019', '2020'],
+    this.changeYear = this.changeYear.bind(this);
   }
   
   toggle() {
@@ -67,31 +64,29 @@ export class secondPage extends Component {
     });
   }
   
-  componentWillMount(){
+  componentWillMount() {
     mqttService = new MQTTService()
   }
+  
   componentDidMount() {
     client = mqttService.instance
     mqttService.subscribeTopic(this.props.topic)
-    this.props.initMonthReport(client);
+    this.props.InitYearReport(mqttService);
   }
-changeMonth(month){
+changeYear(year){
     mqttService.unsubscribeTopic(this.props.topic);
-    var index = this.monthList.indexOf(month);
     topic = {
-      topic :'report/' + index + '/monthly',
-      date : month
-  }
+        topic :'report/' + year + '/yearly',
+        date : year,
+    }
     this.props.changeTopic(topic);
     console.log(this.props.topic);
     mqttService.subscribeTopic(this.props.topic);
   }
-  
   componentWillUnmount() {
     mqttService.unsubscribeTopic(this.props.topic)
     mqttService.exit();
   }
-  
 
   render() {
     
@@ -108,11 +103,11 @@ changeMonth(month){
 
           <Dropdown isOpen = { this.state.dropdownOpen } toggle = { this.toggle }>
           <DropdownToggle caret color="blue-grey darken-1">
-            Pick A Month
+            Pick A Year
           </DropdownToggle>
           <DropdownMenu>
-            {this.monthList.map(month => {
-                return <DropdownItem key={month}><div onClick={() => this.changeMonth(month)}>{month}</div></DropdownItem>
+            {this.yearList.map(year => {
+                return <DropdownItem key={year}><div onClick={() => this.changeYear(year)}>{year}</div></DropdownItem>
             }
             )}
           </DropdownMenu>
@@ -178,14 +173,14 @@ changeMonth(month){
               <HighchartsChart className="my-styled-chart">
               <Chart backgroundColor=""/>
 
-              <Title style={{color:"white"}}>Temperature History | Month({this.props.date})</Title>
+              <Title style={{color:"white"}}>Temperature History | Year({this.props.date})</Title>
 
               <Legend>
                 <Legend.Title>Legend</Legend.Title>
               </Legend>
 
               <XAxis id="x" categories={this.props.categories}>
-                <XAxis.Title>Time in Days</XAxis.Title>
+                <XAxis.Title>Time in Months</XAxis.Title>
               </XAxis>
 
               <YAxis id="pressure">
@@ -209,24 +204,24 @@ changeMonth(month){
 
 function mapStateToProps(state){
   return {
-    values : state.monReport.values,
+    values : state.yearReport.values,
     router: state.router,
-    temperatures: state.monReport.temperatures,
-    categories : state.monReport.categories,
-    options : state.monReport.options,
-    topic : state.monReport.topic,
-    wind : state.monReport.wind,
-    air : state.monReport.air,
-    precipitation : state.monReport.precipitation,
+    temperatures: state.yearReport.temperatures,
+    categories : state.yearReport.categories,
+    options : state.yearReport.options,
+    topic : state.yearReport.topic,
+    wind : state.yearReport.wind,
+    air : state.yearReport.air,
+    precipitation : state.yearReport.precipitation,
     location : state.weather.location,
-    date : state.monReport.date,
-    temperature : state.monReport.temperature
+    date : state.yearReport.date,
+    temperature : state.yearReport.temperature
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  initMonthReport: () => InitMonthlyReport(client),
+  InitYearReport: () => InitYearlyReport(client),
   changeTopic : () => changeTopic(topic)
 }, dispatch)
 
-export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(secondPage)), Highcharts)
+export default withHighcharts(withRouter(connect(mapStateToProps, mapDispatchToProps)(thirdPage)), Highcharts)

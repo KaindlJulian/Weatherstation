@@ -27,7 +27,7 @@ namespace Controller
         static void StartMqtt()
         {
             mqtt = new Mqtt();
-            mqtt.Run("localhost", "Controller");
+            mqtt.Run("localhost", 8080, "Controller", "", "");
             mqtt.Subscribe("air/toxicity", Toxicity, true);
             mqtt.Subscribe("wind/strength", WindStrength, true);
         }

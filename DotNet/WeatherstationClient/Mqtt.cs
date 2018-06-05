@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,13 +15,14 @@ namespace WeatherstationClient
         Dictionary<string, Func<string, string, string, Data, Task>> handlers = new Dictionary<string, Func<string, string, string, Data, Task>>();
         private MqttClient client;
 
-        public void Run(string hostname, string clientId)
+        public void Run(string hostname, int port, string clientId, string user, string password)
         {
-            client = new MqttClient(hostname);
+            client = new MqttClient(hostname, port, true, MqttSslProtocols.TLSv1_2
+                , null, null);
 
             client.MqttMsgPublishReceived += Client_MessageReceived;
 
-            client.Connect(clientId);
+            client.Connect(clientId, user, password);
         }
 
         public void Close()
@@ -52,7 +54,11 @@ namespace WeatherstationClient
             if (station != null)
                 topic = "station/" + station + "/" + topic;
 
-            client.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(data)), qos, retain);
+            client.Publish(topic, Encoding.Default.GetBytes(JsonConvert.SerializeObject(data, new JsonSerializerSettings()
+            {
+                DateFormatString = "HH:mm:ss dd.MM.yyyy",
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            })), qos, retain);
         }
 
         private void Client_MessageReceived(object sender, MqttMsgPublishEventArgs e)
@@ -94,7 +100,11 @@ namespace WeatherstationClient
 
         private Data ParsePayload(byte[] payload)
         {
-            return JsonConvert.DeserializeObject<Data>(Encoding.Default.GetString(payload));
+            return JsonConvert.DeserializeObject<Data>(Encoding.Default.GetString(payload), new JsonSerializerSettings()
+            {
+                DateFormatString = "HH:mm:ss dd.MM.yyyy",
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
         }
     }
 }

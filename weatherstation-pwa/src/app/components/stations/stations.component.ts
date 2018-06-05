@@ -15,8 +15,8 @@ export class StationsComponent implements OnInit {
     private router: Router) { }
 
   // helpers for animated Modal
-  private showNewStationForm: boolean;
-  private moveOut: boolean;
+  public showNewStationForm: boolean;
+  public moveOut: boolean;
 
   // display data
   model = new Station();
@@ -31,7 +31,7 @@ export class StationsComponent implements OnInit {
   /**
    * opens the dialog modal
    */
-  onCallDialog() {
+  onCallDialog(event: any) {
     this.moveOut = false;
     this.showNewStationForm = false;
     this.showNewStationForm = !this.showNewStationForm;

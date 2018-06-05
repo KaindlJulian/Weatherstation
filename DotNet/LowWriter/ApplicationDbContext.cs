@@ -12,9 +12,9 @@ namespace LogWriter
         public DbSet<DoubleValue> Temperatures { get; set; }
         public DbSet<DoubleValue> AirPressures { get; set; }
         public DbSet<DoubleValue> AirPuritys { get; set; }
-        public DbSet<DoubleValue> AirToxicities { get; set; }
+        public DbSet<StringValue> AirToxicities { get; set; }
         public DbSet<DoubleValue> AirHumidities { get; set; }
-        public DbSet<DoubleValue> WindDirections { get; set; }
+        public DbSet<StringValue> WindDirections { get; set; }
         public DbSet<DoubleValue> WindStrengths { get; set; }
         public DbSet<StringValue> PrecipitationTypes { get; set; }
         public DbSet<DoubleValue> PrecipitationAmounts { get; set; }

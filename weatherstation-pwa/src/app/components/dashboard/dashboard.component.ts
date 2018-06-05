@@ -34,14 +34,16 @@ export class DashboardComponent implements OnInit {
       console.log(`notification permission: ${status}`);
       if (status === 'granted') {
         if (this.storageService.getNotificationStatus() !== status) {
-          const notification = new Notification('Welcome!', {
-            dir: 'auto',
-            body: 'We will give you a notification when something important happens',
-            icon: '../../assets/misc-icons/alert.png',
+
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification('Welcome!', {
+              icon: '../../assets/pwa-icons/icon-512x512.png',
+              dir: 'auto',
+              body: 'We will let you know when something important happens.',
+              tag: 'welcome-message'
+            });
           });
-          notification.onclick = (event) => {
-            window.focus();
-          };
+
           this.storageService.setNotificationStatus('granted');
         }
       }
@@ -51,7 +53,7 @@ export class DashboardComponent implements OnInit {
   /**
    * publish mqtt messge to update current station
    */
-  updateDashboard() {
+  updateDashboard(event: any) {
     const actStation = this.storageService.getDashboardStation();
     this.mqttService.publish('/station/' + actStation.name + '/update', {
       interval: '10s',

@@ -1,8 +1,8 @@
-import monthData from '../data/monthTemperature.json'
+import yearData from '../data/yearTemperature.json'
     export default function reducer(state={
       temperature: 0,
       temperatures: [],
-      date : 'May',
+      date : '2018',
       air: {
         pressure: 0,
         purity: 0,
@@ -14,21 +14,14 @@ import monthData from '../data/monthTemperature.json'
       precipitation: {
         amount : 0
       },
-      categories: [],
-      topic : '/report/5/monthly/'
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      topic : '/report/5/yearly/'
     }, action){
         switch (action.type) {
-            case '/report/5/monthly/':
+            case '/report/5/yearly/':
+            var temp = Math.round(action.payload.value.temperature)
             console.log(action.payload);
-            var categories;
-            var counter = 0;
-            var temperatures = monthData.temperatures;
-            console.log(temperatures)
-            var temp =Math.round( action.payload.value.temperature)
-            //for(var temp of action.payload.values.temperatures){
-              //counter++;
-              //categories.push(counter)
-            //}
+            var temperatures = yearData.temperatures
             return{
               ...state,
               temperature: temp,
@@ -44,7 +37,6 @@ import monthData from '../data/monthTemperature.json'
               precipitation: {
                 amount : action.payload.value.precipitation.amount
               },
-              categories: categories,
             }
             break;
               case 'CHANGE_TOPIC':

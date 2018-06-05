@@ -3,14 +3,13 @@ export const initReport = (res, topic) => ({
 	payload: res
 })
 
-export function InitMonthlyReport(mqttService){
+export function InitYearlyReport(mqttService){
 	return (dispatch) => {
 		console.log(mqttService)
         mqttService.on('message',(topic, message) => {
 			console.log(message.toString())
-			console.log(topic.toString())
 			var obj = JSON.parse(message.toString())
-			var topic = topic
+			var topic = topic.toString()
 			dispatch(initReport(obj, topic))
 		})
 		

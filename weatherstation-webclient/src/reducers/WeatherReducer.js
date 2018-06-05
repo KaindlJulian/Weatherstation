@@ -1,14 +1,12 @@
-import $ from 'jquery';
-import 'jquery-ui/ui/core';
-
 
 export default function reducer(state={
     temperature: 0,
     date : '',
+    daytime : "day",
     air: {
       pressure: 0,
       purity: 0,
-      toxicity: 0,
+      toxicity: '',
       humidity: 0,
     },
     wind : {
@@ -28,27 +26,41 @@ export default function reducer(state={
         '/station/sensor1/air/humidity/',
         '/station/sensor1/precipitation/type/',
         '/station/sensor1/precipitation/amount/',
-      '/station/sensor1/air/purity/'],
-      location : 'sensor1'
+      '/station/sensor1/air/purity/',
+      '/station/sensor1/air/toxicity/'],
+      location : 'Sensor-1'
 }, action){
     switch (action.type) {
         case 'TEMPERATURE':
-        var data;
-        var categories;
+        var data = [];
+        var categories = [];
+        var daytime;
         console.log(action.payload);
+        
         var d = action.payload.date.substr(action.payload.date.indexOf(':') - 2, 3);
+        if (parseInt(d.slice(0, 2), 10) >= 6 && parseInt(d.slice(0, 2), 10) <= 18) {
+          daytime = 'day';
+        } else {
+          daytime = 'night';
+        }
         data = state.data.slice(0)
         categories = state.categories.slice(0)
-        if(d == "00:"){
+        if(d === "00:"){
           data = [];
           categories = [];
         }
-        data.push(+action.payload.value)
-        categories.push(d + "00")
+        if(data[0] === +action.payload.value && categories[0] === d + "00"){
+
+        }else{  
+          data.push(+action.payload.value)
+          categories.push(d + "00")
+        }
+        
         return {
             ...state,
             temperature: action.payload.value,
             date : action.payload.date,
+            daytime: daytime,
             data: data,
             categories : categories
           }
@@ -113,6 +125,15 @@ export default function reducer(state={
           return{
             ...state,
             location: action.payload
+          }
+          case 'AIR_TOXICITY':
+          console.log(action.payload)
+          return{
+            ...state,
+            air : {
+              ...state.air,
+              toxicity: action.payload.value
+            }
           }
 
 

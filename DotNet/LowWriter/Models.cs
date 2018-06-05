@@ -49,4 +49,40 @@ namespace LogWriter
             Value = value;
         }
     }
+
+    public class Report : BaseModel
+    {
+        public ReportModel Value { get; set; }
+        
+        public Report() { }
+        public Report(string id, DateTime date, ReportModel value): base(id, date)
+        {
+            Value = value;
+        }
+    }
+
+    public class ReportModel
+    {
+        public double Temperature { get; set; }
+        public ReportAirModel Air { get; set; }
+        public ReportWindModel Wind { get; set; }
+        public ReportPrecipitationModel Precipitation { get; set; }
+    }
+
+    public class ReportPrecipitationModel
+    {
+        public double Amount { get; set; }
+    }
+
+    public class ReportAirModel
+    {
+        public double Pressure { get; set; }
+        public double Purity { get; set; }
+        public double Humidity { get; set; }
+    }
+    public class ReportWindModel
+    {
+        public double Strength { get; set; }
+        public double Direction { get; set; }
+    }
 }
