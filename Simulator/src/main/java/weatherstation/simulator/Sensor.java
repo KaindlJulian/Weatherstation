@@ -20,10 +20,10 @@ public class Sensor {
     String [] precipitationTypes   = { "sunny", "cloudy", "rainy", "snowy", "stormy" };         //Array where the precipitation types are saved in
     
     //Array where the toxicity types arre saved in
-    String [] toxicityTypes        = { "good", "acceptable", "unhealthy for sensitive people", "unhealthy", "very unhealthy", "dangerous"};
+    String [] toxicityTypes        = { "good", "acceptable", "unhealthy for sensitive people", "unhealthy", "very unhealthy", "dangerous" };
     
     //last values of the random methods
-    int lastTemperature            = 8;
+    int lastTemperature            = 20;
     double lastAirPressure         = 1000;
     double lastAirPurity           = 0.2;
     double lastAirToxicity         = 50;

@@ -19,7 +19,7 @@ import org.json.JSONObject;
  *
  * @author chris
  */
-public class MqttPublishSample {
+public class MqttPublish {
     static final String topicTemperature         = "/station/sensor1/temperature/";           //Topic for temperature
     static final String topicAirPressure         = "/station/sensor1/air/pressure/";          //Topic for airpressure
     static final String topicAirPurity           = "/station/sensor1/air/purity/";            //Topic for airpurity
@@ -29,6 +29,15 @@ public class MqttPublishSample {
     static final String topicWindStrength        = "/station/sensor1/wind/strength/";         //Topic for windstregth
     static final String topicPrecipitationType   = "/station/sensor1/precipitation/type/";    //Topic for precipitation type
     static final String topicPrecipitationAmount = "/station/sensor1/precipitation/amount/";  //Topic for precipitation amount
+    static Calendar optionalDate = null;
+    
+    //Configuration for optional Date if you want to start from a optional date
+    static final int day = 1;
+    static final int month = 5;
+    static final int year = 2018;
+    static final int hour = 0;
+    static final int minute = 0;
+    static final int second = 0;
     //static final DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     
     public static void main(String[] args) throws MqttException, InterruptedException{
@@ -49,16 +58,30 @@ public class MqttPublishSample {
             System.out.println("Connected");
             int count = 0;                                                             //counter for the hour of the day
             
+            optionalDate = Calendar.getInstance(TimeZone.getTimeZone("CET"));
+            optionalDate.set(Calendar.DATE, day);
+            optionalDate.set(Calendar.MONTH, month);
+            optionalDate.set(Calendar.YEAR, year);
+            optionalDate.set(Calendar.HOUR_OF_DAY, hour);
+            optionalDate.set(Calendar.MINUTE, minute);
+            optionalDate.set(Calendar.SECOND, second);
+            
             while(true){
                 count += publish(sensor1, mqttClient, count);                          //publish Method
-                Thread.sleep(1000);
-            }  
+                Thread.sleep(10000);
+            }
     }
 
     //method which publishes all senore values
     public static int publish(Sensor sensor, MqttClient mqttClient, int count) throws MqttException{
         Calendar actDateTime = Calendar.getInstance(TimeZone.getTimeZone("CET"));       //Calendar
-        actDateTime.set(Calendar.HOUR_OF_DAY, count);
+        //actDateTime.set(Calendar.HOUR_OF_DAY, count);
+        
+        //optional date to start from fixed date
+        optionalDate.set(Calendar.HOUR_OF_DAY, count);
+        actDateTime = optionalDate;
+        
+        
         System.out.println(actDateTime.get(Calendar.HOUR_OF_DAY));
         
         int qos = 2;                                                                    //Quality of service
